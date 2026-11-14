@@ -3,183 +3,219 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Laju | Real income. Real proof.</title>
-<meta name="description" content="Laju is a financial health app for Indonesian ride hailing drivers. Read your e-wallet history, get a health score out of 100 and climb six clear steps to a record a bank can read.">
-<meta name="theme-color" content="#3D6BFF">
-<meta property="og:title" content="Laju | Real income. Real proof.">
-<meta property="og:description" content="Financial health for Indonesian ride hailing drivers. No payslip needed.">
+<title>Laju | Real Income. Real Proof.</title>
+<meta name="description" content="Laju is a financial health app for Indonesian ride hailing drivers. It reads e-wallet history with consent, calculates a health score out of 100, and guides drivers through six structured steps toward a record a bank can assess.">
+<meta name="theme-color" content="#07080A">
+<meta property="og:title" content="Laju | Real Income. Real Proof.">
+<meta property="og:description" content="Financial health for Indonesian ride hailing drivers. No payslip is required.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23E2E937'/%3E%3Cpath d='M9 21h5l3 7 5-16 3 9h6' fill='none' stroke='%231A1614' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%231A1614'/%3E%3Cpath d='M9 21h5l3 7 5-16 3 9h6' fill='none' stroke='%23E2E937' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- Shared drawings: coins and small icons -->
+<!-- Shared drawings: the Laju logo, coins and small icons -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <radialGradient id="g-lime-face" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#F8FB9C"/><stop offset=".6" stop-color="#E2E937"/><stop offset="1" stop-color="#C3CA1A"/></radialGradient>
     <linearGradient id="g-lime-rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F1F577"/><stop offset="1" stop-color="#959B0A"/></linearGradient>
-    <radialGradient id="g-peach-face" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#FFD0B4"/><stop offset=".6" stop-color="#F99B69"/><stop offset="1" stop-color="#E67C45"/></radialGradient>
-    <linearGradient id="g-peach-rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FDBB96"/><stop offset="1" stop-color="#BF5B27"/></linearGradient>
-    <radialGradient id="g-silver-face" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#ECE8DF"/><stop offset="1" stop-color="#CCC7BC"/></radialGradient>
-    <linearGradient id="g-silver-rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7F5EF"/><stop offset="1" stop-color="#9D988D"/></linearGradient>
-    <linearGradient id="g-cloud" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#F3F5FF"/><stop offset="1" stop-color="#C9D3F7"/></linearGradient>
-    <path id="s-sun" d="M20 14.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11zM20 8.3v2.5M20 29.2v2.5M8.3 20h2.5M29.2 20h2.5M11.8 11.8l1.8 1.8M26.4 26.4l1.8 1.8M28.2 11.8l-1.8 1.8M13.6 26.4l-1.8 1.8"/>
-    <path id="s-drop" d="M20 10.5c3.6 4.6 6 8 6 11.2a6 6 0 0 1-12 0c0-3.2 2.4-6.6 6-11.2z"/>
-    <path id="s-mark" d="M10.5 20.8h4l2.8 6 4.2-13.4 2.8 7.4h5.2"/>
+    <radialGradient id="g-white-face" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".65" stop-color="#F1F1F1"/><stop offset="1" stop-color="#C9C9C9"/></radialGradient>
+    <linearGradient id="g-white-rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#8E8E8E"/></linearGradient>
+    <radialGradient id="g-dark-face" cx="35%" cy="28%" r="85%"><stop offset="0" stop-color="#3A3531"/><stop offset=".55" stop-color="#1A1614"/><stop offset="1" stop-color="#0B0A09"/></radialGradient>
+    <path id="s-mark" d="M9.5 21h4.6l2.9 6.6L21.6 12l2.9 9h6"/>
   </defs>
-  <symbol id="coin-sun" viewBox="0 0 40 40">
+  <symbol id="coin-lime" viewBox="0 0 40 40">
     <circle cx="20" cy="20" r="19.6" fill="url(#g-lime-rim)"/>
     <circle cx="20" cy="20" r="17.7" fill="none" stroke="#7d8200" stroke-opacity=".5" stroke-width="1.6" stroke-dasharray=".9 1.5"/>
     <circle cx="20" cy="20" r="15.6" fill="url(#g-lime-face)" stroke="#8f9508" stroke-opacity=".45" stroke-width=".8"/>
-    <use href="#s-sun" fill="none" stroke="#8f9508" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 .9)"/>
-    <use href="#s-sun" fill="none" stroke="#FBFDC0" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <use href="#s-mark" fill="none" stroke="#FBFDC0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 .9)"/>
+    <use href="#s-mark" fill="none" stroke="#1A1614" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M7.5 15.5A13.5 13.5 0 0 1 19 6.6" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="2.2" stroke-linecap="round"/>
   </symbol>
-  <symbol id="coin-drop" viewBox="0 0 40 40">
-    <circle cx="20" cy="20" r="19.6" fill="url(#g-peach-rim)"/>
-    <circle cx="20" cy="20" r="17.7" fill="none" stroke="#a84a1c" stroke-opacity=".45" stroke-width="1.6" stroke-dasharray=".9 1.5"/>
-    <circle cx="20" cy="20" r="15.6" fill="url(#g-peach-face)" stroke="#b9561f" stroke-opacity=".45" stroke-width=".8"/>
-    <use href="#s-drop" fill="none" stroke="#b9561f" stroke-width="2.3" stroke-linejoin="round" transform="translate(0 .9)"/>
-    <use href="#s-drop" fill="none" stroke="#FFE3D2" stroke-width="2.3" stroke-linejoin="round"/>
-    <path d="M7.5 15.5A13.5 13.5 0 0 1 19 6.6" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="2.2" stroke-linecap="round"/>
+  <symbol id="coin-white" viewBox="0 0 40 40">
+    <circle cx="20" cy="20" r="19.6" fill="url(#g-white-rim)"/>
+    <circle cx="20" cy="20" r="17.7" fill="none" stroke="#777" stroke-opacity=".45" stroke-width="1.6" stroke-dasharray=".9 1.5"/>
+    <circle cx="20" cy="20" r="15.6" fill="url(#g-white-face)" stroke="#888" stroke-opacity=".45" stroke-width=".8"/>
+    <use href="#s-mark" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 .9)"/>
+    <use href="#s-mark" fill="none" stroke="#6F6F6F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M7.5 15.5A13.5 13.5 0 0 1 19 6.6" fill="none" stroke="#fff" stroke-opacity=".95" stroke-width="2.2" stroke-linecap="round"/>
   </symbol>
-  <symbol id="coin-mark" viewBox="0 0 40 40">
-    <circle cx="20" cy="20" r="19.6" fill="url(#g-silver-rim)"/>
-    <circle cx="20" cy="20" r="17.7" fill="none" stroke="#7c776d" stroke-opacity=".45" stroke-width="1.6" stroke-dasharray=".9 1.5"/>
-    <circle cx="20" cy="20" r="15.6" fill="url(#g-silver-face)" stroke="#8c877c" stroke-opacity=".45" stroke-width=".8"/>
-    <use href="#s-mark" fill="none" stroke="#8c877c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 .9)"/>
-    <use href="#s-mark" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M7.5 15.5A13.5 13.5 0 0 1 19 6.6" fill="none" stroke="#fff" stroke-opacity=".9" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- the logo as a coin: dark face, lime pulse, lime rim -->
+  <symbol id="coin-logo" viewBox="0 0 40 40">
+    <circle cx="20" cy="20" r="19.6" fill="url(#g-lime-rim)"/>
+    <circle cx="20" cy="20" r="17.7" fill="none" stroke="#7d8200" stroke-opacity=".55" stroke-width="1.6" stroke-dasharray=".9 1.5"/>
+    <circle cx="20" cy="20" r="15.8" fill="url(#g-dark-face)" stroke="#000" stroke-opacity=".5" stroke-width=".8"/>
+    <use href="#s-mark" fill="none" stroke="#000" stroke-opacity=".7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 .9)"/>
+    <use href="#s-mark" fill="none" stroke="#E2E937" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M8.6 15.2A12.6 12.6 0 0 1 19 7.6" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="2" stroke-linecap="round"/>
   </symbol>
-  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="mark" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#1A1614" stroke="#E2E937" stroke-opacity=".55" stroke-width="1.5"/><use href="#s-mark" fill="none" stroke="#E2E937" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="mark-app" viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="#1A1614"/><use href="#s-mark" fill="none" stroke="#E2E937" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z" fill="currentColor"/></symbol>
-  <symbol id="i-ladder" viewBox="0 0 24 24"><path d="M4 20h4v-6H4zM10 20h4V9h-4zM16 20h4V4h-4z" fill="currentColor"/></symbol>
-  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
-  <symbol id="i-report" viewBox="0 0 24 24"><path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm3 9h6M9 16h6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="currentColor"/><path d="M4 21a8 8 0 0 1 16 0z" fill="currentColor"/></symbol>
+  <!-- the same five tab icons the app uses -->
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8M5 10v10h14V10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-ladder" viewBox="0 0 24 24"><path d="M4 20h4v-5h4v-5h4V5h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-lockk" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="currentColor"/></symbol>
   <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 3v9M6.3 6.6a8 8 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
-  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
   <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
   <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z" fill="currentColor"/></symbol>
   <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="m6 6 12 12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
-  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M5 8h14M5 16h14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M5 8h14M5 16h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z" fill="currentColor"/></symbol>
   <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.8" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M10.5 18h3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
-  <symbol id="mark" viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="#E2E937"/><path d="M9 21h5l3 7 5-16 3 9h6" fill="none" stroke="#1A1614" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-del" viewBox="0 0 24 24"><path d="M9 5h11v14H9l-6-7zM12 9.5l5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
+<div class="progress" id="progress" aria-hidden="true"></div>
 <a class="skip" href="#how" data-i="skip">Skip to how it works</a>
 
 <header class="nav" id="nav">
-  <a class="brand" href="#top" aria-label="Laju"><svg class="brand-mark"><use href="#mark"/></svg><span>laju</span></a>
+  <a class="brand" href="#top" aria-label="Laju"><svg class="brand-mark"><use href="#mark"/></svg><span>Laju</span></a>
   <nav class="nav-links" id="navLinks" aria-label="Sections">
-    <a href="#how" data-i="n.how">How it works</a>
-    <a href="#pots" data-i="n.pots">Pots</a>
-    <a href="#app" data-i="n.app">The app</a>
+    <a href="#how" data-i="n.how">How It Works</a>
+    <a href="#pots" data-i="n.pots">Savings Pots</a>
+    <a href="#app" data-i="n.app">The App</a>
     <a href="#calc" data-i="n.calc">Calculator</a>
-    <a href="#safety" data-i="n.safe">Safety</a>
+    <a href="#safety" data-i="n.safe">Security</a>
     <a href="#reviews" data-i="n.rev">Reviews</a>
   </nav>
   <div class="lang" role="group" aria-label="Language">
     <button type="button" data-lang="id" aria-pressed="false">ID</button>
     <button type="button" data-lang="en" aria-pressed="true">EN</button>
   </div>
-  <a class="btn btn-blue btn-sm nav-cta" href="https://tumbalprojek315-png.github.io/hackathon-APRU/public/" target="_blank" rel="noopener" data-i="n.cta">Try the demo</a>
+  <a class="btn btn-lime btn-sm nav-cta" href="../public/index.html" data-i="n.cta">Try The Demo</a>
   <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Menu"><svg><use href="#i-menu"/></svg></button>
 </header>
 
 <main>
 
-<!-- ============ HERO + THE THREE STEPS (the stage holds still) ============ -->
-<section class="story" id="top">
-  <div class="rain rain-bg" data-rain="26" aria-hidden="true"></div>
-  <div class="wrap story-grid">
-
-    <div class="hero-copy">
-      <p class="badge"><svg><use href="#coin-sun"/></svg><span data-i="h.badge">Free prototype for ride hailing drivers</span></p>
-      <h1 class="mega"><span class="l1" data-i="h.a">Real income.</span> <span class="l2"><span data-i="h.b">Real proof</span><svg class="coin-stop" aria-hidden="true"><use href="#coin-sun"/></svg></span></h1>
-      <p class="lead" data-i="h.lead">Laju reads your e-wallet history with your permission, scores your financial health out of 100 and walks you up six clear steps. The result is a record a bank can read. No payslip needed.</p>
-      <div class="cta-row">
-        <a class="btn btn-lime" href="https://tumbalprojek315-png.github.io/hackathon-APRU/public/" target="_blank" rel="noopener"><span data-i="h.cta1">Try the live demo</span><svg><use href="#i-arrow"/></svg></a>
-        <a class="btn btn-white" href="#how" data-i="h.cta2">How it works</a>
-      </div>
-      <p class="hero-note" data-i="h.note"><b>Not a loan app.</b> No fees. Never asks for your PIN.</p>
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="bg" aria-hidden="true"><i class="bg-grid"></i><i class="bg-glow g-hero"></i><i class="bg-beam"></i></div>
+  <div class="wrap hero-in">
+    <p class="kicker mono"><i class="dot"></i><span data-i="h.kick">Free prototype for Indonesian ride hailing drivers</span></p>
+    <h1 class="display"><span data-i="h.a">Real income.</span> <em data-i="h.b">Real proof.</em></h1>
+    <p class="hero-sub" data-i="h.lead">Laju reads e-wallet transaction history with the driver's consent, calculates a financial health score out of 100, and guides each driver through six structured steps. The result is a financial record that a bank can assess. No payslip is required.</p>
+    <div class="cta-row">
+      <a class="btn btn-lime" href="../public/index.html"><span data-i="h.cta1">Try The Demo</span><svg><use href="#i-arrow"/></svg></a>
+      <a class="btn btn-ghost" href="#how" data-i="h.cta2">How It Works</a>
     </div>
+    <p class="hero-note mono" data-i="h.note">Laju is not a lender. It charges no fees and never requests a PIN.</p>
+
+    <ul class="stats">
+      <li class="s1"><b data-count="100">100</b><span class="mono" data-i="st.1">Point Health Score</span></li>
+      <li class="s2"><b data-count="12">12</b><span class="mono" data-i="st.2">Score Components</span></li>
+      <li class="s3"><b data-count="6">6</b><span class="mono" data-i="st.3">Structured Steps</span></li>
+      <li class="s4"><b data-count="30">30</b><span class="mono" data-i="st.4">Days Of History Read</span></li>
+    </ul>
+
+    <div class="hero-cards" id="heroCards" aria-hidden="true">
+      <div class="gcard gc-l">
+        <p class="gc-h mono"><i class="dot"></i><span data-i="hc.l">Milestone Ladder</span></p>
+        <ul class="gc-rows">
+          <li><i class="st done"><svg><use href="#i-check"/></svg></i><span data-i="lad.0">Tidy Data</span><em class="pill lime" data-i="hc.done">Done</em></li>
+          <li><i class="st done"><svg><use href="#i-check"/></svg></i><span data-i="lad.1">Get Out Of The Red</span><em class="pill lime" data-i="hc.done">Done</em></li>
+          <li><i class="st now">2</i><span data-i="lad.2">Clear Short Term Debt</span><em class="pill line" data-i="hc.act">Active</em></li>
+          <li><i class="st">3</i><span data-i="lad.3">Emergency Fund</span><em class="pill" data-i="hc.lock">Locked</em></li>
+        </ul>
+      </div>
+      <div class="gcard gc-c">
+        <p class="gc-h mono"><i class="dot"></i><span data-i="hc.c">Health Score</span><em class="pill" data-i="hc.sample">Sample Data</em></p>
+        <div class="gc-score"><b data-count="62">62</b><span>/100</span><em class="pill lime" data-i="hc.fair">Fairly Healthy</em></div>
+        <svg class="spark" viewBox="0 0 300 84" preserveAspectRatio="none"><defs><linearGradient id="g-spark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E2E937" stop-opacity=".45"/><stop offset="1" stop-color="#E2E937" stop-opacity="0"/></linearGradient></defs><path d="M0 66C30 64 40 54 60 56S100 44 120 46s40-14 60-12 50-18 70-16 35-8 50-12V84H0z" fill="url(#g-spark)"/><path class="spark-line" d="M0 66C30 64 40 54 60 56S100 44 120 46s40-14 60-12 50-18 70-16 35-8 50-12" fill="none" stroke="#E2E937" stroke-width="2.4" stroke-linecap="round" pathLength="1"/></svg>
+      </div>
+      <div class="gcard gc-r">
+        <p class="gc-h mono"><i class="dot"></i><span data-i="hc.r">Monthly Cash Flow</span></p>
+        <div class="cf"><span data-i="hc.in">Income</span><div class="cf-bar"><i style="--w:94%"></i></div><b>Rp 4.500.000</b></div>
+        <div class="cf"><span data-i="hc.out">Spending</span><div class="cf-bar w"><i style="--w:66%"></i></div><b>Rp 3.150.000</b></div>
+        <div class="cf"><span data-i="hc.inst">Installments</span><div class="cf-bar w"><i style="--w:17%"></i></div><b>Rp 800.000</b></div>
+        <div class="cf"><span data-i="hc.save">Set Aside</span><div class="cf-bar"><i style="--w:11%"></i></div><b>Rp 500.000</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS: the stage holds still while the page scrolls ============ -->
+<section class="story" id="how">
+  <div class="bg" aria-hidden="true"><i class="bg-dots"></i><i class="bg-glow g-right"></i></div>
+  <div class="wrap story-grid">
 
     <div class="stage" id="stage" data-step="0" aria-hidden="true">
       <div class="stage-glow"></div>
-      <div class="sky">
-        <svg class="sun" viewBox="0 0 120 120"><g class="rays" stroke="#E2E937" stroke-width="7" stroke-linecap="round"><path d="M60 6v12M60 102v12M6 60h12M102 60h12M21.8 21.8l8.5 8.5M89.7 89.7l8.5 8.5M98.2 21.8l-8.5 8.5M30.3 89.7l-8.5 8.5"/></g><circle cx="60" cy="60" r="31" fill="url(#g-lime-face)" stroke="#C3CA1A" stroke-width="2"/><path d="M40 50a22 22 0 0 1 20-13" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="5" stroke-linecap="round"/></svg>
-        <svg class="cloud" viewBox="0 0 220 130"><path fill="url(#g-cloud)" d="M52 118a38 38 0 0 1-6-75 50 50 0 0 1 95-12 40 40 0 0 1 41 87z"/><path d="M60 46a37 37 0 0 1 50-20" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/><path d="M150 44a26 26 0 0 1 30 14" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".9"/><ellipse cx="112" cy="112" rx="70" ry="7" fill="#AEBBEF" opacity=".55"/></svg>
-      </div>
+      <div class="rings"><i></i><i></i><i></i></div>
 
       <div class="phone-wrap">
-        <div class="phone" id="heroPhone" data-tabs="0,4,2,1">
-          <!-- screen 0: home -->
+        <div class="phone" id="heroPhone" data-tabs="0,4,2,3">
+          <!-- screen 0: Home -->
           <section class="scr on">
-            <div class="p-head"><i class="ava">BS</i><div><small data-i="p.date">Thursday</small><b data-i="p.hi">Morning, Budi</b></div></div>
-            <div class="p-card blue">
-              <small data-i="p.score">Financial health score</small>
-              <div class="p-score"><b>62</b><span>/100</span><em data-i="p.fair">Fairly healthy</em></div>
-              <div class="p-mini"><span data-i="p.today">Today's budget</span><b>Rp 123.000</b></div>
-              <svg class="p-sun"><use href="#coin-sun"/></svg>
+            <p class="a-eye" data-i="x.dash">DASHBOARD</p>
+            <h3 class="a-h1" data-i="x.hi">Hi, Andi</h3>
+            <p class="a-p" data-i="x.sum">Your money summary. Data from your entries and 2 verified e-wallets.</p>
+            <div class="a-card">
+              <div><b class="a-ch" data-i="x.your">Your step</b><small data-i="x.2of6">2 of 6 done</small></div>
+              <div class="a-now">
+                <span class="a-tag lime" data-i="x.now">DO THIS NOW</span>
+                <div class="a-now-t"><i>2</i><b data-i="x.s2">Clear short term debt + Mini cushion</b></div>
+                <p class="a-lime" data-i="x.left">Rp1.200.000 left to clear</p>
+                <div class="a-prog"><div class="a-bar"><i style="width:60%"></i></div><b>60%</b></div>
+                <span class="a-btn" data-i="x.start">Start ›</span>
+              </div>
+              <div class="a-next"><i><svg><use href="#i-lockk"/></svg></i><div><small data-i="x.next">Up next · opens once step 2 is done</small><b data-i="x.s3">3. Emergency fund + Start required goals</b></div></div>
             </div>
-            <div class="p-sec"><b data-i="p.active">Active step</b><span data-i="p.see">See ladder</span></div>
-            <div class="p-step"><i>2</i><div><b data-i="p.step2">Clear short term debt</b><div class="bar"><i style="width:60%"></i></div></div></div>
-            <div class="p-sec"><b data-i="p.pots">Your pots</b></div>
-            <div class="p-row"><i class="dot lime"></i><div><b data-i="j.safe">Safe savings</b><small>Rp 1.250.000</small><div class="bar"><i style="width:19%"></i></div></div></div>
-            <div class="p-row"><i class="dot peach"></i><div><b data-i="j.grow">Growth savings</b><small>Rp 300.000</small><div class="bar peach"><i style="width:30%"></i></div></div></div>
-            <div class="p-row"><i class="dot blue"></i><div><b data-i="j.school">School fees</b><small>Rp 450.000</small><div class="bar blue"><i style="width:22%"></i></div></div></div>
           </section>
-          <!-- screen 1: e-wallet read -->
+          <!-- screen 1: Profile, e-wallet verified -->
           <section class="scr">
-            <div class="p-title"><b data-i="p.wallet">E-wallet</b><em class="p-pill" data-i="p.ro">Read only</em></div>
-            <div class="p-card white">
-              <small data-i="p.in30">Money in, last 30 days</small>
-              <div class="p-big">Rp 4.650.000</div>
-              <div class="p-spark"><i style="height:40%"></i><i style="height:62%"></i><i style="height:35%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:48%"></i><i style="height:92%"></i><i style="height:60%"></i><i style="height:74%"></i><i style="height:30%"></i><i style="height:66%"></i></div>
+            <p class="a-eye" data-i="x.prof">PROFILE</p>
+            <h3 class="a-h1" data-i="x.data">Andi's data</h3>
+            <div class="a-card">
+              <b class="a-ch" data-i="x.bank">Bank data status</b>
+              <div class="a-tier"><i><svg><use href="#i-check"/></svg></i><div><b data-i="x.ver">Verified</b><small data-i="x.verp">Data is marked Verified, usable as proof of income for a bank</small></div></div>
             </div>
-            <div class="p-list">
-              <div class="p-tx"><i class="tx in">+</i><div><b data-i="p.t1">Trip income</b><small data-i="p.t1s">Today</small></div><em class="in">+Rp 185.000</em></div>
-              <div class="p-tx"><i class="tx">-</i><div><b data-i="p.t2">Fuel</b><small data-i="p.t1s">Today</small></div><em>-Rp 30.000</em></div>
-              <div class="p-tx"><i class="tx">-</i><div><b data-i="p.t3">Lunch</b><small data-i="p.t1s">Today</small></div><em>-Rp 15.000</em></div>
-              <div class="p-tx"><i class="tx debt">-</i><div><b data-i="p.t4">Motorbike installment</b><small data-i="p.t4s">Long term</small></div><em>-Rp 800.000</em></div>
-              <div class="p-tx"><i class="tx warn">-</i><div><b>Paylater</b><small data-i="p.t5s">Short term debt</small></div><em>-Rp 150.000</em></div>
+            <div class="a-card a-list">
+              <div class="a-li"><i class="lime"><svg><use href="#i-eye"/></svg></i><div><b data-i="x.conn">Connected: e-wallet</b><small data-i="x.ro">Read only · 30 days of history</small></div><span class="a-tag ok" data-i="x.ver">Verified</span></div>
+              <div class="a-li"><i><svg><use href="#i-file"/></svg></i><div><b data-i="x.pdf">PDF e-statement</b><small data-i="x.pdfp">Read, then discarded</small></div></div>
             </div>
-            <div class="p-dark"><span data-i="p.start">Starting score</span><b>46<small>/100</small></b></div>
+            <div class="a-toast" data-i="x.toast">E-wallet connected</div>
           </section>
-          <!-- screen 2: log with number pad -->
+          <!-- screen 2: the Log sheet with its number pad -->
+          <section class="scr sheet">
+            <div class="a-sheet-h"><b data-i="x.log">Log</b><i>×</i></div>
+            <div class="a-seg"><span class="on" data-i="x.dep">Deposit</span><span data-i="x.wd">Withdraw</span><span data-i="x.pay">Pay debt</span></div>
+            <div class="a-amt"><span>Rp</span><b>20.000</b></div>
+            <div class="a-keys"><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>000</i><i>0</i><i><svg><use href="#i-del"/></svg></i></div>
+            <p class="a-lbl" data-i="x.pot">INTO WHICH POT</p>
+            <div class="a-pots"><span class="on"><b data-i="x.safe">Safe savings</b> <small>Rp1.250.000</small></span><span><b data-i="x.grow">Growth savings</b> <small>Rp300.000</small></span></div>
+            <span class="a-btn block" data-i="x.save">Save</span>
+          </section>
+          <!-- screen 3: Report -->
           <section class="scr">
-            <div class="p-title"><b data-i="p.log">Log</b></div>
-            <div class="p-seg"><span class="on" data-i="p.dep">Deposit</span><span data-i="p.wd">Withdraw</span><span data-i="p.pay">Pay debt</span></div>
-            <div class="p-amount"><small>Rp</small>20.000</div>
-            <div class="p-chips"><span class="on" data-i="j.safe">Safe savings</span><span data-i="j.grow">Growth savings</span><span data-i="j.school">School fees</span></div>
-            <div class="p-pad"><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>000</i><i>0</i><i>&larr;</i></div>
-            <div class="p-btn" data-i="p.depbtn">Deposit Rp 20.000</div>
-          </section>
-          <!-- screen 3: goal ring -->
-          <section class="scr">
-            <div class="p-title"><b data-i="j.safe">Safe savings</b><em class="p-pill" data-i="p.proof">Proof 30 days</em></div>
-            <div class="p-ring">
-              <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="none" stroke="#E3DFD7" stroke-width="11"/><circle class="ring-fg" cx="60" cy="60" r="50" fill="none" stroke="#3D6BFF" stroke-width="11" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="82" transform="rotate(-90 60 60)"/></svg>
-              <div><small data-i="p.saved">Saved so far</small><b>Rp 4.800.000</b><small data-i="p.of65">of Rp 6.500.000</small><em>74%</em></div>
+            <p class="a-eye" data-i="x.rep">INTERIM REPORT · 30 DAYS</p>
+            <h3 class="a-h1" data-i="x.reph">Andi's report</h3>
+            <div class="a-card">
+              <div class="a-rep">
+                <div class="a-ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="none" stroke="#E3DFD7" stroke-width="10"/><circle cx="60" cy="60" r="50" fill="none" stroke="#0CA30C" stroke-width="10" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="57" transform="rotate(-90 60 60)"/></svg><div><b>82</b><small data-i="x.of100">of 100</small></div></div>
+                <div><span class="a-tag ok" data-i="x.healthy">Healthy</span><p class="a-up"><b>▲ +36</b> <small data-i="x.since">since start</small></p><p class="a-rt" data-i="x.rept">Positive cash flow, a cushion in place, debt under control.</p></div>
+              </div>
+              <div class="a-tiles"><div><b>3/6</b><small data-i="x.lad">Ladder</small></div><div><b>100%</b><small data-i="x.paid">Debt paid off</small></div><div><b>42</b><small data-i="x.ent">Entries</small></div></div>
             </div>
-            <div class="p-note"><svg><use href="#coin-sun"/></svg><span data-i="p.efund">Emergency fund is 74% full</span></div>
-            <div class="p-ladder"><i class="done"></i><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i></div>
-            <div class="p-stats"><div><small data-i="p.sc">Score</small><b>78</b></div><div><small data-i="p.debt">Short debt</small><b data-i="p.clear">Cleared</b></div><div><small data-i="p.stepn">Step</small><b>3</b></div></div>
-            <div class="p-dark"><span data-i="p.ready">Record ready for the bank</span><svg><use href="#i-check"/></svg></div>
+            <div class="a-card">
+              <b class="a-ch" data-i="x.focus">30-day focus</b>
+              <div class="a-foc"><i>3</i><div><b data-i="x.f1">Step 3: Emergency fund</b><small data-i="x.f1p">Deposit Rp20.000 every driving day</small></div><span class="a-btn" data-i="x.open">Open</span></div>
+            </div>
           </section>
-          <div class="notif"><svg><use href="#mark"/></svg><div><b>Laju <small data-i="p.now">now</small></b><span data-i="p.notif">E-wallet connected. 30 days of history read. Access is read only.</span></div></div>
         </div>
         <div class="ph-shadow"></div>
       </div>
 
+      <div class="source mono"><i class="dot"></i><span data-i="src">Deposits</span></div>
       <div class="jar-wrap" id="heroJarWrap">
         <div class="tag" id="tag">
           <i class="tag-hole"></i>
@@ -192,126 +228,149 @@
       </div>
     </div>
 
-    <div class="steps" id="how">
+    <div class="steps">
+      <div class="step-intro">
+        <p class="eyebrow mono" data-i="si.e">How It Works</p>
+        <h2 class="h2" data-i="si.h">Three steps to a record <em>a bank can read.</em></h2>
+        <p class="sec-lead" data-i="si.p">Each stage builds on the previous one. Scroll to follow a driver's progress from the first connection to a report that is ready for a bank.</p>
+      </div>
       <article class="step">
-        <p class="step-no"><span class="coin-no">01</span><span data-i="s1.e">Know where you stand</span></p>
-        <h2 data-i="s1.h">Connect your e-wallet.</h2>
-        <p data-i="s1.p">Thirty days of transactions are read for you through a licensed open finance provider. Access is read only. You get a health score out of 100, built from four pillars and twelve components. Rather not connect? Upload a PDF e-statement instead.</p>
-        <p class="chip"><svg><use href="#i-eye"/></svg><span data-i="s1.c">Read only. 30 days of history.</span></p>
+        <p class="step-no mono"><span class="num">01</span><span data-i="s1.e">Establish The Baseline</span></p>
+        <h2 class="h2" data-i="s1.h">Connect an e-wallet.</h2>
+        <p data-i="s1.p">Thirty days of transactions are retrieved through a licensed open finance provider with read-only access. Laju then calculates a health score out of 100, based on four pillars and twelve components. Drivers who prefer not to connect an account may upload a PDF e-statement instead.</p>
+        <p class="chip mono"><svg><use href="#i-eye"/></svg><span data-i="s1.c">Read-only access. Thirty days of history.</span></p>
       </article>
       <article class="step">
-        <p class="step-no"><span class="coin-no">02</span><span data-i="s2.e">One step at a time</span></p>
-        <h2 data-i="s2.h">Put every rupiah in its pot.</h2>
-        <p data-i="s2.p">The ladder tells you what comes first. Spend under your daily budget. Clear the debt that chokes you. Build a small cushion. Log each deposit on one screen with a number pad and watch the pot fill.</p>
-        <p class="chip"><svg><use href="#i-plus"/></svg><span data-i="s2.c">Deposit, withdraw or pay debt</span></p>
+        <p class="step-no mono"><span class="num">02</span><span data-i="s2.e">Build The Habit</span></p>
+        <h2 class="h2" data-i="s2.h">Allocate every rupiah.</h2>
+        <p data-i="s2.p">The milestone ladder sets the order of priorities. Spending stays within the daily budget, short term debt is cleared, and a cushion is built. Each deposit is recorded on a single screen with a number pad and assigned to the correct savings pot.</p>
+        <p class="chip mono"><svg><use href="#i-plus"/></svg><span data-i="s2.c">Deposit, withdraw, or pay debt.</span></p>
       </article>
       <article class="step">
-        <p class="step-no"><span class="coin-no">03</span><span data-i="s3.e">Proof, not promises</span></p>
-        <h2 data-i="s3.h">Carry your record to the bank.</h2>
-        <p data-i="s3.p">Every step you finish becomes part of a financial record a bank can read. Laju is not a lender. Laju helps drivers become worth lending to.</p>
-        <p class="chip"><svg><use href="#coin-sun"/></svg><span data-i="s3.c">The rain fades. The sun comes out.</span></p>
+        <p class="step-no mono"><span class="num">03</span><span data-i="s3.e">Present The Evidence</span></p>
+        <h2 class="h2" data-i="s3.h">Present the record to a bank.</h2>
+        <p data-i="s3.p">Each completed step becomes part of a financial record that a bank can assess. Laju is not a lender. Laju helps drivers become eligible for formal credit.</p>
+        <p class="chip mono"><svg><use href="#i-check"/></svg><span data-i="s3.c">A verified record, ready to share.</span></p>
       </article>
     </div>
 
   </div>
 </section>
 
-<!-- ============ POTS ON A RAINY WINDOWSILL ============ -->
+<!-- ============ SAVINGS POTS ============ -->
 <section class="sec sec-pots" id="pots">
+  <div class="bg" aria-hidden="true"><i class="bg-grid"></i><i class="bg-glow g-left"></i><i class="bg-rings r-right"></i></div>
   <div class="wrap">
     <div class="sec-head two">
       <div>
-        <p class="eyebrow" data-i="po.e">Pots</p>
-        <h2 class="big" data-i="po.h">A pot for every purpose.</h2>
+        <p class="eyebrow mono" data-i="po.e">Savings Pots</p>
+        <h2 class="h2" data-i="po.h">A dedicated pot <em>for every purpose.</em></h2>
       </div>
-      <p class="sec-lead" data-i="po.p">Safe savings holds your cushion and emergency fund. Growth savings is for investing once the foundation is solid. Goals get pots of their own. Go on, tap one.</p>
+      <p class="sec-lead" data-i="po.p">Safe savings holds the cushion and the emergency fund. Growth savings is reserved for investing once the foundation is secure. Each goal receives a pot of its own. Select a jar to add a deposit.</p>
     </div>
 
     <div class="window" id="window">
       <div class="jar-cell">
-        <div class="pane"><div class="rain" data-rain="7"></div><button class="jarbtn" type="button" data-jar="a" aria-label="Drop a coin into Safe savings"><svg class="jar"></svg></button></div>
-        <div class="apron"><small data-i="j.safeU">SAFE SAVINGS</small><b class="amt" data-amt="1250000">Rp 1.250.000</b><span data-i="po.j1">of Rp 6.500.000. Emergency fund.</span></div>
+        <div class="pane"><button class="jarbtn" type="button" data-jar="a" aria-label="Add a deposit to Safe Savings"><svg class="jar"></svg></button></div>
+        <div class="apron"><small class="mono" data-i="j.safeT">Safe Savings</small><b class="amt" data-amt="1250000">Rp 1.250.000</b><span data-i="po.j1">Of Rp 6.500.000. Emergency fund.</span></div>
       </div>
       <div class="jar-cell">
-        <div class="pane"><div class="rain" data-rain="7"></div><button class="jarbtn" type="button" data-jar="b" aria-label="Drop a coin into Growth savings"><svg class="jar"></svg></button></div>
-        <div class="apron"><small data-i="j.growU">GROWTH SAVINGS</small><b class="amt" data-amt="300000">Rp 300.000</b><span data-i="po.j2">For investing, from Step 4.</span></div>
+        <div class="pane"><button class="jarbtn" type="button" data-jar="b" aria-label="Add a deposit to Growth Savings"><svg class="jar"></svg></button></div>
+        <div class="apron"><small class="mono" data-i="j.growT">Growth Savings</small><b class="amt" data-amt="300000">Rp 300.000</b><span data-i="po.j2">For investing, from Step 4.</span></div>
       </div>
       <div class="jar-cell">
-        <div class="pane"><div class="rain" data-rain="7"></div><button class="jarbtn" type="button" data-jar="c" aria-label="Drop a coin into School fees"><svg class="jar"></svg></button></div>
-        <div class="apron"><small data-i="j.schoolU">SCHOOL FEES</small><b class="amt" data-amt="450000">Rp 450.000</b><span data-i="po.j3">of Rp 2.000.000. A required goal.</span></div>
+        <div class="pane"><button class="jarbtn" type="button" data-jar="c" aria-label="Add a deposit to School Fees"><svg class="jar"></svg></button></div>
+        <div class="apron"><small class="mono" data-i="j.schoolT">School Fees</small><b class="amt" data-amt="450000">Rp 450.000</b><span data-i="po.j3">Of Rp 2.000.000. Required goal.</span></div>
       </div>
       <div class="jar-cell">
-        <div class="pane"><div class="rain" data-rain="7"></div><button class="jarbtn" type="button" data-jar="d" aria-label="Drop a coin into New tires"><svg class="jar"></svg></button></div>
-        <div class="apron"><small data-i="j.tiresU">NEW TIRES</small><b class="amt" data-amt="120000">Rp 120.000</b><span data-i="po.j4">of Rp 600.000. Before the rainy season.</span></div>
+        <div class="pane"><button class="jarbtn" type="button" data-jar="d" aria-label="Add a deposit to New Tires"><svg class="jar"></svg></button></div>
+        <div class="apron"><small class="mono" data-i="j.tiresT">New Tires</small><b class="amt" data-amt="120000">Rp 120.000</b><span data-i="po.j4">Of Rp 600.000. Personal goal.</span></div>
       </div>
     </div>
-    <p class="sample-note" data-i="po.sample">Sample numbers. Each tap adds Rp 10.000.</p>
+    <p class="sample-note mono" data-i="po.sample">Sample figures. Each selection adds Rp 10.000.</p>
 
     <div class="marquee chips-marquee" aria-label="Example goals">
       <div class="track">
-        <b data-i="po.m0">Goals a driver might set:</b>
-        <span data-i="po.m1">Motorbike service</span><span data-i="po.m2">School fees</span><span data-i="po.m3">Going home for Lebaran</span><span data-i="po.m4">A new helmet</span><span data-i="po.m5">Phone repair</span><span data-i="po.m6">Rent</span><span data-i="po.m7">New tires</span><span data-i="po.m8">A child's birthday</span><span data-i="po.m9">Rain gear</span>
+        <b class="mono" data-i="po.m0">Example goals:</b>
+        <span data-i="po.m1">Motorbike Service</span><span data-i="po.m2">School Fees</span><span data-i="po.m3">Lebaran Homecoming</span><span data-i="po.m4">New Helmet</span><span data-i="po.m5">Phone Repair</span><span data-i="po.m6">Housing Rent</span><span data-i="po.m7">New Tires</span><span data-i="po.m8">Family Occasion</span><span data-i="po.m9">Rain Gear</span>
       </div>
     </div>
 
     <ul class="ticks">
-      <li><svg><use href="#i-check"/></svg><span data-i="po.t1">Every entry can be undone</span></li>
-      <li><svg><use href="#i-check"/></svg><span data-i="po.t2">Balances follow what you log</span></li>
-      <li><svg><use href="#i-check"/></svg><span data-i="po.t3">Required goals come before growth goals</span></li>
+      <li><svg><use href="#i-check"/></svg><span data-i="po.t1">Every entry can be reversed.</span></li>
+      <li><svg><use href="#i-check"/></svg><span data-i="po.t2">Balances follow recorded entries.</span></li>
+      <li><svg><use href="#i-check"/></svg><span data-i="po.t3">Required goals precede growth goals.</span></li>
     </ul>
   </div>
 </section>
 
-<!-- ============ THE APP: THREE FANNED PHONES ============ -->
+<!-- ============ THE APP: three phones showing the real screens ============ -->
 <section class="sec sec-app" id="app">
+  <div class="bg" aria-hidden="true"><i class="bg-beam b-left"></i><i class="bg-glow g-app"></i><i class="bg-dots"></i></div>
   <div class="wrap app-grid">
     <div class="app-copy">
-      <p class="eyebrow" data-i="a.e">The app</p>
-      <h2 class="big" data-i="a.h">Plays like a game. Reads like a bank record.</h2>
-      <p class="sec-lead" data-i="a.p">Six steps, one active at a time. Each one you finish unlocks the next. Underneath is a score that follows the FinHealth Score framework from the Financial Health Network.</p>
+      <p class="eyebrow mono" data-i="a.e">The App</p>
+      <h2 class="h2" data-i="a.h">Structured progress. <em>A record banks can read.</em></h2>
+      <p class="sec-lead" data-i="a.p">The ladder contains six steps, with one active at a time. Completing a step unlocks the next. The score follows the FinHealth Score framework from the Financial Health Network.</p>
       <ol class="feats">
-        <li><i>01</i><div><b data-i="a.f1">Health score</b><p data-i="a.f1p">Four pillars, twelve components, one number out of 100. Cash flow, savings, debt and plan.</p></div></li>
-        <li><i>02</i><div><b data-i="a.f2">The milestone ladder</b><p data-i="a.f2p">Tidy your data, get out of the red, clear short term debt, build an emergency fund, invest, then grow.</p></div></li>
-        <li><i>03</i><div><b data-i="a.f3">Daily budget</b><p data-i="a.f3p">Income minus long term installments, divided by 30. One number to stay under each day.</p></div></li>
-        <li><i>04</i><div><b data-i="a.f4">Debt payoff track</b><p data-i="a.f4p">Online loans, paylater and loan sharks go first. A motorbike loan does not have to be cleared to move on.</p></div></li>
-        <li><i>05</i><div><b data-i="a.f5">AI analysis</b><p data-i="a.f5p">A plain language summary of what is going well, what to fix and what to do in the next 30 days.</p></div></li>
-        <li><i>06</i><div><b data-i="a.f6">Two languages</b><p data-i="a.f6p">Use the app in Indonesian or English.</p></div></li>
+        <li><i class="mono">01</i><div><b data-i="a.f1">Health Score</b><p data-i="a.f1p">Four pillars and twelve components produce one score out of 100. The pillars are cash flow, savings, debt, and planning.</p></div></li>
+        <li><i class="mono">02</i><div><b data-i="a.f2">Milestone Ladder</b><p data-i="a.f2p">Tidy the data, get out of the red, clear short term debt, build an emergency fund, invest, and then grow.</p></div></li>
+        <li><i class="mono">03</i><div><b data-i="a.f3">Daily Budget</b><p data-i="a.f3p">Income minus long term installments, divided by 30. One figure to stay within each day.</p></div></li>
+        <li><i class="mono">04</i><div><b data-i="a.f4">Debt Payoff Track</b><p data-i="a.f4p">Online loans, paylater, and informal lenders are cleared first. A motorbike loan may continue while the driver advances.</p></div></li>
+        <li><i class="mono">05</i><div><b data-i="a.f5">AI Analysis</b><p data-i="a.f5p">A plain language summary of strengths, priorities, and actions for the next 30 days.</p></div></li>
+        <li><i class="mono">06</i><div><b data-i="a.f6">Two Languages</b><p data-i="a.f6p">The app is available in Indonesian and English.</p></div></li>
       </ol>
     </div>
 
     <div class="fan" aria-hidden="true">
       <div class="phone fan-l" data-tabs="1">
         <section class="scr on">
-          <div class="p-title"><b data-i="f.ladder">Ladder</b><em class="p-pill" data-i="f.2of6">2 of 6 done</em></div>
-          <div class="p-lad done"><i><svg><use href="#i-check"/></svg></i><div><b data-i="f.s0">Tidy data</b><small data-i="f.done">Done</small></div></div>
-          <div class="p-lad done"><i><svg><use href="#i-check"/></svg></i><div><b data-i="f.s1">Get out of the red</b><small data-i="f.done">Done</small></div></div>
-          <div class="p-lad now"><i>2</i><div><b data-i="f.s2">Clear short term debt + mini cushion</b><div class="bar"><i style="width:60%"></i></div></div></div>
-          <div class="p-lad"><i>3</i><div><b data-i="f.s3">Emergency fund</b><small data-i="f.lock">Locked</small></div></div>
-          <div class="p-lad"><i>4</i><div><b data-i="f.s4">Invest 10% for 3 months</b><small data-i="f.lock">Locked</small></div></div>
-          <div class="p-lad"><i>5</i><div><b data-i="f.s5">Growth goals</b><small data-i="f.lock">Locked</small></div></div>
+          <p class="a-eye" data-i="x.ml">MILESTONE LADDER</p>
+          <h3 class="a-h1 sm" data-i="x.mlh">Step 2 of 5: Clear short term debt</h3>
+          <div class="a-prog dark"><div class="a-bar"><i style="width:33%"></i></div><b>2/6</b></div>
+          <div class="a-debt"><i>≡</i><div><b data-i="x.debt">Debt payoff</b><small data-i="x.debtp">Short term debt must be clear to finish Step 2 · 60% paid off</small></div><span>›</span></div>
+          <div class="a-st done"><i><svg><use href="#i-check"/></svg></i><div><div class="a-st-h"><b data-i="x.tidy">Tidy data</b><span class="a-tag ok" data-i="x.done">Done</span></div><div class="a-prog good"><div class="a-bar"><i style="width:100%"></i></div><b>100%</b></div></div></div>
+          <div class="a-st done"><i><svg><use href="#i-check"/></svg></i><div><div class="a-st-h"><b data-i="x.red">Get out of the red</b><span class="a-tag ok" data-i="x.done">Done</span></div><div class="a-prog good"><div class="a-bar"><i style="width:100%"></i></div><b>100%</b></div></div></div>
+          <div class="a-st now"><i>2</i><div><b data-i="x.s2">Clear short term debt + Mini cushion</b><span class="a-tag lime" data-i="x.active">ACTIVE STEP</span><div class="a-prog dark"><div class="a-bar"><i style="width:60%"></i></div><b>60%</b></div></div></div>
+          <div class="a-st lock"><svg><use href="#i-lockk"/></svg><b data-i="x.s3">3. Emergency fund + Start required goals</b></div>
         </section>
       </div>
-      <div class="phone fan-c sky" data-tabs="3">
+      <div class="phone fan-c" data-tabs="0">
         <section class="scr on">
-          <svg class="f-sun" viewBox="0 0 120 120"><circle cx="60" cy="60" r="40" fill="url(#g-lime-face)"/></svg>
-          <svg class="f-cloud" viewBox="0 0 220 130"><path fill="#fff" d="M52 118a38 38 0 0 1-6-75 50 50 0 0 1 95-12 40 40 0 0 1 41 87z"/></svg>
-          <div class="f-top"><small data-i="f.rep">YOUR REPORT</small><b data-i="p.fair">Fairly healthy</b><div class="f-score">78<span>/100</span></div></div>
-          <div class="p-card white f-pillars">
-            <div class="pl"><span data-i="f.p1">Cash flow</span><b>21<small>/25</small></b><div class="bar blue"><i style="width:84%"></i></div></div>
-            <div class="pl"><span data-i="f.p2">Savings</span><b>18<small>/25</small></b><div class="bar blue"><i style="width:72%"></i></div></div>
-            <div class="pl"><span data-i="f.p3">Debt</span><b>22<small>/25</small></b><div class="bar blue"><i style="width:88%"></i></div></div>
-            <div class="pl"><span data-i="f.p4">Plan</span><b>12<small>/19</small></b><div class="bar blue"><i style="width:63%"></i></div></div>
+          <p class="a-eye" data-i="x.dash">DASHBOARD</p>
+          <h3 class="a-h1" data-i="x.hi">Hi, Andi</h3>
+          <div class="a-card">
+            <div><b class="a-ch" data-i="x.your">Your step</b><small data-i="x.2of6">2 of 6 done</small></div>
+            <div class="a-now">
+              <span class="a-tag lime" data-i="x.now">DO THIS NOW</span>
+              <div class="a-now-t"><i>2</i><b data-i="x.s2">Clear short term debt + Mini cushion</b></div>
+              <p class="a-lime" data-i="x.left">Rp1.200.000 left to clear</p>
+              <div class="a-prog"><div class="a-bar"><i style="width:60%"></i></div><b>60%</b></div>
+              <span class="a-btn" data-i="x.start">Start ›</span>
+            </div>
           </div>
-          <div class="p-dark"><span data-i="f.ask">Ask AI to analyze</span><svg><use href="#i-spark"/></svg></div>
+          <div class="a-card">
+            <div><b class="a-ch" data-i="x.fh">Financial health</b><small data-i="x.fhp">Four pillars, each worth up to 25 points.</small></div>
+            <div class="a-pill4"><div><i style="--v:76%"><b>19</b></i><span data-i="x.p1">Cash flow</span></div><div><i style="--v:56%"><b>14</b></i><span data-i="x.p2">Savings</span></div><div><i style="--v:68%"><b>17</b></i><span data-i="x.p3">Debt</span></div><div><i style="--v:63%"><b>12</b></i><span data-i="x.p4">Planning</span></div></div>
+          </div>
         </section>
       </div>
-      <div class="phone fan-r dark" data-tabs="3">
+      <div class="phone fan-r" data-tabs="3">
         <section class="scr on">
-          <div class="f-coin"><svg><use href="#coin-sun"/></svg></div>
-          <div class="f-ai-h"><b data-i="f.ai">AI analysis</b><small data-i="f.ain">Numbers only. No name, no phone number.</small></div>
-          <div class="f-ai"><small data-i="f.a1">GOING WELL</small><p data-i="f.a1p">Spending stayed under budget for 24 of 30 days.</p></div>
-          <div class="f-ai warn"><small data-i="f.a2">FIX NEXT</small><p data-i="f.a2p">Paylater is the costliest debt. Clear it first.</p></div>
-          <div class="f-ai lime"><small data-i="f.a3">NEXT 30 DAYS</small><p data-i="f.a3p">Set aside Rp 20.000 on each driving day.</p></div>
+          <p class="a-eye" data-i="x.rep">INTERIM REPORT · 30 DAYS</p>
+          <h3 class="a-h1" data-i="x.reph">Andi's report</h3>
+          <div class="a-card">
+            <div class="a-rep">
+              <div class="a-ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="none" stroke="#E3DFD7" stroke-width="10"/><circle cx="60" cy="60" r="50" fill="none" stroke="#0CA30C" stroke-width="10" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="57" transform="rotate(-90 60 60)"/></svg><div><b>82</b><small data-i="x.of100">of 100</small></div></div>
+              <div><span class="a-tag ok" data-i="x.healthy">Healthy</span><p class="a-up"><b>▲ +36</b> <small data-i="x.since">since start</small></p></div>
+            </div>
+            <div class="a-tiles"><div><b>3/6</b><small data-i="x.lad">Ladder</small></div><div><b>100%</b><small data-i="x.paid">Debt paid off</small></div><div><b>42</b><small data-i="x.ent">Entries</small></div></div>
+          </div>
+          <div class="a-card">
+            <b class="a-ch" data-i="x.focus">30-day focus</b>
+            <div class="a-foc"><i>3</i><div><b data-i="x.f1">Step 3: Emergency fund</b><small data-i="x.f1p">Deposit Rp20.000 every driving day</small></div></div>
+            <span class="a-btn block" data-i="x.ask">Ask AI to analyze</span>
+          </div>
         </section>
       </div>
     </div>
@@ -320,60 +379,66 @@
 
 <!-- ============ CALCULATOR ============ -->
 <section class="sec sec-calc" id="calc">
-  <div class="wrap calc-grid">
-    <div class="calc-form">
-      <p class="eyebrow" data-i="c.e">Calculator</p>
-      <h2 class="big" data-i="c.h">Watch it stack.</h2>
-      <p class="sec-lead" data-i="c.p">Drag the coins. Your numbers, your pace.</p>
-
-      <div class="field"><label for="rIncome"><span data-i="c.l1">Income per month</span><output id="oIncome"></output></label><input class="coin-range" id="rIncome" type="range" min="2000000" max="12000000" step="100000" value="4500000"></div>
-      <div class="field"><label for="rInst"><span data-i="c.l2">Long term installments per month</span><output id="oInst"></output></label><input class="coin-range" id="rInst" type="range" min="0" max="3000000" step="50000" value="800000"></div>
-      <div class="field"><label for="rDays"><span data-i="c.l3">Driving days per month</span><output id="oDays"></output></label><input class="coin-range" id="rDays" type="range" min="10" max="30" step="1" value="25"></div>
-      <div class="field"><label for="rSave"><span data-i="c.l4">Set aside per driving day</span><output id="oSave"></output></label><input class="coin-range" id="rSave" type="range" min="5000" max="100000" step="5000" value="20000"></div>
-      <div class="field">
-        <span class="lbl" id="lblLong" data-i="c.l5">How long</span>
-        <div class="seg" role="group" aria-labelledby="lblLong" id="segLong">
-          <button type="button" data-m="6" aria-pressed="false" data-i="c.m6">6 mo</button>
-          <button type="button" data-m="12" aria-pressed="true" data-i="c.m12">1 yr</button>
-          <button type="button" data-m="24" aria-pressed="false" data-i="c.m24">2 yrs</button>
-        </div>
+  <div class="bg" aria-hidden="true"><i class="bg-grid"></i><i class="bg-glow g-calc"></i></div>
+  <div class="wrap">
+    <div class="sec-head two">
+      <div>
+        <p class="eyebrow mono" data-i="c.e">Calculator</p>
+        <h2 class="h2" data-i="c.h">Project your <em>savings.</em></h2>
       </div>
+      <p class="sec-lead" data-i="c.p">Adjust the figures to estimate how much a consistent daily deposit accumulates.</p>
     </div>
+    <div class="calc-grid">
+      <!-- styled like a sheet in the app, with the app's own switch -->
+      <div class="calc-card">
+        <div class="cc-head"><b data-i="c.t">Savings Projection</b><svg><use href="#mark-app"/></svg></div>
+        <p class="cc-lbl" id="lblLong" data-i="c.l5">PERIOD</p>
+        <div class="seg" role="group" aria-labelledby="lblLong" id="segLong">
+          <button class="seg-opt" type="button" data-m="6" aria-pressed="false" data-i="c.m6">6 Months</button>
+          <button class="seg-opt" type="button" data-m="12" aria-pressed="true" data-i="c.m12">1 Year</button>
+        </div>
+        <div class="field"><label for="rIncome"><span data-i="c.l1">Income Per Month</span><output id="oIncome"></output></label><input class="app-range" id="rIncome" type="range" min="2000000" max="12000000" step="100000" value="4500000"></div>
+        <div class="field"><label for="rInst"><span data-i="c.l2">Long Term Installments Per Month</span><output id="oInst"></output></label><input class="app-range" id="rInst" type="range" min="0" max="3000000" step="50000" value="800000"></div>
+        <div class="field"><label for="rDays"><span data-i="c.l3">Driving Days Per Month</span><output id="oDays"></output></label><input class="app-range" id="rDays" type="range" min="10" max="30" step="1" value="25"></div>
+        <div class="field"><label for="rSave"><span data-i="c.l4">Deposit Per Driving Day</span><output id="oSave"></output></label><input class="app-range" id="rSave" type="range" min="5000" max="100000" step="5000" value="20000"></div>
+      </div>
 
-    <div class="calc-out" aria-live="polite">
-      <p class="eyebrow dim" id="cHead"></p>
-      <div class="calc-total" id="cTotal">Rp 0</div>
-      <p class="calc-sub" id="cSub"></p>
-      <div class="calc-chips" id="cChips"></div>
-      <div class="stacks" id="stacks" aria-hidden="true"></div>
-      <div class="months" id="months" aria-hidden="true"></div>
-      <p class="fine" data-i="c.fine">An estimate, not a promise. No interest is added because Laju pays none. The daily budget uses the app's rule: income minus long term installments, divided by 30.</p>
+      <div class="calc-out" aria-live="polite">
+        <p class="eyebrow mono dim" id="cHead"></p>
+        <div class="calc-total" id="cTotal">Rp 0</div>
+        <p class="calc-sub" id="cSub"></p>
+        <div class="calc-chips" id="cChips"></div>
+        <div class="stacks" id="stacks" aria-hidden="true"></div>
+        <div class="months mono" id="months" aria-hidden="true"></div>
+        <p class="fine" data-i="c.fine">This is an estimate, not a guarantee. No interest is added because Laju pays none. The daily budget follows the rule used in the app: income minus long term installments, divided by 30.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ SAFETY ============ -->
+<!-- ============ SECURITY ============ -->
 <section class="sec sec-safe" id="safety">
+  <div class="bg" aria-hidden="true"><i class="bg-rings r-left"></i><i class="bg-glow g-safe"></i></div>
   <div class="wrap safe-grid">
     <div class="safe-left">
-      <p class="eyebrow lime" data-i="sf.e">Safety, in plain words</p>
-      <h2 class="big" data-i="sf.h">Have an umbrella ready before it rains.</h2>
+      <p class="eyebrow mono" data-i="sf.e">Security</p>
+      <h2 class="h2" data-i="sf.h">Prepare the umbrella <em>before the rain.</em></h2>
       <div class="umbrella-scene" aria-hidden="true">
         <div class="rain" data-rain="30" data-umbrella="1"></div>
         <svg class="umbrella" viewBox="0 0 300 330">
           <defs><clipPath id="canopy"><path d="M10 150C10 70 75 20 150 20s140 50 140 130q-23.3-24-46.7 0q-23.3-24-46.7 0q-23.3-24-46.6 0q-23.3-24-46.6 0q-23.3-24-46.7 0q-23.3-24-46.7 0z"/></clipPath>
-          <linearGradient id="g-canopy" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".38"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></linearGradient></defs>
-          <path d="M150 20v272a17 17 0 0 1-34 0" fill="none" stroke="#D9D4C9" stroke-width="7" stroke-linecap="round"/>
+          <linearGradient id="g-canopy" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></linearGradient></defs>
+          <path d="M150 20v272a17 17 0 0 1-34 0" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
           <g clip-path="url(#canopy)">
             <rect x="0" y="0" width="300" height="170" fill="#E2E937"/>
-            <path d="M150 20Q10 40 10 150h46.7Q56.7 50 150 20z" fill="#3D6BFF"/>
-            <path d="M150 20Q103.3 60 103.3 150H150z" fill="#3D6BFF"/>
-            <path d="M150 20Q196.7 60 196.7 150h46.6Q243.3 50 150 20z" fill="#3D6BFF"/>
+            <path d="M150 20Q10 40 10 150h46.7Q56.7 50 150 20z" fill="#FFFFFF"/>
+            <path d="M150 20Q103.3 60 103.3 150H150z" fill="#FFFFFF"/>
+            <path d="M150 20Q196.7 60 196.7 150h46.6Q243.3 50 150 20z" fill="#FFFFFF"/>
             <rect x="0" y="0" width="300" height="170" fill="url(#g-canopy)"/>
-            <path d="M150 20Q56.7 50 56.7 150M150 20Q103.3 60 103.3 150M150 20v130M150 20Q196.7 60 196.7 150M150 20Q243.3 50 243.3 150" fill="none" stroke="#1A1614" stroke-opacity=".14" stroke-width="1.5"/>
+            <path d="M150 20Q56.7 50 56.7 150M150 20Q103.3 60 103.3 150M150 20v130M150 20Q196.7 60 196.7 150M150 20Q243.3 50 243.3 150" fill="none" stroke="#07080A" stroke-opacity=".35" stroke-width="1.5"/>
           </g>
-          <g fill="#F8F6F0"><circle cx="10" cy="150" r="4.5"/><circle cx="56.7" cy="150" r="4.5"/><circle cx="103.3" cy="150" r="4.5"/><circle cx="150" cy="150" r="4.5"/><circle cx="196.7" cy="150" r="4.5"/><circle cx="243.3" cy="150" r="4.5"/><circle cx="290" cy="150" r="4.5"/></g>
-          <circle cx="150" cy="19" r="7" fill="#F8F6F0"/>
+          <g fill="#FFFFFF"><circle cx="10" cy="150" r="4.5"/><circle cx="56.7" cy="150" r="4.5"/><circle cx="103.3" cy="150" r="4.5"/><circle cx="150" cy="150" r="4.5"/><circle cx="196.7" cy="150" r="4.5"/><circle cx="243.3" cy="150" r="4.5"/><circle cx="290" cy="150" r="4.5"/></g>
+          <circle cx="150" cy="19" r="7" fill="#FFFFFF"/>
         </svg>
         <svg class="jar safe-jar" id="safeJar"></svg>
         <div class="puddle"></div>
@@ -381,64 +446,66 @@
     </div>
     <div class="safe-right">
       <ul class="safe-list">
-        <li><i><svg><use href="#i-eye"/></svg></i><div><b data-i="sf.1">We can look. We can't touch.</b><p data-i="sf.1p">E-wallet access is read only and goes through a licensed open finance provider.</p></div></li>
-        <li><i><svg><use href="#i-power"/></svg></i><div><b data-i="sf.2">You hold the off switch.</b><p data-i="sf.2p">Revoke permission and delete all your data at any time.</p></div></li>
-        <li><i><svg><use href="#i-lock"/></svg></i><div><b data-i="sf.3">No passwords kept.</b><p data-i="sf.3p">Only a scrambled hash is stored. Laju never asks for your PIN.</p></div></li>
-        <li><i><svg><use href="#i-file"/></svg></i><div><b data-i="sf.4">PDFs are read, then gone.</b><p data-i="sf.4p">An uploaded e-statement is read and discarded. The file itself is not kept.</p></div></li>
-        <li><i><svg><use href="#i-spark"/></svg></i><div><b data-i="sf.5">The AI sees numbers only.</b><p data-i="sf.5p">Never your name, phone number or account details.</p></div></li>
-        <li><i><svg><use href="#i-ban"/></svg></i><div><b data-i="sf.6">Your data is not for sale.</b><p data-i="sf.6p">Laju is not a lender and never sells data.</p></div></li>
+        <li><i><svg><use href="#i-eye"/></svg></i><div><b data-i="sf.1">Read-only access.</b><p data-i="sf.1p">E-wallet access is read-only and is provided through a licensed open finance provider.</p></div></li>
+        <li><i><svg><use href="#i-power"/></svg></i><div><b data-i="sf.2">Consent can be withdrawn.</b><p data-i="sf.2p">Permission may be revoked and all data deleted at any time.</p></div></li>
+        <li><i><svg><use href="#i-lockk"/></svg></i><div><b data-i="sf.3">Passwords are never stored.</b><p data-i="sf.3p">Only a salted hash is kept. Laju never requests a PIN.</p></div></li>
+        <li><i><svg><use href="#i-file"/></svg></i><div><b data-i="sf.4">Statements are not retained.</b><p data-i="sf.4p">An uploaded e-statement is read and then discarded. The file is not kept.</p></div></li>
+        <li><i><svg><use href="#i-spark"/></svg></i><div><b data-i="sf.5">The AI receives figures only.</b><p data-i="sf.5p">It never receives a name, phone number, or account details.</p></div></li>
+        <li><i><svg><use href="#i-ban"/></svg></i><div><b data-i="sf.6">Data is never sold.</b><p data-i="sf.6p">Laju is not a lender and does not sell data.</p></div></li>
       </ul>
-      <p class="fine light" data-i="sf.fine">Laju is a working prototype. In the live demo the e-wallet connection is simulated and runs on sample data.</p>
+      <p class="fine" data-i="sf.fine">Laju is a working prototype. In the live demo, the e-wallet connection is simulated and uses sample data.</p>
     </div>
   </div>
 </section>
 
-<!-- ============ REVIEWS (placeholders until real ones exist) ============ -->
+<!-- ============ REVIEWS (placeholders until verified reviews exist) ============ -->
 <section class="sec sec-rev" id="reviews">
+  <div class="bg" aria-hidden="true"><i class="bg-dots"></i><i class="bg-glow g-rev"></i><i class="bg-beam b-right"></i></div>
   <div class="wrap rev-head">
     <div>
-      <p class="eyebrow" data-i="r.e">Reviews</p>
-      <h2 class="big" data-i="r.h">Drivers get the last word.</h2>
+      <p class="eyebrow mono" data-i="r.e">Reviews</p>
+      <h2 class="h2" data-i="r.h">Driver <em>feedback.</em></h2>
     </div>
     <div class="rating">
       <div class="rating-num">0.0</div>
       <div>
         <div class="stars" aria-hidden="true">★★★★★</div>
-        <p><mark class="ph" data-i="r.ph">Placeholder</mark> <span data-i="r.rate">Add your real rating and number of reviews here.</span></p>
+        <p><mark class="ph" data-i="r.ph">Placeholder</mark> <span data-i="r.rate">Replace with the verified rating and number of reviews.</span></p>
       </div>
     </div>
   </div>
   <div class="marquee bubbles">
     <div class="track">
-      <figure class="bub white"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q1">"Sample review. Replace with a driver's own words about seeing their score for the first time."</blockquote><figcaption><i>A</i><span data-i="r.who">[Driver name] · [City]</span></figcaption></figure>
-      <figure class="bub lime"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q2">"Sample review. Replace with a driver's own words about clearing a paylater debt."</blockquote><figcaption><i>B</i><span data-i="r.who">[Driver name] · [City]</span></figcaption></figure>
-      <figure class="bub ink"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q3">"Sample review. Replace with a driver's own words about the daily budget."</blockquote><figcaption><i>C</i><span data-i="r.who">[Driver name] · [City]</span></figcaption></figure>
-      <figure class="bub white"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q4">"Sample review. Replace with a driver's own words about taking their record to a bank."</blockquote><figcaption><i>D</i><span data-i="r.who">[Driver name] · [City]</span></figcaption></figure>
+      <figure class="bub"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q1">"Sample review. Replace with a driver's statement about viewing the score for the first time."</blockquote><figcaption><i>A</i><span data-i="r.who">[Driver Name] · [City]</span></figcaption></figure>
+      <figure class="bub lime"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q2">"Sample review. Replace with a driver's statement about clearing a paylater debt."</blockquote><figcaption><i>B</i><span data-i="r.who">[Driver Name] · [City]</span></figcaption></figure>
+      <figure class="bub white"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q3">"Sample review. Replace with a driver's statement about the daily budget."</blockquote><figcaption><i>C</i><span data-i="r.who">[Driver Name] · [City]</span></figcaption></figure>
+      <figure class="bub"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q4">"Sample review. Replace with a driver's statement about presenting the record to a bank."</blockquote><figcaption><i>D</i><span data-i="r.who">[Driver Name] · [City]</span></figcaption></figure>
     </div>
   </div>
   <div class="marquee bubbles rev">
     <div class="track">
-      <figure class="bub ink"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q5">"Sample review. Replace with a driver's own words about the number pad log."</blockquote><figcaption><i>E</i><span data-i="r.who">[Driver name] · [City]</span></figcaption></figure>
-      <figure class="bub white"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q6">"Sample review. Replace with a driver's own words about feeling safe sharing data."</blockquote><figcaption><i>F</i><span data-i="r.who">[Driver name] · [City]</span></figcaption></figure>
-      <figure class="bub lime"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q7">"Sample review. Replace with a driver's own words about the AI analysis."</blockquote><figcaption><i>G</i><span data-i="r.who">[Driver name] · [City]</span></figcaption></figure>
-      <figure class="bub white"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q8">"Sample review. Replace with a driver's own words about their emergency fund."</blockquote><figcaption><i>H</i><span data-i="r.who">[Driver name] · [City]</span></figcaption></figure>
+      <figure class="bub white"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q5">"Sample review. Replace with a driver's statement about the number pad log."</blockquote><figcaption><i>E</i><span data-i="r.who">[Driver Name] · [City]</span></figcaption></figure>
+      <figure class="bub"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q6">"Sample review. Replace with a driver's statement about data security."</blockquote><figcaption><i>F</i><span data-i="r.who">[Driver Name] · [City]</span></figcaption></figure>
+      <figure class="bub lime"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q7">"Sample review. Replace with a driver's statement about the AI analysis."</blockquote><figcaption><i>G</i><span data-i="r.who">[Driver Name] · [City]</span></figcaption></figure>
+      <figure class="bub"><mark class="ph" data-i="r.ph">Placeholder</mark><blockquote data-i="r.q8">"Sample review. Replace with a driver's statement about the emergency fund."</blockquote><figcaption><i>H</i><span data-i="r.who">[Driver Name] · [City]</span></figcaption></figure>
     </div>
   </div>
 </section>
 
-<!-- ============ GET THE APP ============ -->
+<!-- ============ GET STARTED: the coin is the Laju logo ============ -->
 <section class="sec sec-get" id="get">
-  <div class="rain rain-bg" data-rain="18" aria-hidden="true"></div>
+  <div class="bg" aria-hidden="true"><i class="bg-grid"></i><i class="bg-glow g-get"></i><i class="bg-rings r-coin"></i></div>
   <div class="wrap get-grid">
     <div>
-      <h2 class="mega" data-i="g.h">Step one is <em>one tap</em> away.</h2>
-      <p class="lead" data-i="g.p">Free to use. No fees and no interest. Open the live demo in your browser. It runs on sample data, so you can explore every step safely.</p>
+      <p class="eyebrow mono" data-i="g.e">Get Started</p>
+      <h2 class="display sm" data-i="g.h">Step one is <em>one tap away.</em></h2>
+      <p class="sec-lead" data-i="g.p">Laju is free to use, with no fees and no interest. Open the live demo in a browser. It runs on sample data, so every step can be explored safely.</p>
       <div class="cta-row">
-        <a class="btn btn-lime" href="https://tumbalprojek315-png.github.io/hackathon-APRU/public/" target="_blank" rel="noopener"><svg><use href="#i-play"/></svg><span data-i="h.cta1">Try the live demo</span></a>
+        <a class="btn btn-lime" href="../public/index.html"><svg><use href="#i-play"/></svg><span data-i="h.cta1">Try The Demo</span></a>
       </div>
       <div class="store-row">
-        <a class="btn btn-white btn-store" href="#get" data-placeholder="store"><svg><use href="#i-phone"/></svg><span>App Store</span><mark class="ph" data-i="g.soon">Link needed</mark></a>
-        <a class="btn btn-white btn-store" href="#get" data-placeholder="store"><svg><use href="#i-phone"/></svg><span>Google Play</span><mark class="ph" data-i="g.soon">Link needed</mark></a>
+        <a class="btn btn-ghost btn-store" href="#get" data-placeholder="store"><svg><use href="#i-phone"/></svg><span>App Store</span><mark class="ph" data-i="g.soon">Link Required</mark></a>
+        <a class="btn btn-ghost btn-store" href="#get" data-placeholder="store"><svg><use href="#i-phone"/></svg><span>Google Play</span><mark class="ph" data-i="g.soon">Link Required</mark></a>
       </div>
     </div>
     <div class="spin-wrap" aria-hidden="true">
@@ -451,33 +518,34 @@
 </main>
 
 <footer class="foot">
+  <div class="bg" aria-hidden="true"><i class="bg-glow g-foot"></i><i class="bg-grid"></i></div>
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a class="brand light" href="#top"><svg class="brand-mark"><use href="#mark"/></svg><span>laju</span></a>
+        <a class="brand" href="#top"><svg class="brand-mark"><use href="#mark"/></svg><span>Laju</span></a>
         <p class="foot-tag" data-i="ft.tag">Financial health for Indonesian ride hailing drivers.</p>
       </div>
       <div>
-        <h3 data-i="ft.ex">Explore</h3>
-        <a href="#how" data-i="n.how">How it works</a>
-        <a href="#pots" data-i="n.pots">Pots</a>
-        <a href="#app" data-i="n.app">The app</a>
+        <h3 class="mono" data-i="ft.ex">Explore</h3>
+        <a href="#how" data-i="n.how">How It Works</a>
+        <a href="#pots" data-i="n.pots">Savings Pots</a>
+        <a href="#app" data-i="n.app">The App</a>
         <a href="#calc" data-i="n.calc">Calculator</a>
       </div>
       <div>
-        <h3 data-i="ft.tr">Trust</h3>
-        <a href="#safety" data-i="n.safe">Safety</a>
+        <h3 class="mono" data-i="ft.tr">Trust</h3>
+        <a href="#safety" data-i="n.safe">Security</a>
         <a href="#reviews" data-i="n.rev">Reviews</a>
-        <a href="https://tumbalprojek315-png.github.io/hackathon-APRU/public/" target="_blank" rel="noopener" data-i="ft.demo">Live demo</a>
+        <a href="../public/index.html" data-i="ft.demo">Live Demo</a>
       </div>
       <div>
-        <h3 data-i="ft.ct">Contact</h3>
-        <p><mark class="ph" data-i="r.ph">Placeholder</mark> <span data-i="ft.mail">Add your contact email here.</span></p>
-        <p data-i="ft.where">Indonesia</p>
+        <h3 class="mono" data-i="ft.ct">Contact</h3>
+        <p><mark class="ph" data-i="r.ph">Placeholder</mark> <span data-i="ft.mail">Add a contact email here.</span></p>
+        <p>Indonesia</p>
       </div>
     </div>
-    <div class="foot-word" aria-hidden="true"><span>laju</span><svg><use href="#coin-sun"/></svg></div>
-    <div class="foot-fine">
+    <div class="foot-word" aria-hidden="true"><span>Laju</span><svg><use href="#coin-logo"/></svg></div>
+    <div class="foot-fine mono">
       <p data-i="ft.fine">Laju is a research prototype by an NUS team for the APRU 2026 Hackathon: Financial Health Frontiers. Laju is not a bank and not a lender. Screens on this page show sample data.</p>
       <p>© 2026 Laju</p>
     </div>

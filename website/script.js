@@ -1,6 +1,6 @@
 /* Laju website. Plain JavaScript, no libraries.
    1. helpers  2. phones  3. rain  4. jars and coins  5. scroll story
-   6. windowsill  7. calculator  8. language  9. small things */
+   6. savings pots  7. calculator  8. language  9. scroll effects and small things */
 (() => {
   'use strict';
 
@@ -31,7 +31,7 @@
     };
   }
 
-  /* ---------- 2. phones: wrap each one in a body with real thickness ---------- */
+  /* ---------- 2. phones: a body with real thickness, plus the app's header and bottom bar ---------- */
   const TABS = [['i-home', 't.home', 'Home'], ['i-ladder', 't.lad', 'Ladder'], ['i-plus', 't.log', 'Log'], ['i-report', 't.rep', 'Report'], ['i-user', 't.pro', 'Profile']];
   function setTab(ph, i) { $$('span', ph._tb).forEach((s, k) => s.classList.toggle('on', k === i && k !== 2)); }
   $$('.phone').forEach(ph => {
@@ -39,10 +39,13 @@
     const body = el('div', 'ph-body'), screen = el('div', 'ph-screen'), screens = el('div', 'screens');
     const status = el('div', 'ph-status');
     status.innerHTML = '<span>9:41</span><i class="island"></i><span class="ico"><i style="height:.4em"></i><i style="height:.6em"></i><i style="height:.8em"></i><i style="height:1em"></i><b></b></span>';
+    const top = el('div', 'a-top');
+    top.innerHTML = '<i class="a-back"><svg viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><svg><use href="#mark-app"/></svg><b>Laju</b><span class="a-live">LIVE</span><span class="a-lang"><i data-al="id">ID</i><i data-al="en" class="on">EN</i></span>';
     const tb = el('div', 'ph-tabs');
     tb.innerHTML = TABS.map((t, i) => `<span class="${i === 2 ? 'plus' : ''}"><svg><use href="#${t[0]}"/></svg><em data-i="${t[1]}">${t[2]}</em></span>`).join('');
+    screens.append(top);
+    kids.forEach(k => screens.append(k));
     screen.append(status, screens, tb);
-    kids.forEach(k => (k.classList.contains('scr') ? screens : screen).append(k));
     body.append(screen);
     const layers = ph.id === 'heroPhone' ? 9 : 6;
     for (let i = layers; i >= 1; i--) {
@@ -56,7 +59,7 @@
     setTab(ph, ph._tabs[0]);
   });
 
-  /* ---------- 3. rain ---------- */
+  /* ---------- 3. rain around the umbrella ---------- */
   $$('[data-rain]').forEach(box => {
     if (RM) return;
     const n = +box.dataset.rain, r = rng(n * 7 + 3), dry = box.dataset.umbrella;
@@ -80,14 +83,14 @@
     node.setAttribute('viewBox', `0 0 ${W} ${H}`);
     const d = `M${cx - nw / 2} ${rim - 2}V${rim + nh}C${cx - nw / 2} ${rim + nh + sh * 0.55} ${x0} ${rim + nh + sh * 0.35} ${x0} ${top}V${bot - R}Q${x0} ${bot} ${x0 + R} ${bot}H${x1 - R}Q${x1} ${bot} ${x1} ${bot - R}V${top}C${x1} ${rim + nh + sh * 0.35} ${cx + nw / 2} ${rim + nh + sh * 0.55} ${cx + nw / 2} ${rim + nh}V${rim - 2}Z`;
     const g = svg('g', { class: 'jar-g' });
-    g.append(svg('path', { d, fill: 'rgba(255,255,255,.17)' }));
+    g.append(svg('path', { d, fill: 'rgba(255,255,255,.10)' }));
     const coins = svg('g', { class: 'coins' });
     g.append(coins);
-    g.append(svg('path', { d, fill: 'rgba(255,255,255,.06)', stroke: 'rgba(255,255,255,.88)', 'stroke-width': 3.5, 'stroke-linejoin': 'round' }));
-    g.append(svg('path', { d: `M${x0 + 14} ${top + 12}V${bot - R - 4}`, stroke: '#fff', 'stroke-opacity': 0.72, 'stroke-width': 7, 'stroke-linecap': 'round', fill: 'none' }));
-    g.append(svg('path', { d: `M${x0 + 30} ${top + 18}v${Math.min(44, (bot - top) * 0.22).toFixed(0)}`, stroke: '#fff', 'stroke-opacity': 0.45, 'stroke-width': 5, 'stroke-linecap': 'round', fill: 'none' }));
-    g.append(svg('path', { d: `M${x1 - 15} ${bot - R - 8}v-${((bot - top) * 0.28).toFixed(0)}`, stroke: '#fff', 'stroke-opacity': 0.3, 'stroke-width': 4, 'stroke-linecap': 'round', fill: 'none' }));
-    g.append(svg('rect', { x: cx - nw / 2 - 9, y: 1.5, width: nw + 18, height: rim, rx: rim / 2, fill: 'rgba(255,255,255,.55)', stroke: '#fff', 'stroke-width': 3 }));
+    g.append(svg('path', { d, fill: 'rgba(255,255,255,.04)', stroke: 'rgba(255,255,255,.9)', 'stroke-width': 3, 'stroke-linejoin': 'round' }));
+    g.append(svg('path', { d: `M${x0 + 14} ${top + 12}V${bot - R - 4}`, stroke: '#fff', 'stroke-opacity': 0.6, 'stroke-width': 6, 'stroke-linecap': 'round', fill: 'none' }));
+    g.append(svg('path', { d: `M${x0 + 30} ${top + 18}v${Math.min(44, (bot - top) * 0.22).toFixed(0)}`, stroke: '#fff', 'stroke-opacity': 0.35, 'stroke-width': 4, 'stroke-linecap': 'round', fill: 'none' }));
+    g.append(svg('path', { d: `M${x1 - 15} ${bot - R - 8}v-${((bot - top) * 0.28).toFixed(0)}`, stroke: '#fff', 'stroke-opacity': 0.25, 'stroke-width': 4, 'stroke-linecap': 'round', fill: 'none' }));
+    g.append(svg('rect', { x: cx - nw / 2 - 9, y: 1.5, width: nw + 18, height: rim, rx: rim / 2, fill: 'rgba(255,255,255,.35)', stroke: '#fff', 'stroke-width': 3 }));
     node.append(g);
 
     // where each coin comes to rest: staggered rows from the bottom up
@@ -104,8 +107,8 @@
           if (x < cl && Math.hypot(x - cl, y - cy) > R - r + 1) ok = false;
           if (x > cr && Math.hypot(x - cr, y - cy) > R - r + 1) ok = false;
         }
-        const v = rand(), kind = v < 0.55 ? 'sun' : v < 0.8 ? 'drop' : 'mark';
-        if (ok) line.push({ x, y: y + (rand() - 0.5) * 2.5, rot: (rand() - 0.5) * 70, kind });
+        const v = rand(), kind = v < 0.58 ? 'lime' : v < 0.82 ? 'white' : 'logo';
+        if (ok) line.push({ x, y: y + (rand() - 0.5) * 2.5, rot: (rand() - 0.5) * 50, kind });
       }
       for (let i = line.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [line[i], line[j]] = [line[j], line[i]]; }
       slots.push(...line);
@@ -154,17 +157,17 @@
     jar.g.animate([{ transform: 'scale(1,1)' }, { transform: 'scale(1.035,.962)' }, { transform: 'scale(.99,1.014)' }, { transform: 'scale(1,1)' }], { duration: 330, easing: 'ease-out' });
   }
 
-  /* ---------- 5. the scroll story: stage holds still, phone tilts, coins rain ---------- */
-  const story = $('.story'), stage = $('#stage'), steps = $$('.step'), heroPhone = $('#heroPhone');
-  const tag = $('#tag'), tagAmt = $('#tagAmt'), tagBar = $('#tagBar'), tagPct = $('#tagPct'), cloud = $('.sky .cloud');
+  /* ---------- 5. the scroll story: stage holds still, phone tilts, coins fall ---------- */
+  const story = $('.story'), stage = $('#stage'), steps = $$('article.step'), heroPhone = $('#heroPhone');
+  const tag = $('#tag'), tagAmt = $('#tagAmt'), tagBar = $('#tagBar'), tagPct = $('#tagPct'), source = $('.source');
   const hero = buildJar($('#heroJar'), { W: 240, H: 300, nw: 150, nh: 20, sh: 36, R: 30, r: 15, seed: 11 });
   const INIT = 9, TOTAL = Math.min(33, hero.slots.length), A0 = 1250000, A1 = 4800000, GOAL = 6500000;
   let target = INIT, lastSwing = 0;
   for (let i = 0; i < INIT; i++) hero.add(false);
 
-  hero.from = s => {                             // coins start at the cloud
-    const j = hero.node.getBoundingClientRect(), c = cloud.getBoundingClientRect(), k = j.width / 240 || 1;
-    return { D: Math.max(80, (j.top + s.y * k - (c.top + c.height * 0.7)) / k), SX: ((c.left + c.width / 2) - (j.left + s.x * k)) / k };
+  hero.from = s => {                             // coins start at the "Deposits" chip
+    const j = hero.node.getBoundingClientRect(), c = source.getBoundingClientRect(), k = j.width / 240 || 1;
+    return { D: Math.max(80, (j.top + s.y * k - c.bottom) / k), SX: ((c.left + c.width / 2) - (j.left + s.x * k)) / k };
   };
   const tagTween = tween(v => {
     v = Math.round(v / 5000) * 5000;
@@ -190,6 +193,7 @@
     $$('.scr', heroPhone).forEach((s, k) => { s.classList.toggle('on', k === i); s.classList.toggle('past', k < i); });
     setTab(heroPhone, heroPhone._tabs[i]);
   }
+  const bgs = $$('.bg'), progressBar = $('#progress');
   function measure() {
     const vh = innerHeight, mob = innerWidth < 900, trig = vh * (mob ? 0.86 : 0.62);
     const rects = steps.map(s => s.getBoundingClientRect());
@@ -199,20 +203,28 @@
     const start = rects[0].top, end = rects[2].top + rects[2].height * (mob ? 0.2 : 0.38);
     const p = clamp((trig - start) / (end - start));
     target = INIT + Math.round(p * (TOTAL - INIT));
-    story.style.setProperty('--sun', clamp((p - 0.5) / 0.42).toFixed(3));
-    story.style.setProperty('--rain', (1 - clamp((p - 0.3) / 0.5)).toFixed(3));
+    story.style.setProperty('--glow', p.toFixed(3));
+    // page progress line, hero drift and the slow drift of each section's glow
+    const max = document.documentElement.scrollHeight - vh;
+    progressBar.style.setProperty('--sp', max > 0 ? (scrollY / max).toFixed(4) : 0);
+    document.documentElement.style.setProperty('--hs', clamp(scrollY / vh).toFixed(3));
+    if (!RM) bgs.forEach(b => {
+      const r = b.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) return;
+      b.style.setProperty('--p', clamp((r.top + r.height / 2 - vh / 2) / vh, -1, 1).toFixed(3));
+    });
   }
   let ticking = false;
   const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; measure(); }); } };
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll);
   measure();
-  setInterval(() => {                            // one coin at a time so a fast scroll still looks like rain
+  setInterval(() => {                            // one coin at a time so a fast scroll still looks like a stream
     if (hero.count < target) hero.add(true);
     else if (hero.count > target) { hero.remove(); syncTag(); }
   }, 85);
 
-  /* ---------- 6. the windowsill: tap a jar, a coin drops in ---------- */
+  /* ---------- 6. savings pots: select a jar, a coin drops in ---------- */
   const JARS = {
     a: { W: 200, H: 270, nw: 128, nh: 18, sh: 30, R: 26, r: 14, fill: 0.42, seed: 5 },
     b: { W: 240, H: 215, nw: 186, nh: 14, sh: 22, R: 30, r: 14, fill: 0.3, seed: 8 },
@@ -238,14 +250,14 @@
 
   /* ---------- 7. calculator ---------- */
   const STR = {
-    en: { head: 'In {t} you would have set aside', t6: '6 months', t12: '1 year', t24: '2 years', days: '{n} days',
-      sub: 'That is <b>{s}</b> on each of <b>{d}</b> driving days a month. Your daily budget is <b>{b}</b>, so this covers about <b>{n}</b> days of spending.',
-      chip1: 'Mini cushion covered (3 days)', chip2: 'In emergency fund range (3 to 6 months)',
-      title: 'Laju | Real income. Real proof.', loc: 'en-US' },
-    id: { head: 'Dalam {t} Anda sudah menyisihkan', t6: '6 bulan', t12: '1 tahun', t24: '2 tahun', days: '{n} hari',
-      sub: 'Itu <b>{s}</b> di tiap <b>{d}</b> hari narik per bulan. Budget harian Anda <b>{b}</b>, jadi ini cukup untuk sekitar <b>{n}</b> hari belanja.',
-      chip1: 'Bantalan mini tercapai (3 hari)', chip2: 'Masuk rentang dana darurat (3 sampai 6 bulan)',
-      title: 'Laju | Penghasilan nyata. Bukti nyata.', loc: 'id-ID' }
+    en: { head: 'Total set aside in {t}', t6: '6 months', t12: '1 year', days: '{n} Days',
+      sub: 'A deposit of <b>{s}</b> on each of <b>{d}</b> driving days per month. The daily budget is <b>{b}</b>, so this amount covers approximately <b>{n}</b> days of spending.',
+      chip1: 'Mini Cushion Covered (3 Days)', chip2: 'Within Emergency Fund Range (3 To 6 Months)',
+      title: 'Laju | Real Income. Real Proof.', loc: 'en-US' },
+    id: { head: 'Total disisihkan dalam {t}', t6: '6 bulan', t12: '1 tahun', days: '{n} Hari',
+      sub: 'Setoran <b>{s}</b> pada setiap <b>{d}</b> hari narik per bulan. Budget harian sebesar <b>{b}</b>, sehingga jumlah ini mencukupi sekitar <b>{n}</b> hari pengeluaran.',
+      chip1: 'Bantalan Mini Tercapai (3 Hari)', chip2: 'Dalam Rentang Dana Darurat (3 Sampai 6 Bulan)',
+      title: 'Laju | Penghasilan Nyata. Bukti Nyata.', loc: 'id-ID' }
   };
   let lang = 'en', months = 12;
   const rI = $('#rIncome'), rC = $('#rInst'), rD = $('#rDays'), rS = $('#rSave');
@@ -266,92 +278,100 @@
     while (stacksEl.children.length < months) stacksEl.append(el('div', 'stack'));
     const f = clamp(Math.sqrt(total / (100000 * 30 * months)), 0.12, 1);
     [...stacksEl.children].forEach((c, i) => c.style.setProperty('--h', ((i + 1) / months * f * 100).toFixed(1) + '%'));
-    const now = new Date(), every = months > 12 ? 3 : 1;
+    const now = new Date();
     monthsEl.innerHTML = Array.from({ length: months }, (_, i) => {
       const dt = new Date(now.getFullYear(), now.getMonth() + 1 + i, 1);
-      return `<span>${i % every === 0 ? dt.toLocaleDateString(T.loc, { month: 'short' }) : ''}</span>`;
+      return `<span>${dt.toLocaleDateString(T.loc, { month: 'short' })}</span>`;
     }).join('');
   }
   [rI, rC, rD, rS].forEach(r => r.addEventListener('input', calc));
-  $$('#segLong button').forEach(b => b.addEventListener('click', () => {
+  $$('#segLong .seg-opt').forEach(b => b.addEventListener('click', () => {
     months = +b.dataset.m;
-    $$('#segLong button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    $$('#segLong .seg-opt').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
     calc();
   }));
 
   /* ---------- 8. two languages. English is in the page, Indonesian is here ---------- */
   const ID = {
     'skip': 'Lewati ke cara kerja',
-    'n.how': 'Cara kerja', 'n.pots': 'Pos tabungan', 'n.app': 'Aplikasi', 'n.calc': 'Kalkulator', 'n.safe': 'Keamanan', 'n.rev': 'Ulasan', 'n.cta': 'Coba demo',
-    'h.badge': 'Prototipe gratis untuk pengemudi ojol',
-    'h.a': 'Penghasilan nyata.', 'h.b': 'Bukti nyata',
-    'h.lead': 'Laju membaca riwayat e-wallet Anda dengan izin Anda, memberi skor kesehatan finansial dari 100, lalu menuntun Anda menaiki enam langkah yang jelas. Hasilnya rekam jejak yang bisa dibaca bank. Tanpa slip gaji.',
-    'h.cta1': 'Coba demo langsung', 'h.cta2': 'Cara kerjanya',
-    'h.note': '<b>Bukan aplikasi pinjaman.</b> Tanpa biaya. Tidak pernah meminta PIN.',
-    'p.date': 'Kamis', 'p.hi': 'Pagi, Budi', 'p.score': 'Skor kesehatan finansial', 'p.fair': 'Cukup sehat', 'p.today': 'Budget hari ini',
-    'p.active': 'Langkah aktif', 'p.see': 'Lihat tangga', 'p.step2': 'Lunasi utang jangka pendek', 'p.pots': 'Pos Anda',
-    'j.safe': 'Tabungan aman', 'j.grow': 'Tabungan tumbuh', 'j.school': 'Biaya sekolah',
-    'p.wallet': 'E-wallet', 'p.ro': 'Hanya baca', 'p.in30': 'Uang masuk, 30 hari terakhir',
-    'p.t1': 'Pendapatan narik', 'p.t1s': 'Hari ini', 'p.t2': 'Bensin', 'p.t3': 'Makan siang', 'p.t4': 'Cicilan motor', 'p.t4s': 'Jangka panjang', 'p.t5s': 'Utang jangka pendek',
-    'p.start': 'Skor awal', 'p.log': 'Catat', 'p.dep': 'Setor', 'p.wd': 'Ambil', 'p.pay': 'Bayar utang', 'p.depbtn': 'Setor Rp 20.000',
-    'p.proof': 'Bukti 30 hari', 'p.saved': 'Terkumpul', 'p.of65': 'dari Rp 6.500.000', 'p.efund': 'Dana darurat terisi 74%',
-    'p.sc': 'Skor', 'p.debt': 'Utang pendek', 'p.clear': 'Lunas', 'p.stepn': 'Langkah', 'p.ready': 'Rapor siap dibawa ke bank',
-    'p.now': 'baru saja', 'p.notif': 'E-wallet terhubung. Riwayat 30 hari terbaca. Akses hanya baca.',
-    'j.safeU': 'TABUNGAN AMAN', 'j.growU': 'TABUNGAN TUMBUH', 'j.schoolU': 'BIAYA SEKOLAH', 'j.tiresU': 'BAN BARU', 'j.of65': 'dari Rp 6.500.000',
-    's1.e': 'Tahu posisi Anda', 's1.h': 'Hubungkan e-wallet Anda.',
-    's1.p': 'Transaksi 30 hari terbaca otomatis lewat penyedia open finance berlisensi. Aksesnya hanya baca. Anda mendapat skor kesehatan dari 100, disusun dari empat pilar dan dua belas komponen. Tidak ingin menghubungkan? Unggah e-statement PDF saja.',
-    's1.c': 'Hanya baca. Riwayat 30 hari.',
-    's2.e': 'Satu langkah dalam satu waktu', 's2.h': 'Taruh tiap rupiah di posnya.',
-    's2.p': 'Tangga memberi tahu mana yang didahulukan. Belanja di bawah budget harian. Lunasi utang yang mencekik. Bangun bantalan kecil. Catat tiap setoran di satu layar berpapan angka, lalu lihat posnya terisi.',
-    's2.c': 'Setor, ambil, atau bayar utang',
-    's3.e': 'Bukti, bukan janji', 's3.h': 'Bawa rapor Anda ke bank.',
-    's3.p': 'Setiap langkah yang selesai menjadi bagian dari rekam jejak keuangan yang bisa dibaca bank. Laju bukan pemberi pinjaman. Laju membuat pengemudi layak dipinjami.',
-    's3.c': 'Hujan reda. Matahari keluar.',
-    'po.e': 'Pos tabungan', 'po.h': 'Satu pos untuk tiap tujuan.',
-    'po.p': 'Tabungan aman menampung bantalan dan dana darurat. Tabungan tumbuh untuk investasi setelah fondasi kuat. Tiap tujuan punya posnya sendiri. Coba ketuk salah satu.',
-    'po.j1': 'dari Rp 6.500.000. Dana darurat.', 'po.j2': 'Untuk investasi, mulai Step 4.', 'po.j3': 'dari Rp 2.000.000. Tujuan wajib.', 'po.j4': 'dari Rp 600.000. Sebelum musim hujan.',
-    'po.sample': 'Angka contoh. Tiap ketukan menambah Rp 10.000.',
-    'po.m0': 'Contoh tujuan pengemudi:', 'po.m1': 'Servis motor', 'po.m2': 'Biaya sekolah', 'po.m3': 'Mudik Lebaran', 'po.m4': 'Helm baru', 'po.m5': 'Servis HP', 'po.m6': 'Uang kontrakan', 'po.m7': 'Ban baru', 'po.m8': 'Ulang tahun anak', 'po.m9': 'Jas hujan',
-    'po.t1': 'Setiap catatan bisa dibatalkan', 'po.t2': 'Saldo mengikuti catatan Anda', 'po.t3': 'Tujuan wajib didahulukan sebelum tujuan tumbuh',
-    'a.e': 'Aplikasi', 'a.h': 'Seru seperti gim. Terbaca seperti catatan bank.',
-    'a.p': 'Enam langkah, satu yang aktif dalam satu waktu. Tiap langkah yang selesai membuka langkah berikutnya. Di baliknya ada skor yang mengikuti kerangka FinHealth Score dari Financial Health Network.',
-    'a.f1': 'Skor kesehatan', 'a.f1p': 'Empat pilar, dua belas komponen, satu angka dari 100. Arus kas, tabungan, utang, dan rencana.',
-    'a.f2': 'Tangga milestone', 'a.f2p': 'Rapikan data, keluar dari merah, lunasi utang jangka pendek, bangun dana darurat, investasi, lalu tumbuh.',
-    'a.f3': 'Budget harian', 'a.f3p': 'Pendapatan dikurangi cicilan jangka panjang, dibagi 30. Satu angka untuk dijaga tiap hari.',
-    'a.f4': 'Jalur pelunasan utang', 'a.f4p': 'Pinjol, paylater, dan rentenir didahulukan. Cicilan motor tidak harus lunas untuk lanjut.',
-    'a.f5': 'Analisis AI', 'a.f5p': 'Ringkasan dengan bahasa sehari-hari tentang apa yang sudah baik, apa yang perlu dibenahi, dan apa yang dikerjakan 30 hari ke depan.',
-    'a.f6': 'Dua bahasa', 'a.f6p': 'Pakai aplikasi dalam bahasa Indonesia atau Inggris.',
-    'f.ladder': 'Tangga', 'f.2of6': '2 dari 6 selesai', 'f.s0': 'Rapikan data', 'f.s1': 'Keluar dari merah', 'f.s2': 'Lunasi utang jangka pendek + bantalan mini', 'f.s3': 'Dana darurat', 'f.s4': 'Investasi 10% selama 3 bulan', 'f.s5': 'Tujuan tumbuh',
-    'f.done': 'Selesai', 'f.lock': 'Terkunci', 'f.rep': 'RAPOR ANDA', 'f.p1': 'Arus kas', 'f.p2': 'Tabungan', 'f.p3': 'Utang', 'f.p4': 'Rencana', 'f.ask': 'Minta AI menganalisis',
-    'f.ai': 'Analisis AI', 'f.ain': 'Hanya angka. Tanpa nama, tanpa nomor HP.',
-    'f.a1': 'SUDAH BAIK', 'f.a1p': 'Belanja di bawah budget selama 24 dari 30 hari.', 'f.a2': 'BENAHI DULU', 'f.a2p': 'Paylater adalah utang termahal. Lunasi lebih dulu.', 'f.a3': '30 HARI KE DEPAN', 'f.a3p': 'Sisihkan Rp 20.000 di tiap hari narik.',
-    'c.e': 'Kalkulator', 'c.h': 'Lihat tumpukannya.', 'c.p': 'Geser koinnya. Angka Anda, ritme Anda.',
-    'c.l1': 'Pendapatan per bulan', 'c.l2': 'Cicilan jangka panjang per bulan', 'c.l3': 'Hari narik per bulan', 'c.l4': 'Disisihkan per hari narik', 'c.l5': 'Berapa lama',
-    'c.m6': '6 bln', 'c.m12': '1 thn', 'c.m24': '2 thn',
-    'c.fine': 'Perkiraan, bukan janji. Tidak ada bunga yang ditambahkan karena Laju tidak memberi bunga. Budget harian memakai aturan aplikasi: pendapatan dikurangi cicilan jangka panjang, dibagi 30.',
-    'sf.e': 'Keamanan, dengan bahasa sederhana', 'sf.h': 'Sedia payung sebelum hujan.',
-    'sf.1': 'Kami bisa melihat. Tidak bisa menyentuh.', 'sf.1p': 'Akses e-wallet hanya baca dan lewat penyedia open finance berlisensi.',
-    'sf.2': 'Tombol mati ada di tangan Anda.', 'sf.2p': 'Cabut izin dan hapus semua data Anda kapan saja.',
-    'sf.3': 'Password tidak disimpan.', 'sf.3p': 'Yang disimpan hanya hash acak. Laju tidak pernah meminta PIN.',
-    'sf.4': 'PDF dibaca, lalu dibuang.', 'sf.4p': 'E-statement yang diunggah dibaca lalu dibuang. Berkasnya tidak disimpan.',
-    'sf.5': 'AI hanya melihat angka.', 'sf.5p': 'Tidak pernah nama, nomor HP, atau detail rekening Anda.',
-    'sf.6': 'Data Anda tidak dijual.', 'sf.6p': 'Laju bukan pemberi pinjaman dan tidak pernah menjual data.',
-    'sf.fine': 'Laju masih berupa prototipe. Di demo langsung, sambungan e-wallet adalah simulasi dan memakai data contoh.',
-    'r.e': 'Ulasan', 'r.h': 'Pengemudi yang menilai.', 'r.rate': 'Isi dengan rating dan jumlah ulasan asli Anda di sini.', 'r.who': '[Nama pengemudi] · [Kota]',
-    'r.q1': '"Ulasan contoh. Ganti dengan kata-kata pengemudi sendiri tentang pertama kali melihat skornya."',
-    'r.q2': '"Ulasan contoh. Ganti dengan kata-kata pengemudi sendiri tentang melunasi utang paylater."',
-    'r.q3': '"Ulasan contoh. Ganti dengan kata-kata pengemudi sendiri tentang budget harian."',
-    'r.q4': '"Ulasan contoh. Ganti dengan kata-kata pengemudi sendiri tentang membawa rapor ke bank."',
-    'r.q5': '"Ulasan contoh. Ganti dengan kata-kata pengemudi sendiri tentang catatan berpapan angka."',
-    'r.q6': '"Ulasan contoh. Ganti dengan kata-kata pengemudi sendiri tentang rasa aman berbagi data."',
-    'r.q7': '"Ulasan contoh. Ganti dengan kata-kata pengemudi sendiri tentang analisis AI."',
-    'r.q8': '"Ulasan contoh. Ganti dengan kata-kata pengemudi sendiri tentang dana daruratnya."',
-    'g.h': 'Langkah pertama tinggal <em>satu ketukan</em>.',
-    'g.p': 'Gratis dipakai. Tanpa biaya dan tanpa bunga. Buka demo langsung di browser Anda. Demo memakai data contoh, jadi semua langkah aman dijelajahi.',
-    'g.soon': 'Tautan belum ada',
-    'ft.tag': 'Kesehatan finansial untuk pengemudi ojol Indonesia.', 'ft.ex': 'Jelajahi', 'ft.tr': 'Kepercayaan', 'ft.demo': 'Demo langsung', 'ft.ct': 'Kontak', 'ft.mail': 'Isi email kontak Anda di sini.',
-    'ft.fine': 'Laju adalah prototipe riset tim NUS untuk APRU 2026 Hackathon: Financial Health Frontiers. Laju bukan bank dan bukan pemberi pinjaman. Layar di halaman ini menampilkan data contoh.',
-    't.home': 'Beranda', 't.lad': 'Tangga', 't.log': 'Catat', 't.rep': 'Rapor', 't.pro': 'Profil'
+    'n.how': 'Cara Kerja', 'n.pots': 'Pos Tabungan', 'n.app': 'Aplikasi', 'n.calc': 'Kalkulator', 'n.safe': 'Keamanan', 'n.rev': 'Ulasan', 'n.cta': 'Coba Demo',
+    'h.kick': 'Prototipe gratis untuk pengemudi ojol Indonesia',
+    'h.a': 'Penghasilan nyata.', 'h.b': 'Bukti nyata.',
+    'h.lead': 'Laju membaca riwayat transaksi e-wallet dengan persetujuan pengemudi, menghitung skor kesehatan finansial dari 100, dan menuntun setiap pengemudi melalui enam langkah terstruktur. Hasilnya adalah rekam jejak keuangan yang dapat dinilai bank. Slip gaji tidak diperlukan.',
+    'h.cta1': 'Coba Demo', 'h.cta2': 'Cara Kerja',
+    'h.note': 'Laju bukan pemberi pinjaman. Laju tidak memungut biaya dan tidak pernah meminta PIN.',
+    'st.1': 'Poin Skor Kesehatan', 'st.2': 'Komponen Skor', 'st.3': 'Langkah Terstruktur', 'st.4': 'Hari Riwayat Terbaca',
+    'hc.l': 'Tangga Milestone', 'hc.done': 'Selesai', 'hc.act': 'Aktif', 'hc.lock': 'Terkunci', 'hc.c': 'Skor Kesehatan', 'hc.sample': 'Data Contoh', 'hc.fair': 'Cukup Sehat',
+    'hc.r': 'Arus Kas Bulanan', 'hc.in': 'Pendapatan', 'hc.out': 'Pengeluaran', 'hc.inst': 'Cicilan', 'hc.save': 'Disisihkan',
+    'lad.0': 'Rapikan Data', 'lad.1': 'Keluar Dari Minus', 'lad.2': 'Lunasi Utang Jangka Pendek', 'lad.3': 'Dana Darurat',
+    'si.e': 'Cara Kerja', 'si.h': 'Tiga langkah menuju rekam jejak <em>yang dapat dibaca bank.</em>',
+    'si.p': 'Setiap tahap dibangun di atas tahap sebelumnya. Gulir untuk mengikuti perjalanan pengemudi dari sambungan pertama hingga rapor yang siap dibawa ke bank.',
+    's1.e': 'Tetapkan Titik Awal', 's1.h': 'Hubungkan e-wallet.',
+    's1.p': 'Transaksi selama 30 hari diambil melalui penyedia open finance berlisensi dengan akses hanya baca. Laju kemudian menghitung skor kesehatan dari 100, berdasarkan empat pilar dan dua belas komponen. Pengemudi yang tidak ingin menghubungkan akun dapat mengunggah e-statement PDF.',
+    's1.c': 'Akses hanya baca. Riwayat 30 hari.',
+    's2.e': 'Bangun Kebiasaan', 's2.h': 'Alokasikan setiap rupiah.',
+    's2.p': 'Tangga milestone menetapkan urutan prioritas. Pengeluaran dijaga dalam batas budget harian, utang jangka pendek dilunasi, dan bantalan dibangun. Setiap setoran dicatat di satu layar berpapan angka dan dimasukkan ke pos tabungan yang tepat.',
+    's2.c': 'Setor, ambil, atau bayar utang.',
+    's3.e': 'Tunjukkan Bukti', 's3.h': 'Bawa rapor ke bank.',
+    's3.p': 'Setiap langkah yang selesai menjadi bagian dari rekam jejak keuangan yang dapat dinilai bank. Laju bukan pemberi pinjaman. Laju membantu pengemudi menjadi layak memperoleh kredit resmi.',
+    's3.c': 'Rekam jejak terverifikasi, siap dibagikan.',
+    'src': 'Setoran', 'j.safeU': 'TABUNGAN AMAN', 'j.of65': 'dari Rp 6.500.000',
+    'j.safeT': 'Tabungan Aman', 'j.growT': 'Tabungan Tumbuh', 'j.schoolT': 'Biaya Sekolah', 'j.tiresT': 'Ban Baru',
+    'po.e': 'Pos Tabungan', 'po.h': 'Satu pos khusus <em>untuk setiap tujuan.</em>',
+    'po.p': 'Tabungan aman menampung bantalan dan dana darurat. Tabungan tumbuh disediakan untuk investasi setelah fondasi kuat. Setiap tujuan memiliki posnya sendiri. Pilih salah satu toples untuk menambah setoran.',
+    'po.j1': 'Dari Rp 6.500.000. Dana darurat.', 'po.j2': 'Untuk investasi, mulai Step 4.', 'po.j3': 'Dari Rp 2.000.000. Tujuan wajib.', 'po.j4': 'Dari Rp 600.000. Tujuan pribadi.',
+    'po.sample': 'Angka contoh. Setiap pilihan menambah Rp 10.000.',
+    'po.m0': 'Contoh tujuan:', 'po.m1': 'Servis Motor', 'po.m2': 'Biaya Sekolah', 'po.m3': 'Mudik Lebaran', 'po.m4': 'Helm Baru', 'po.m5': 'Servis Ponsel', 'po.m6': 'Sewa Rumah', 'po.m7': 'Ban Baru', 'po.m8': 'Acara Keluarga', 'po.m9': 'Jas Hujan',
+    'po.t1': 'Setiap catatan dapat dibatalkan.', 'po.t2': 'Saldo mengikuti catatan yang tersimpan.', 'po.t3': 'Tujuan wajib didahulukan sebelum tujuan tumbuh.',
+    'a.e': 'Aplikasi', 'a.h': 'Kemajuan terstruktur. <em>Rekam jejak yang dapat dibaca bank.</em>',
+    'a.p': 'Tangga terdiri atas enam langkah, dengan satu langkah aktif dalam satu waktu. Menyelesaikan satu langkah membuka langkah berikutnya. Skor mengikuti kerangka FinHealth Score dari Financial Health Network.',
+    'a.f1': 'Skor Kesehatan', 'a.f1p': 'Empat pilar dan dua belas komponen menghasilkan satu skor dari 100. Pilar tersebut adalah arus kas, tabungan, utang, dan perencanaan.',
+    'a.f2': 'Tangga Milestone', 'a.f2p': 'Rapikan data, keluar dari minus, lunasi utang jangka pendek, bangun dana darurat, berinvestasi, lalu bertumbuh.',
+    'a.f3': 'Budget Harian', 'a.f3p': 'Pendapatan dikurangi cicilan jangka panjang, dibagi 30. Satu angka yang dijaga setiap hari.',
+    'a.f4': 'Jalur Pelunasan Utang', 'a.f4p': 'Pinjol, paylater, dan rentenir dilunasi lebih dahulu. Cicilan motor dapat tetap berjalan selagi pengemudi melangkah maju.',
+    'a.f5': 'Analisis AI', 'a.f5p': 'Ringkasan dalam bahasa sederhana tentang kekuatan, prioritas, dan tindakan untuk 30 hari ke depan.',
+    'a.f6': 'Dua Bahasa', 'a.f6p': 'Aplikasi tersedia dalam bahasa Indonesia dan Inggris.',
+    // inside the phones: the app's own Indonesian wording
+    'x.dash': 'DASHBOARD', 'x.hi': 'Halo, Andi', 'x.sum': 'Ringkasan keuangan Anda. Data dari isian Anda dan 2 e-wallet terverifikasi.',
+    'x.your': 'Step Anda', 'x.2of6': '2 dari 6 selesai', 'x.now': 'KERJAKAN SEKARANG', 'x.s2': 'Lunasi utang jangka pendek + Bantalan mini',
+    'x.left': 'Sisa Rp1.200.000 untuk dilunasi', 'x.start': 'Kerjakan ›', 'x.next': 'Berikutnya · terbuka setelah step 2 selesai', 'x.s3': '3. Dana darurat + Mulai tujuan wajib',
+    'x.prof': 'PROFIL', 'x.data': 'Data Andi', 'x.bank': 'Status data untuk bank', 'x.ver': 'Terverifikasi',
+    'x.verp': 'Data berstatus Terverifikasi, bisa jadi bukti penghasilan ke bank', 'x.conn': 'Terhubung: e-wallet', 'x.ro': 'Hanya baca · riwayat 30 hari',
+    'x.pdf': 'E-statement PDF', 'x.pdfp': 'Dibaca, lalu dibuang', 'x.toast': 'E-wallet terhubung',
+    'x.log': 'Catat', 'x.dep': 'Setor', 'x.wd': 'Ambil', 'x.pay': 'Bayar utang', 'x.pot': 'MASUK KE POS MANA', 'x.safe': 'Tabungan aman', 'x.grow': 'Tabungan tumbuh', 'x.save': 'Simpan',
+    'x.rep': 'RAPOR SEMENTARA · 30 HARI', 'x.reph': 'Rapor Andi', 'x.of100': 'dari 100', 'x.healthy': 'Sehat', 'x.since': 'sejak awal',
+    'x.rept': 'Arus kas positif, ada bantalan, utang terkendali.', 'x.lad': 'Tangga', 'x.paid': 'Utang lunas', 'x.ent': 'Catatan',
+    'x.focus': 'Fokus 30 hari', 'x.f1': 'Step 3: Dana darurat', 'x.f1p': 'Setor Rp20.000 setiap hari narik', 'x.open': 'Buka', 'x.ask': 'Minta AI menganalisa',
+    'x.ml': 'TANGGA MILESTONE', 'x.mlh': 'Step 2 dari 5: Lunasi utang jangka pendek', 'x.debt': 'Pelunasan utang',
+    'x.debtp': 'Utang jangka pendek harus lunas untuk menyelesaikan Step 2 · 60% lunas', 'x.tidy': 'Rapikan data', 'x.done': 'Selesai', 'x.red': 'Keluar dari minus', 'x.active': 'STEP AKTIF',
+    'x.fh': 'Kesehatan finansial', 'x.fhp': 'Empat pilar, masing-masing maksimal 25 poin.', 'x.p1': 'Arus kas', 'x.p2': 'Tabungan', 'x.p3': 'Utang', 'x.p4': 'Perencanaan',
+    't.home': 'Beranda', 't.lad': 'Tangga', 't.log': 'Catat', 't.rep': 'Rapor', 't.pro': 'Profil',
+    'c.e': 'Kalkulator', 'c.h': 'Proyeksikan <em>tabungan Anda.</em>', 'c.p': 'Sesuaikan angka untuk memperkirakan jumlah yang terkumpul dari setoran harian yang konsisten.',
+    'c.t': 'Proyeksi Tabungan', 'c.l5': 'PERIODE', 'c.m6': '6 Bulan', 'c.m12': '1 Tahun',
+    'c.l1': 'Pendapatan Per Bulan', 'c.l2': 'Cicilan Jangka Panjang Per Bulan', 'c.l3': 'Hari Narik Per Bulan', 'c.l4': 'Setoran Per Hari Narik',
+    'c.fine': 'Ini adalah perkiraan, bukan jaminan. Tidak ada bunga yang ditambahkan karena Laju tidak memberi bunga. Budget harian mengikuti aturan di aplikasi: pendapatan dikurangi cicilan jangka panjang, dibagi 30.',
+    'sf.e': 'Keamanan', 'sf.h': 'Sedia payung <em>sebelum hujan.</em>',
+    'sf.1': 'Akses hanya baca.', 'sf.1p': 'Akses e-wallet bersifat hanya baca dan disediakan melalui penyedia open finance berlisensi.',
+    'sf.2': 'Persetujuan dapat dicabut.', 'sf.2p': 'Izin dapat dicabut dan seluruh data dapat dihapus kapan saja.',
+    'sf.3': 'Password tidak pernah disimpan.', 'sf.3p': 'Hanya hash dengan salt yang disimpan. Laju tidak pernah meminta PIN.',
+    'sf.4': 'E-statement tidak disimpan.', 'sf.4p': 'E-statement yang diunggah dibaca lalu dibuang. Berkasnya tidak disimpan.',
+    'sf.5': 'AI hanya menerima angka.', 'sf.5p': 'AI tidak pernah menerima nama, nomor ponsel, atau detail rekening.',
+    'sf.6': 'Data tidak pernah dijual.', 'sf.6p': 'Laju bukan pemberi pinjaman dan tidak menjual data.',
+    'sf.fine': 'Laju merupakan prototipe yang berfungsi. Pada demo, sambungan e-wallet disimulasikan dan memakai data contoh.',
+    'r.e': 'Ulasan', 'r.h': 'Masukan <em>pengemudi.</em>', 'r.rate': 'Ganti dengan rating dan jumlah ulasan yang terverifikasi.', 'r.who': '[Nama Pengemudi] · [Kota]',
+    'r.q1': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang pertama kali melihat skor."',
+    'r.q2': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang melunasi utang paylater."',
+    'r.q3': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang budget harian."',
+    'r.q4': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang membawa rapor ke bank."',
+    'r.q5': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang pencatatan berpapan angka."',
+    'r.q6': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang keamanan data."',
+    'r.q7': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang analisis AI."',
+    'r.q8': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang dana darurat."',
+    'g.e': 'Mulai', 'g.h': 'Langkah pertama tinggal <em>satu ketukan.</em>',
+    'g.p': 'Laju gratis digunakan, tanpa biaya dan tanpa bunga. Buka demo di browser. Demo berjalan dengan data contoh, sehingga setiap langkah aman untuk dijelajahi.',
+    'g.soon': 'Tautan Diperlukan',
+    'ft.tag': 'Kesehatan finansial untuk pengemudi ojol Indonesia.', 'ft.ex': 'Jelajahi', 'ft.tr': 'Kepercayaan', 'ft.demo': 'Demo', 'ft.ct': 'Kontak', 'ft.mail': 'Tambahkan email kontak di sini.',
+    'ft.fine': 'Laju adalah prototipe riset tim NUS untuk APRU 2026 Hackathon: Financial Health Frontiers. Laju bukan bank dan bukan pemberi pinjaman. Layar di halaman ini menampilkan data contoh.'
   };
 
   // drifting rows: copy the content once so the loop has no seam
@@ -364,6 +384,7 @@
     document.documentElement.lang = lang;
     i18nEls.forEach(e => { const k = e.dataset.i, v = lang === 'id' && ID[k] != null ? ID[k] : EN[k]; if (e.innerHTML !== v) e.innerHTML = v; });
     $$('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+    $$('[data-al]').forEach(i => i.classList.toggle('on', i.dataset.al === lang));   // the switch inside the phones follows
     document.title = STR[lang].title;
     calc();
     onScroll();
@@ -375,7 +396,7 @@
   setLang(first, false);
   window.__lajuMissing = () => Object.keys(EN).filter(k => !(k in ID));   // for checking translations
 
-  /* ---------- 9. small things ---------- */
+  /* ---------- 9. scroll effects and small things ---------- */
   // phone menu
   const menuBtn = $('#menuBtn'), navLinks = $('#navLinks');
   const closeMenu = () => { navLinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); };
@@ -386,10 +407,10 @@
   // store buttons are placeholders until real links exist
   $$('[data-placeholder]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
 
-  // big spinning coin with a real edge
+  // the big spinning coin is the Laju logo, with a real edge
   const spin = $('#spinCoin');
   if (spin) {
-    const T = 24, face = '<svg viewBox="0 0 40 40"><use href="#coin-sun"/></svg>';
+    const T = 24, face = '<svg viewBox="0 0 40 40"><use href="#coin-logo"/></svg>';
     for (let i = 0; i <= T; i++) { const e = el('i', 'edge'); e.style.transform = `translateZ(${i - T / 2}px)`; spin.append(e); }
     const a = el('div'), b = el('div');
     a.innerHTML = face; b.innerHTML = face;
@@ -397,20 +418,47 @@
     spin.append(a, b);
   }
 
-  // gentle reveal as sections arrive, and a few coins for the windowsill
-  const rv = $$('.sec .eyebrow, .sec .big, .sec .sec-lead, .feats li, .safe-list li, .window, .calc-out, .field, .ticks, .sec-get .mega, .sec-get .lead, .rating');
+  // glass cards in the hero lean toward the pointer
+  const cards = $('#heroCards');
+  if (cards && !RM && matchMedia('(hover:hover)').matches) {
+    cards.addEventListener('pointermove', e => {
+      const r = cards.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+      cards.style.setProperty('--ry', (x * 9).toFixed(2) + 'deg');
+      cards.style.setProperty('--rx', (-y * 7).toFixed(2) + 'deg');
+    });
+    cards.addEventListener('pointerleave', () => { cards.style.setProperty('--ry', '0deg'); cards.style.setProperty('--rx', '0deg'); });
+  }
+
+  // numbers count up when they arrive
+  const counters = $$('[data-count]');
+  function runCounter(e) {
+    const to = +e.dataset.count, tw = tween(v => { e.textContent = Math.round(v); }, 1400);
+    tw(0, true); tw(to);
+  }
+
+  // sections reveal as they arrive, lists arrive one row at a time
+  const rv = $$('.kicker, .hero .display, .hero-sub, .hero .cta-row, .hero-note, .stats li, .step-intro > *, .sec .eyebrow, .sec .h2, .sec .display, .sec .sec-lead, .feats li, .safe-list li, .window, .calc-card, .calc-out, .ticks, .rating, .store-row, .sec-get .cta-row');
+  $$('.feats li, .safe-list li, .stats li').forEach(li => li.style.setProperty('--dl', ([...li.parentNode.children].indexOf(li) * 0.08).toFixed(2) + 's'));
   const fan = $('.fan');
   if ('IntersectionObserver' in window && !RM) {
     rv.forEach(e => e.classList.add('rv'));
-    const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
     rv.forEach(e => io.observe(e));
     const io2 = new IntersectionObserver(es => es.forEach(en => {
       if (!en.isIntersecting) return;
       io2.unobserve(en.target);
-      if (en.target === fan) fan.classList.add('in');
+      const t = en.target;
+      if (t === fan || t === cards) t.classList.add('in');
+      else if (t.dataset.count) runCounter(t);
       else sillJars.forEach((j, i) => { setTimeout(() => j.add(true), 300 + i * 260); setTimeout(() => j.add(true), 700 + i * 260); });
-    }), { threshold: 0.35 });
+    }), { threshold: 0.3 });
     if (fan) io2.observe(fan);
+    if (cards) io2.observe(cards);
+    counters.forEach(c => io2.observe(c));
     io2.observe($('#window'));
-  } else if (fan) fan.classList.add('in');
+  } else {
+    if (fan) fan.classList.add('in');
+    if (cards) cards.classList.add('in');
+  }
 })();
