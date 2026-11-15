@@ -644,13 +644,21 @@ mark.ph{display:inline-block;background:var(--lime);color:#000;font-family:var(-
 .gate b{font-size:calc(var(--gw)*.27);line-height:.88}
 .gate p{font-size:clamp(1rem,calc(var(--gw)*.05),1.9rem);margin-top:calc(var(--gw)*.03);color:#fff}
 .gate cite{font-size:clamp(.56rem,calc(var(--gw)*.019),.74rem);margin-top:calc(var(--gw)*.04);padding-top:calc(var(--gw)*.03);border-top-color:rgba(255,255,255,.25);color:rgba(255,255,255,.75)}
-.gate-end{width:min(80vw,440px);--gy:-10px;padding:26px 24px;border-radius:24px;background:rgba(8,10,12,.62)}
-.gate-end p{font-size:clamp(1.5rem,5vw,2.1rem);margin:0 0 16px}
+.gate-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px;margin-bottom:calc(var(--gw)*.025)}
+.gate-top small{margin:0}
+.gate-top cite{margin:0;padding:0;border:0}
+/* the last sign is the same size as the others */
+.gate-end{width:var(--gw);--gy:80px;min-height:calc(var(--gw)*.5);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:calc(var(--gw)*.03);padding:calc(var(--gw)*.07) calc(var(--gw)*.075);border-radius:calc(var(--gw)*.06);background:rgba(8,10,12,.5)}
+.gate-end svg{width:calc(var(--gw)*.13);height:calc(var(--gw)*.13);margin:0}
+.gate-end p{font-size:clamp(1.7rem,calc(var(--gw)*.075),3.3rem);line-height:1.05;margin:0}
+.gate .btn{text-shadow:none;font-size:clamp(1rem,calc(var(--gw)*.03),1.2rem);padding:1.05em 1.8em;margin-top:calc(var(--gw)*.01)}
+.gate .btn svg{width:1.1em;height:1.1em;margin:0}
+.road-scene{--gy:80px}
 @media (max-width:899px){
   .road{height:680vh}
   .road-signs{top:47%}
   .road-scene{--gy:40px}
-  .gate-end{--gy:0px}
+  .gate-end{--gy:40px}
 }
 
 /* ---------- a clear break between the ride and the app ---------- */

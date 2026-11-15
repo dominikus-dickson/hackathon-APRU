@@ -189,7 +189,7 @@
   /* ---------- 5a. the road: scroll drives a camera through a 3D night ride ---------- */
   const road = $('#why'), roadWorld = $('#roadWorld'), roadScene = $('#roadScene'), roadFloor = $('.road-floor i');
   const gates = $$('.gate'), railItems = $$('#roadRail li'), roadNo = $('#roadNo'), rider = $('#rider');
-  const ROAD_END = 7400, FAR = 2600, HOLD = 70;
+  const ROAD_END = 7400, FAR_SCALE = 0.2;
   let lastZ = 0, leanTimer = 0;
   if (road && !RM) {
     // light posts along both sides give the eye something to measure depth with
@@ -212,16 +212,21 @@
     const N = gates.length, S = 1 / N;
     let active = -1;
     gates.forEach((g, i) => {
-      const last = i === N - 1, hold = last ? 170 : HOLD;
-      const t = (p - i * S) / S;                   // no overlap: one sign leaves before the next arrives
-      let d = -FAR, o = 0;
-      if (t > 0 && t < 0.28) { const e = 1 - Math.pow(1 - t / 0.28, 3); d = -FAR + (FAR - hold) * e; o = clamp(t / 0.09); }
-      else if (t >= 0.28 && (t < 0.86 || last)) { d = -hold + 36 * clamp((t - 0.28) / 0.58); o = 1; }
-      else if (t >= 0.86) { const u = clamp((t - 0.86) / 0.14); d = -hold + 36 + 150 * u * u; o = 1 - u; }
+      const last = i === N - 1;
+      // A sign starts the moment the one before it has gone, so there is no overlap and no dead time.
+      const t = (p - i * S) / S + 0.12;
+      // sc is how big the sign looks: FAR_SCALE in the distance, 1 when it is right in front of the camera
+      let sc = FAR_SCALE, o = 0;
+      if (t > 0 && t < 0.52) {                     // a slow start far away, a steady approach, a soft stop
+        const k = t / 0.52, e = k * k * (3 - 2 * k);
+        sc = FAR_SCALE + (1 - FAR_SCALE) * e; o = clamp(t / 0.1);
+      } else if (t >= 0.52 && (t < 0.9 || last)) { sc = 1; o = 1; }      // stands still and sharp, to be read
+      else if (t >= 0.9) { const u = clamp((t - 0.9) / 0.1); sc = 1 + 0.1 * u * u; o = 1 - u * u; }
+      const d = 900 - 900 / sc;                    // 900 is the camera distance set in the styles
       g.style.setProperty('--d', d.toFixed(1) + 'px');
       g.style.opacity = o.toFixed(3);
       g.style.visibility = o <= 0.01 ? 'hidden' : 'visible';
-      if (t > 0.1) active = i;
+      if (t > 0.3) active = i;
     });
     railItems.forEach((li, i) => li.classList.toggle('on', i <= active));
     const n = Math.min(Math.max(active, 0) + 1, N - 1);
@@ -410,7 +415,6 @@
     'r.q': '"Ulasan pengemudi di sini."',
     'rd.e': 'Mengapa Laju',
     'rd.h': 'Setiap hari di jalan. <em>Tanpa bukti di atas kertas.</em>',
-    'rd.p': 'Pengemudi ojol berstatus mitra, bukan karyawan, sehingga tidak ada slip gaji untuk ditunjukkan ke bank. Gulir untuk menyusuri datanya.',
     'rd.read': 'Titik Data',
     'rl.1': 'Pengemudi',
     'rl.2': 'Pendapatan',
