@@ -194,8 +194,14 @@
     setTab(heroPhone, heroPhone._tabs[i]);
   }
   const bgs = $$('.bg'), progressBar = $('#progress');
+  let pending = [];
   function measure() {
     const vh = innerHeight, mob = innerWidth < 900, trig = vh * (mob ? 0.86 : 0.62);
+    if (pending.length) pending = pending.filter(e => {
+      const r = e.getBoundingClientRect();
+      if (r.top < vh * 0.96 && r.bottom > 0) { e.classList.add('in'); return false; }
+      return true;
+    });
     const rects = steps.map(s => s.getBoundingClientRect());
     let idx = 0;
     rects.forEach((r, i) => { if (r.top < trig) idx = i + 1; });
@@ -226,10 +232,10 @@
 
   /* ---------- 6. savings pots: select a jar, a coin drops in ---------- */
   const JARS = {
-    a: { W: 200, H: 270, nw: 128, nh: 18, sh: 30, R: 26, r: 14, fill: 0.42, seed: 5 },
+    a: { W: 200, H: 270, nw: 128, nh: 18, sh: 30, R: 26, r: 14, fill: 0.25, seed: 5 },
     b: { W: 240, H: 215, nw: 186, nh: 14, sh: 22, R: 30, r: 14, fill: 0.3, seed: 8 },
-    c: { W: 214, H: 190, nw: 118, nh: 16, sh: 46, R: 52, r: 14, fill: 0.5, seed: 13 },
-    d: { W: 186, H: 244, nw: 92, nh: 26, sh: 38, R: 18, r: 14, fill: 0.24, seed: 21 }
+    c: { W: 214, H: 190, nw: 118, nh: 16, sh: 46, R: 52, r: 14, fill: 0.72, seed: 13 },
+    d: { W: 186, H: 244, nw: 92, nh: 26, sh: 38, R: 18, r: 14, fill: 0.5, seed: 21 }
   };
   const sillJars = $$('.jarbtn').map(btn => {
     const o = JARS[btn.dataset.jar], jar = buildJar($('.jar', btn), o);
@@ -250,13 +256,13 @@
 
   /* ---------- 7. calculator ---------- */
   const STR = {
-    en: { head: 'Total set aside in {t}', t6: '6 months', t12: '1 year', days: '{n} Days',
-      sub: 'A deposit of <b>{s}</b> on each of <b>{d}</b> driving days per month. The daily budget is <b>{b}</b>, so this amount covers approximately <b>{n}</b> days of spending.',
-      chip1: 'Mini Cushion Covered (3 Days)', chip2: 'Within Emergency Fund Range (3 To 6 Months)',
+    en: { head: 'Saved in {t}', t6: '6 months', t12: '1 year', days: '{n} Days',
+      sub: '<b>{s}</b> a day, <b>{d}</b> days a month. That covers about <b>{n}</b> days of spending.',
+      chip1: 'Mini Cushion Reached', chip2: 'Emergency Fund Range',
       title: 'Laju | Real Income. Real Proof.', loc: 'en-US' },
-    id: { head: 'Total disisihkan dalam {t}', t6: '6 bulan', t12: '1 tahun', days: '{n} Hari',
-      sub: 'Setoran <b>{s}</b> pada setiap <b>{d}</b> hari narik per bulan. Budget harian sebesar <b>{b}</b>, sehingga jumlah ini mencukupi sekitar <b>{n}</b> hari pengeluaran.',
-      chip1: 'Bantalan Mini Tercapai (3 Hari)', chip2: 'Dalam Rentang Dana Darurat (3 Sampai 6 Bulan)',
+    id: { head: 'Terkumpul dalam {t}', t6: '6 bulan', t12: '1 tahun', days: '{n} Hari',
+      sub: '<b>{s}</b> per hari, <b>{d}</b> hari per bulan. Cukup untuk sekitar <b>{n}</b> hari pengeluaran.',
+      chip1: 'Bantalan Mini Tercapai', chip2: 'Rentang Dana Darurat',
       title: 'Laju | Penghasilan Nyata. Bukti Nyata.', loc: 'id-ID' }
   };
   let lang = 'en', months = 12;
@@ -295,42 +301,42 @@
   const ID = {
     'skip': 'Lewati ke cara kerja',
     'n.how': 'Cara Kerja', 'n.pots': 'Pos Tabungan', 'n.app': 'Aplikasi', 'n.calc': 'Kalkulator', 'n.safe': 'Keamanan', 'n.rev': 'Ulasan', 'n.cta': 'Coba Demo',
-    'h.kick': 'Prototipe gratis untuk pengemudi ojol Indonesia',
+    'h.kick': 'Prototipe gratis untuk pengemudi ojol',
     'h.a': 'Penghasilan nyata.', 'h.b': 'Bukti nyata.',
-    'h.lead': 'Laju membaca riwayat transaksi e-wallet dengan persetujuan pengemudi, menghitung skor kesehatan finansial dari 100, dan menuntun setiap pengemudi melalui enam langkah terstruktur. Hasilnya adalah rekam jejak keuangan yang dapat dinilai bank. Slip gaji tidak diperlukan.',
+    'h.lead': 'Tanpa slip gaji? Laju mengubah riwayat e-wallet Anda menjadi rekam jejak keuangan yang bisa dibaca bank.',
     'h.cta1': 'Coba Demo', 'h.cta2': 'Cara Kerja',
-    'h.note': 'Laju bukan pemberi pinjaman. Laju tidak memungut biaya dan tidak pernah meminta PIN.',
-    'st.1': 'Poin Skor Kesehatan', 'st.2': 'Komponen Skor', 'st.3': 'Langkah Terstruktur', 'st.4': 'Hari Riwayat Terbaca',
+    'h.note': 'Bukan pemberi pinjaman. Tanpa biaya. Tidak pernah meminta PIN.',
+    'st.1': 'Poin Skor', 'st.2': 'Rupiah Biaya', 'st.3': 'Langkah Jelas', 'st.4': 'Hari Terbaca',
     'hc.l': 'Tangga Milestone', 'hc.done': 'Selesai', 'hc.act': 'Aktif', 'hc.lock': 'Terkunci', 'hc.c': 'Skor Kesehatan', 'hc.sample': 'Data Contoh', 'hc.fair': 'Cukup Sehat',
     'hc.r': 'Arus Kas Bulanan', 'hc.in': 'Pendapatan', 'hc.out': 'Pengeluaran', 'hc.inst': 'Cicilan', 'hc.save': 'Disisihkan',
     'lad.0': 'Rapikan Data', 'lad.1': 'Keluar Dari Minus', 'lad.2': 'Lunasi Utang Jangka Pendek', 'lad.3': 'Dana Darurat',
-    'si.e': 'Cara Kerja', 'si.h': 'Tiga langkah menuju rekam jejak <em>yang dapat dibaca bank.</em>',
-    'si.p': 'Setiap tahap dibangun di atas tahap sebelumnya. Gulir untuk mengikuti perjalanan pengemudi dari sambungan pertama hingga rapor yang siap dibawa ke bank.',
-    's1.e': 'Tetapkan Titik Awal', 's1.h': 'Hubungkan e-wallet.',
-    's1.p': 'Transaksi selama 30 hari diambil melalui penyedia open finance berlisensi dengan akses hanya baca. Laju kemudian menghitung skor kesehatan dari 100, berdasarkan empat pilar dan dua belas komponen. Pengemudi yang tidak ingin menghubungkan akun dapat mengunggah e-statement PDF.',
-    's1.c': 'Akses hanya baca. Riwayat 30 hari.',
-    's2.e': 'Bangun Kebiasaan', 's2.h': 'Alokasikan setiap rupiah.',
-    's2.p': 'Tangga milestone menetapkan urutan prioritas. Pengeluaran dijaga dalam batas budget harian, utang jangka pendek dilunasi, dan bantalan dibangun. Setiap setoran dicatat di satu layar berpapan angka dan dimasukkan ke pos tabungan yang tepat.',
+    'si.e': 'Cara Kerja', 'si.h': 'Tiga langkah menuju <em>siap bank.</em>',
+    'si.p': 'Gulir untuk mengikuti perjalanannya.',
+    's1.e': 'Hubungkan', 's1.h': 'Hubungkan e-wallet Anda.',
+    's1.p': 'Laju membaca riwayat 30 hari, hanya baca, lalu memberi skor dari 100.',
+    's1.c': 'Atau unggah e-statement PDF.',
+    's2.e': 'Sisihkan', 's2.h': 'Beri tempat untuk setiap rupiah.',
+    's2.p': 'Ikuti tangga satu per satu. Catat setoran dalam hitungan detik.',
     's2.c': 'Setor, ambil, atau bayar utang.',
-    's3.e': 'Tunjukkan Bukti', 's3.h': 'Bawa rapor ke bank.',
-    's3.p': 'Setiap langkah yang selesai menjadi bagian dari rekam jejak keuangan yang dapat dinilai bank. Laju bukan pemberi pinjaman. Laju membantu pengemudi menjadi layak memperoleh kredit resmi.',
-    's3.c': 'Rekam jejak terverifikasi, siap dibagikan.',
-    'src': 'Setoran', 'j.safeU': 'TABUNGAN AMAN', 'j.of65': 'dari Rp 6.500.000',
-    'j.safeT': 'Tabungan Aman', 'j.growT': 'Tabungan Tumbuh', 'j.schoolT': 'Biaya Sekolah', 'j.tiresT': 'Ban Baru',
-    'po.e': 'Pos Tabungan', 'po.h': 'Satu pos khusus <em>untuk setiap tujuan.</em>',
-    'po.p': 'Tabungan aman menampung bantalan dan dana darurat. Tabungan tumbuh disediakan untuk investasi setelah fondasi kuat. Setiap tujuan memiliki posnya sendiri. Pilih salah satu toples untuk menambah setoran.',
-    'po.j1': 'Dari Rp 6.500.000. Dana darurat.', 'po.j2': 'Untuk investasi, mulai Step 4.', 'po.j3': 'Dari Rp 2.000.000. Tujuan wajib.', 'po.j4': 'Dari Rp 600.000. Tujuan pribadi.',
-    'po.sample': 'Angka contoh. Setiap pilihan menambah Rp 10.000.',
-    'po.m0': 'Contoh tujuan:', 'po.m1': 'Servis Motor', 'po.m2': 'Biaya Sekolah', 'po.m3': 'Mudik Lebaran', 'po.m4': 'Helm Baru', 'po.m5': 'Servis Ponsel', 'po.m6': 'Sewa Rumah', 'po.m7': 'Ban Baru', 'po.m8': 'Acara Keluarga', 'po.m9': 'Jas Hujan',
-    'po.t1': 'Setiap catatan dapat dibatalkan.', 'po.t2': 'Saldo mengikuti catatan yang tersimpan.', 'po.t3': 'Tujuan wajib didahulukan sebelum tujuan tumbuh.',
-    'a.e': 'Aplikasi', 'a.h': 'Kemajuan terstruktur. <em>Rekam jejak yang dapat dibaca bank.</em>',
-    'a.p': 'Tangga terdiri atas enam langkah, dengan satu langkah aktif dalam satu waktu. Menyelesaikan satu langkah membuka langkah berikutnya. Skor mengikuti kerangka FinHealth Score dari Financial Health Network.',
-    'a.f1': 'Skor Kesehatan', 'a.f1p': 'Empat pilar dan dua belas komponen menghasilkan satu skor dari 100. Pilar tersebut adalah arus kas, tabungan, utang, dan perencanaan.',
-    'a.f2': 'Tangga Milestone', 'a.f2p': 'Rapikan data, keluar dari minus, lunasi utang jangka pendek, bangun dana darurat, berinvestasi, lalu bertumbuh.',
-    'a.f3': 'Budget Harian', 'a.f3p': 'Pendapatan dikurangi cicilan jangka panjang, dibagi 30. Satu angka yang dijaga setiap hari.',
-    'a.f4': 'Jalur Pelunasan Utang', 'a.f4p': 'Pinjol, paylater, dan rentenir dilunasi lebih dahulu. Cicilan motor dapat tetap berjalan selagi pengemudi melangkah maju.',
-    'a.f5': 'Analisis AI', 'a.f5p': 'Ringkasan dalam bahasa sederhana tentang kekuatan, prioritas, dan tindakan untuk 30 hari ke depan.',
-    'a.f6': 'Dua Bahasa', 'a.f6p': 'Aplikasi tersedia dalam bahasa Indonesia dan Inggris.',
+    's3.e': 'Buktikan', 's3.h': 'Bawa rapor Anda ke bank.',
+    's3.p': 'Setiap langkah yang selesai menjadi bukti yang bisa dinilai bank.',
+   
+    'src': 'Setoran', 'j.of65': 'dari Rp 6.500.000',
+   
+    'po.e': 'Pos Tabungan', 'po.h': 'Satu pos <em>untuk setiap tujuan.</em>',
+    'po.p': 'Ketuk toples untuk menambah setoran.',
+   
+    'po.sample': 'Angka contoh. Setiap ketukan menambah Rp 10.000.',
+   
+   
+    'a.e': 'Aplikasi', 'a.h': 'Langkah sederhana. <em>Kemajuan nyata.</em>',
+    'a.p': 'Enam langkah. Satu per satu.',
+    'a.f1': 'Skor Kesehatan', 'a.f1p': 'Satu angka dari 100.',
+    'a.f2': 'Tangga Milestone', 'a.f2p': 'Selesaikan satu langkah untuk membuka berikutnya.',
+    'a.f3': 'Budget Harian', 'a.f3p': 'Satu angka yang dijaga setiap hari.',
+    'a.f4': 'Pelunasan Utang', 'a.f4p': 'Utang mahal dilunasi lebih dahulu.',
+    'a.f5': 'Analisis AI', 'a.f5p': 'Ringkasan sederhana dan rencana 30 hari.',
+    'a.f6': 'Dua Bahasa', 'a.f6p': 'Indonesia dan Inggris.',
     // inside the phones: the app's own Indonesian wording
     'x.dash': 'DASHBOARD', 'x.hi': 'Halo, Andi', 'x.sum': 'Ringkasan keuangan Anda. Data dari isian Anda dan 2 e-wallet terverifikasi.',
     'x.your': 'Step Anda', 'x.2of6': '2 dari 6 selesai', 'x.now': 'KERJAKAN SEKARANG', 'x.s2': 'Lunasi utang jangka pendek + Bantalan mini',
@@ -345,33 +351,39 @@
     'x.ml': 'TANGGA MILESTONE', 'x.mlh': 'Step 2 dari 5: Lunasi utang jangka pendek', 'x.debt': 'Pelunasan utang',
     'x.debtp': 'Utang jangka pendek harus lunas untuk menyelesaikan Step 2 · 60% lunas', 'x.tidy': 'Rapikan data', 'x.done': 'Selesai', 'x.red': 'Keluar dari minus', 'x.active': 'STEP AKTIF',
     'x.fh': 'Kesehatan finansial', 'x.fhp': 'Empat pilar, masing-masing maksimal 25 poin.', 'x.p1': 'Arus kas', 'x.p2': 'Tabungan', 'x.p3': 'Utang', 'x.p4': 'Perencanaan',
+    'j.efU': 'DANA DARURAT',
+    'j.houseT': 'Beli Rumah',
+    'j.investT': 'Investasi',
+    'j.efT': 'Dana Darurat',
+    'j.dailyT': 'Keperluan Sehari-hari',
+    'r.q': '"Ulasan pengemudi di sini."',
     't.home': 'Beranda', 't.lad': 'Tangga', 't.log': 'Catat', 't.rep': 'Rapor', 't.pro': 'Profil',
-    'c.e': 'Kalkulator', 'c.h': 'Proyeksikan <em>tabungan Anda.</em>', 'c.p': 'Sesuaikan angka untuk memperkirakan jumlah yang terkumpul dari setoran harian yang konsisten.',
+    'c.e': 'Kalkulator', 'c.h': 'Proyeksikan <em>tabungan Anda.</em>', 'c.p': 'Geser angkanya.',
     'c.t': 'Proyeksi Tabungan', 'c.l5': 'PERIODE', 'c.m6': '6 Bulan', 'c.m12': '1 Tahun',
-    'c.l1': 'Pendapatan Per Bulan', 'c.l2': 'Cicilan Jangka Panjang Per Bulan', 'c.l3': 'Hari Narik Per Bulan', 'c.l4': 'Setoran Per Hari Narik',
-    'c.fine': 'Ini adalah perkiraan, bukan jaminan. Tidak ada bunga yang ditambahkan karena Laju tidak memberi bunga. Budget harian mengikuti aturan di aplikasi: pendapatan dikurangi cicilan jangka panjang, dibagi 30.',
+    'c.l1': 'Pendapatan Bulanan', 'c.l2': 'Cicilan Bulanan', 'c.l3': 'Hari Narik', 'c.l4': 'Setoran Harian',
+    'c.fine': 'Perkiraan. Tanpa tambahan bunga.',
     'sf.e': 'Keamanan', 'sf.h': 'Sedia payung <em>sebelum hujan.</em>',
-    'sf.1': 'Akses hanya baca.', 'sf.1p': 'Akses e-wallet bersifat hanya baca dan disediakan melalui penyedia open finance berlisensi.',
-    'sf.2': 'Persetujuan dapat dicabut.', 'sf.2p': 'Izin dapat dicabut dan seluruh data dapat dihapus kapan saja.',
-    'sf.3': 'Password tidak pernah disimpan.', 'sf.3p': 'Hanya hash dengan salt yang disimpan. Laju tidak pernah meminta PIN.',
-    'sf.4': 'E-statement tidak disimpan.', 'sf.4p': 'E-statement yang diunggah dibaca lalu dibuang. Berkasnya tidak disimpan.',
-    'sf.5': 'AI hanya menerima angka.', 'sf.5p': 'AI tidak pernah menerima nama, nomor ponsel, atau detail rekening.',
-    'sf.6': 'Data tidak pernah dijual.', 'sf.6p': 'Laju bukan pemberi pinjaman dan tidak menjual data.',
-    'sf.fine': 'Laju merupakan prototipe yang berfungsi. Pada demo, sambungan e-wallet disimulasikan dan memakai data contoh.',
-    'r.e': 'Ulasan', 'r.h': 'Masukan <em>pengemudi.</em>', 'r.rate': 'Ganti dengan rating dan jumlah ulasan yang terverifikasi.', 'r.who': '[Nama Pengemudi] · [Kota]',
-    'r.q1': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang pertama kali melihat skor."',
-    'r.q2': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang melunasi utang paylater."',
-    'r.q3': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang budget harian."',
-    'r.q4': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang membawa rapor ke bank."',
-    'r.q5': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang pencatatan berpapan angka."',
-    'r.q6': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang keamanan data."',
-    'r.q7': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang analisis AI."',
-    'r.q8': '"Ulasan contoh. Ganti dengan pernyataan pengemudi tentang dana darurat."',
+    'sf.1': 'Hanya baca.', 'sf.1p': 'Laju hanya melihat. Tidak bisa memindahkan uang.',
+    'sf.2': 'Anda yang memegang kendali.', 'sf.2p': 'Cabut izin dan hapus data kapan saja.',
+    'sf.3': 'Tidak pernah meminta PIN.', 'sf.3p': 'Password tidak pernah disimpan.',
+    'sf.4': 'E-statement tidak disimpan.', 'sf.4p': 'PDF dibaca, lalu dibuang.',
+    'sf.5': 'AI hanya melihat angka.', 'sf.5p': 'Tanpa nama, nomor ponsel, atau rekening.',
+    'sf.6': 'Tidak pernah dijual.', 'sf.6p': 'Data Anda tidak diperjualbelikan.',
+    'sf.fine': 'Prototipe. Demo memakai data contoh.',
+    'r.e': 'Ulasan', 'r.h': 'Masukan <em>pengemudi.</em>', 'r.rate': 'Isi rating terverifikasi di sini.', 'r.who': '[Nama Pengemudi] · [Kota]',
+   
+   
+   
+   
+   
+   
+   
+   
     'g.e': 'Mulai', 'g.h': 'Langkah pertama tinggal <em>satu ketukan.</em>',
-    'g.p': 'Laju gratis digunakan, tanpa biaya dan tanpa bunga. Buka demo di browser. Demo berjalan dengan data contoh, sehingga setiap langkah aman untuk dijelajahi.',
+    'g.p': 'Gratis. Tanpa biaya. Coba langsung di browser.',
     'g.soon': 'Tautan Diperlukan',
     'ft.tag': 'Kesehatan finansial untuk pengemudi ojol Indonesia.', 'ft.ex': 'Jelajahi', 'ft.tr': 'Kepercayaan', 'ft.demo': 'Demo', 'ft.ct': 'Kontak', 'ft.mail': 'Tambahkan email kontak di sini.',
-    'ft.fine': 'Laju adalah prototipe riset tim NUS untuk APRU 2026 Hackathon: Financial Health Frontiers. Laju bukan bank dan bukan pemberi pinjaman. Layar di halaman ini menampilkan data contoh.'
+    'ft.fine': 'Prototipe riset tim NUS untuk APRU 2026 Hackathon. Bukan bank. Bukan pemberi pinjaman. Layar menampilkan data contoh.'
   };
 
   // drifting rows: copy the content once so the loop has no seam
@@ -438,12 +450,13 @@
   }
 
   // sections reveal as they arrive, lists arrive one row at a time
-  const rv = $$('.kicker, .hero .display, .hero-sub, .hero .cta-row, .hero-note, .stats li, .step-intro > *, .sec .eyebrow, .sec .h2, .sec .display, .sec .sec-lead, .feats li, .safe-list li, .window, .calc-card, .calc-out, .ticks, .rating, .store-row, .sec-get .cta-row');
-  $$('.feats li, .safe-list li, .stats li').forEach(li => li.style.setProperty('--dl', ([...li.parentNode.children].indexOf(li) * 0.08).toFixed(2) + 's'));
+  const rv = $$('.step-intro > *,.sec .eyebrow, .sec .h2, .sec .display, .sec .sec-lead, .feats li, .safe-list li, .window, .calc-card, .calc-out, .ticks, .rating, .store-row, .sec-get .cta-row');
+  $$('.feats li, .safe-list li').forEach(li => li.style.setProperty('--dl', ([...li.parentNode.children].indexOf(li) * 0.08).toFixed(2) + 's'));
   const fan = $('.fan');
   if ('IntersectionObserver' in window && !RM) {
     rv.forEach(e => e.classList.add('rv'));
-    const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+    pending = rv.slice(); onScroll();           // a second, scroll based check so nothing can stay hidden
+    const io =new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
     rv.forEach(e => io.observe(e));
     const io2 = new IntersectionObserver(es => es.forEach(en => {
       if (!en.isIntersecting) return;
