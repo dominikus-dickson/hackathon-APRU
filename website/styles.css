@@ -632,3 +632,31 @@ mark.ph{display:inline-block;background:var(--lime);color:#000;font-family:var(-
   .road-list{position:static;width:min(100% - var(--gut)*2,900px);height:auto;margin:30px auto 0;overflow:visible;clip:auto;white-space:normal;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
   .road-list li{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--glass)}
 }
+
+
+/* ---------- road signs v2: each figure comes right up to the screen and stays long enough to read ---------- */
+.road{height:720vh}
+.road-signs{position:absolute;left:50%;top:42%;width:0;height:0;transform-style:preserve-3d}
+.road-scene{--gw:min(86vw,720px);--gy:110px}
+.gate{width:var(--gw);padding:calc(var(--gw)*.07) calc(var(--gw)*.075);border-radius:calc(var(--gw)*.06);transform:translate3d(-50%,calc(var(--gy) - 50%),var(--d,-2600px));background:rgba(8,10,12,.44);border:1px solid rgba(var(--l),.5);box-shadow:0 0 0 1px rgba(255,255,255,.06),0 0 70px -24px rgba(var(--l),.3);text-shadow:0 2px 16px rgba(0,0,0,.95),0 0 3px rgba(0,0,0,.9);will-change:transform,opacity}
+.gate::after{display:none}
+.gate small{font-size:clamp(.62rem,calc(var(--gw)*.022),.85rem);margin-bottom:calc(var(--gw)*.02)}
+.gate b{font-size:calc(var(--gw)*.27);line-height:.88}
+.gate p{font-size:clamp(1rem,calc(var(--gw)*.05),1.9rem);margin-top:calc(var(--gw)*.03);color:#fff}
+.gate cite{font-size:clamp(.56rem,calc(var(--gw)*.019),.74rem);margin-top:calc(var(--gw)*.04);padding-top:calc(var(--gw)*.03);border-top-color:rgba(255,255,255,.25);color:rgba(255,255,255,.75)}
+.gate-end{width:min(80vw,440px);--gy:-10px;padding:26px 24px;border-radius:24px;background:rgba(8,10,12,.62)}
+.gate-end p{font-size:clamp(1.5rem,5vw,2.1rem);margin:0 0 16px}
+@media (max-width:899px){
+  .road{height:680vh}
+  .road-signs{top:47%}
+  .road-scene{--gy:40px}
+  .gate-end{--gy:0px}
+}
+
+/* ---------- a clear break between the ride and the app ---------- */
+.chapter{display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(110px,13vw,180px) 0 clamp(36px,6vw,80px)}
+.chapter-line{position:relative;display:block;width:1px;height:100px;margin-bottom:30px;background:linear-gradient(180deg,transparent,var(--lime))}
+.chapter-line::after{content:"";position:absolute;left:50%;bottom:-5px;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:var(--lime);box-shadow:0 0 14px rgba(var(--l),.5)}
+.chapter .eyebrow{margin-bottom:18px}
+.chapter .sec-lead{margin-top:20px}
+@media (prefers-reduced-motion:reduce){.road{height:auto}}

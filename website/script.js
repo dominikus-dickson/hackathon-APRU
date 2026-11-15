@@ -189,7 +189,7 @@
   /* ---------- 5a. the road: scroll drives a camera through a 3D night ride ---------- */
   const road = $('#why'), roadWorld = $('#roadWorld'), roadScene = $('#roadScene'), roadFloor = $('.road-floor i');
   const gates = $$('.gate'), railItems = $$('#roadRail li'), roadNo = $('#roadNo'), rider = $('#rider');
-  const SP = 1300, ROAD_END = gates.length * SP - 380;
+  const ROAD_END = 7400, FAR = 2600, HOLD = 70;
   let lastZ = 0, leanTimer = 0;
   if (road && !RM) {
     // light posts along both sides give the eye something to measure depth with
@@ -207,18 +207,25 @@
     roadWorld.style.transform = `translateZ(${z.toFixed(1)}px)`;
     roadFloor.style.transform = `translateY(${(-(z % 160)).toFixed(1)}px)`;
     roadScene.style.setProperty('--rp', p.toFixed(3));
+    // Each sign gets its own stretch of scrolling: it rushes in from the distance,
+    // stops right in front of the camera and stays there to be read, then lets go.
+    const N = gates.length, S = 1 / N;
     let active = -1;
     gates.forEach((g, i) => {
-      const d = z - (i + 1) * SP;                  // negative means the sign is still ahead
-      const last = i === gates.length - 1;
-      const o = d < -3000 ? 0 : d < -1900 ? (d + 3000) / 1100 : (d < -120 || last) ? 1 : d < 250 ? 1 - (d + 120) / 370 : 0;
+      const last = i === N - 1, hold = last ? 170 : HOLD;
+      const t = (p - i * S) / S;                   // no overlap: one sign leaves before the next arrives
+      let d = -FAR, o = 0;
+      if (t > 0 && t < 0.28) { const e = 1 - Math.pow(1 - t / 0.28, 3); d = -FAR + (FAR - hold) * e; o = clamp(t / 0.09); }
+      else if (t >= 0.28 && (t < 0.86 || last)) { d = -hold + 36 * clamp((t - 0.28) / 0.58); o = 1; }
+      else if (t >= 0.86) { const u = clamp((t - 0.86) / 0.14); d = -hold + 36 + 150 * u * u; o = 1 - u; }
+      g.style.setProperty('--d', d.toFixed(1) + 'px');
       g.style.opacity = o.toFixed(3);
       g.style.visibility = o <= 0.01 ? 'hidden' : 'visible';
-      if (d > -1150) active = i;
+      if (t > 0.1) active = i;
     });
     railItems.forEach((li, i) => li.classList.toggle('on', i <= active));
-    const n = Math.min(Math.max(active, 0) + 1, gates.length - 1);
-    roadNo.textContent = String(n).padStart(2, '0') + ' / ' + String(gates.length - 1).padStart(2, '0');
+    const n = Math.min(Math.max(active, 0) + 1, N - 1);
+    roadNo.textContent = String(n).padStart(2, '0') + ' / ' + String(N - 1).padStart(2, '0');
     // the rider leans a little with speed, then straightens up
     const v = z - lastZ; lastZ = z;
     if (Math.abs(v) > 0.5) {
@@ -246,9 +253,10 @@
     });
     const rects = steps.map(s => s.getBoundingClientRect());
     let idx = 0;
-    rects.forEach((r, i) => { if (r.top < trig) idx = i + 1; });
+    const lead = mob ? 0 : 0.3;                   // on desktop a step starts once its text is well in view
+    rects.forEach((r, i) => { if (r.top + r.height * lead < trig) idx = i + 1; });
     setStep(idx);
-    const start = rects[0].top, end = rects[2].top + rects[2].height * (mob ? 0.2 : 0.38);
+    const start = rects[0].top + rects[0].height * lead, end = rects[2].top + rects[2].height * (mob ? 0.2 : 0.38);
     const p = clamp((trig - start) / (end - start));
     target = INIT + Math.round(p * (TOTAL - INIT));
     story.style.setProperty('--glow', p.toFixed(3));
@@ -532,7 +540,7 @@
   }
 
   // sections reveal as they arrive, lists arrive one row at a time
-  const rv = $$('.step-intro > *,.sec .eyebrow, .sec .h2, .sec .display, .sec .sec-lead, .feats li, .safe-list li, .window, .calc-card, .calc-out, .ticks, .rating, .store-row, .sec-get .cta-row');
+  const rv = $$('.chapter > *, .mini, .sec .eyebrow,.sec .h2, .sec .display, .sec .sec-lead, .feats li, .safe-list li, .window, .calc-card, .calc-out, .ticks, .rating, .store-row, .sec-get .cta-row');
   $$('.feats li, .safe-list li').forEach(li => li.style.setProperty('--dl', ([...li.parentNode.children].indexOf(li) * 0.08).toFixed(2) + 's'));
   const fan = $('.fan');
   if ('IntersectionObserver' in window && !RM) {
