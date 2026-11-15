@@ -186,6 +186,48 @@
     }
   };
 
+  /* ---------- 5a. the road: scroll drives a camera through a 3D night ride ---------- */
+  const road = $('#why'), roadWorld = $('#roadWorld'), roadScene = $('#roadScene'), roadFloor = $('.road-floor i');
+  const gates = $$('.gate'), railItems = $$('#roadRail li'), roadNo = $('#roadNo'), rider = $('#rider');
+  const SP = 1300, ROAD_END = gates.length * SP - 380;
+  let lastZ = 0, leanTimer = 0;
+  if (road && !RM) {
+    // light posts along both sides give the eye something to measure depth with
+    for (let z = 300; z < ROAD_END + 2600; z += 520) [-430, 430].forEach(x => {
+      const post = el('i', 'post');
+      post.style.setProperty('--px', x + 'px'); post.style.setProperty('--pz', -z + 'px');
+      roadWorld.append(post);
+    });
+  }
+  function roadFrame() {
+    if (!road || RM) return;
+    const r = road.getBoundingClientRect(), vh = innerHeight;
+    if (r.bottom < -100 || r.top > vh + 100) return;
+    const p = clamp(-r.top / (r.height - vh)), z = p * ROAD_END;
+    roadWorld.style.transform = `translateZ(${z.toFixed(1)}px)`;
+    roadFloor.style.transform = `translateY(${(-(z % 160)).toFixed(1)}px)`;
+    roadScene.style.setProperty('--rp', p.toFixed(3));
+    let active = -1;
+    gates.forEach((g, i) => {
+      const d = z - (i + 1) * SP;                  // negative means the sign is still ahead
+      const last = i === gates.length - 1;
+      const o = d < -3000 ? 0 : d < -1900 ? (d + 3000) / 1100 : (d < -120 || last) ? 1 : d < 250 ? 1 - (d + 120) / 370 : 0;
+      g.style.opacity = o.toFixed(3);
+      g.style.visibility = o <= 0.01 ? 'hidden' : 'visible';
+      if (d > -1150) active = i;
+    });
+    railItems.forEach((li, i) => li.classList.toggle('on', i <= active));
+    const n = Math.min(Math.max(active, 0) + 1, gates.length - 1);
+    roadNo.textContent = String(n).padStart(2, '0') + ' / ' + String(gates.length - 1).padStart(2, '0');
+    // the rider leans a little with speed, then straightens up
+    const v = z - lastZ; lastZ = z;
+    if (Math.abs(v) > 0.5) {
+      rider.style.setProperty('--lean', clamp(v * 0.05, -4, 4).toFixed(2) + 'deg');
+      clearTimeout(leanTimer);
+      leanTimer = setTimeout(() => rider.style.setProperty('--lean', '0deg'), 180);
+    }
+  }
+
   let step = -1;
   function setStep(i) {
     if (i === step) return;
@@ -214,6 +256,7 @@
     const max = document.documentElement.scrollHeight - vh;
     progressBar.style.setProperty('--sp', max > 0 ? (scrollY / max).toFixed(4) : 0);
     document.documentElement.style.setProperty('--hs', clamp(scrollY / vh).toFixed(3));
+    roadFrame();
     if (!RM) bgs.forEach(b => {
       const r = b.getBoundingClientRect();
       if (r.bottom < -200 || r.top > vh + 200) return;
@@ -257,11 +300,11 @@
   /* ---------- 7. calculator ---------- */
   const STR = {
     en: { head: 'Saved in {t}', t6: '6 months', t12: '1 year', days: '{n} Days',
-      sub: '<b>{s}</b> a day, <b>{d}</b> days a month. That covers about <b>{n}</b> days of spending.',
+      sub: '<b>{s}</b> a day on <b>{d}</b> driving days a month. With a daily budget of <b>{b}</b>, that covers about <b>{n}</b> days of spending.',
       chip1: 'Mini Cushion Reached', chip2: 'Emergency Fund Range',
       title: 'Laju | Real Income. Real Proof.', loc: 'en-US' },
     id: { head: 'Terkumpul dalam {t}', t6: '6 bulan', t12: '1 tahun', days: '{n} Hari',
-      sub: '<b>{s}</b> per hari, <b>{d}</b> hari per bulan. Cukup untuk sekitar <b>{n}</b> hari pengeluaran.',
+      sub: '<b>{s}</b> per hari pada <b>{d}</b> hari narik per bulan. Dengan budget harian <b>{b}</b>, jumlah itu cukup untuk sekitar <b>{n}</b> hari pengeluaran.',
       chip1: 'Bantalan Mini Tercapai', chip2: 'Rentang Dana Darurat',
       title: 'Laju | Penghasilan Nyata. Bukti Nyata.', loc: 'id-ID' }
   };
@@ -303,7 +346,7 @@
     'n.how': 'Cara Kerja', 'n.pots': 'Pos Tabungan', 'n.app': 'Aplikasi', 'n.calc': 'Kalkulator', 'n.safe': 'Keamanan', 'n.rev': 'Ulasan', 'n.cta': 'Coba Demo',
     'h.kick': 'Prototipe gratis untuk pengemudi ojol',
     'h.a': 'Penghasilan nyata.', 'h.b': 'Bukti nyata.',
-    'h.lead': 'Tanpa slip gaji? Laju mengubah riwayat e-wallet Anda menjadi rekam jejak keuangan yang bisa dibaca bank.',
+    'h.lead': 'Tanpa slip gaji? Laju membaca riwayat e-wallet Anda dengan izin Anda, memberi skor kesehatan finansial dari 100, dan menuntun Anda melalui enam langkah jelas menuju rekam jejak yang bisa dibaca bank.',
     'h.cta1': 'Coba Demo', 'h.cta2': 'Cara Kerja',
     'h.note': 'Bukan pemberi pinjaman. Tanpa biaya. Tidak pernah meminta PIN.',
     'st.1': 'Poin Skor', 'st.2': 'Rupiah Biaya', 'st.3': 'Langkah Jelas', 'st.4': 'Hari Terbaca',
@@ -311,32 +354,32 @@
     'hc.r': 'Arus Kas Bulanan', 'hc.in': 'Pendapatan', 'hc.out': 'Pengeluaran', 'hc.inst': 'Cicilan', 'hc.save': 'Disisihkan',
     'lad.0': 'Rapikan Data', 'lad.1': 'Keluar Dari Minus', 'lad.2': 'Lunasi Utang Jangka Pendek', 'lad.3': 'Dana Darurat',
     'si.e': 'Cara Kerja', 'si.h': 'Tiga langkah menuju <em>siap bank.</em>',
-    'si.p': 'Gulir untuk mengikuti perjalanannya.',
+    'si.p': 'Setiap langkah dibangun di atas langkah sebelumnya. Gulir untuk mengikuti seorang pengemudi dari sambungan pertama hingga rapor yang bisa dibaca bank.',
     's1.e': 'Hubungkan', 's1.h': 'Hubungkan e-wallet Anda.',
-    's1.p': 'Laju membaca riwayat 30 hari, hanya baca, lalu memberi skor dari 100.',
+    's1.p': 'Transaksi 30 hari dibaca lewat penyedia open finance berlisensi, dengan akses hanya baca. Dari riwayat itu, Laju menghitung skor kesehatan dari 100 berdasarkan empat pilar.',
     's1.c': 'Atau unggah e-statement PDF.',
     's2.e': 'Sisihkan', 's2.h': 'Beri tempat untuk setiap rupiah.',
-    's2.p': 'Ikuti tangga satu per satu. Catat setoran dalam hitungan detik.',
+    's2.p': 'Tangga menunjukkan mana yang didahulukan: belanja dalam batas budget harian, lunasi utang yang paling mahal, lalu bangun bantalan. Setiap setoran dicatat di satu layar berpapan angka.',
     's2.c': 'Setor, ambil, atau bayar utang.',
     's3.e': 'Buktikan', 's3.h': 'Bawa rapor Anda ke bank.',
-    's3.p': 'Setiap langkah yang selesai menjadi bukti yang bisa dinilai bank.',
+    's3.p': 'Setiap langkah yang selesai menjadi bagian dari rekam jejak keuangan yang bisa dinilai bank. Laju bukan pemberi pinjaman. Laju membantu pengemudi menjadi layak memperoleh kredit resmi.',
    
     'src': 'Setoran', 'j.of65': 'dari Rp 6.500.000',
    
     'po.e': 'Pos Tabungan', 'po.h': 'Satu pos <em>untuk setiap tujuan.</em>',
-    'po.p': 'Ketuk toples untuk menambah setoran.',
+    'po.p': 'Setiap tujuan punya posnya sendiri, sehingga uang untuk rumah tidak tercampur dengan uang kebutuhan harian. Ketuk toples untuk menambah setoran.',
    
     'po.sample': 'Angka contoh. Setiap ketukan menambah Rp 10.000.',
    
    
     'a.e': 'Aplikasi', 'a.h': 'Langkah sederhana. <em>Kemajuan nyata.</em>',
-    'a.p': 'Enam langkah. Satu per satu.',
-    'a.f1': 'Skor Kesehatan', 'a.f1p': 'Satu angka dari 100.',
-    'a.f2': 'Tangga Milestone', 'a.f2p': 'Selesaikan satu langkah untuk membuka berikutnya.',
-    'a.f3': 'Budget Harian', 'a.f3p': 'Satu angka yang dijaga setiap hari.',
-    'a.f4': 'Pelunasan Utang', 'a.f4p': 'Utang mahal dilunasi lebih dahulu.',
-    'a.f5': 'Analisis AI', 'a.f5p': 'Ringkasan sederhana dan rencana 30 hari.',
-    'a.f6': 'Dua Bahasa', 'a.f6p': 'Indonesia dan Inggris.',
+    'a.p': 'Aplikasi mengubah satu tujuan besar menjadi enam langkah kecil, dengan satu langkah aktif dalam satu waktu. Selesaikan satu langkah dan langkah berikutnya terbuka. Di baliknya ada skor yang mengikuti kerangka FinHealth Score dari Financial Health Network.',
+    'a.f1': 'Skor Kesehatan', 'a.f1p': 'Empat pilar dan dua belas komponen menghasilkan satu angka dari 100, sehingga Anda selalu tahu posisi Anda.',
+    'a.f2': 'Tangga Milestone', 'a.f2p': 'Rapikan data, keluar dari minus, lunasi utang jangka pendek, bangun dana darurat, berinvestasi, lalu bertumbuh.',
+    'a.f3': 'Budget Harian', 'a.f3p': 'Pendapatan dikurangi cicilan jangka panjang, dibagi 30. Satu angka yang dijaga setiap hari.',
+    'a.f4': 'Pelunasan Utang', 'a.f4p': 'Pinjol, paylater, dan rentenir dilunasi lebih dulu. Cicilan motor boleh tetap berjalan.',
+    'a.f5': 'Analisis AI', 'a.f5p': 'Ringkasan dalam bahasa sederhana tentang apa yang sudah baik, apa yang perlu dibenahi, dan apa yang dikerjakan 30 hari ke depan.',
+    'a.f6': 'Dua Bahasa', 'a.f6p': 'Pakai aplikasi dalam bahasa Indonesia atau Inggris.',
     // inside the phones: the app's own Indonesian wording
     'x.dash': 'DASHBOARD', 'x.hi': 'Halo, Andi', 'x.sum': 'Ringkasan keuangan Anda. Data dari isian Anda dan 2 e-wallet terverifikasi.',
     'x.your': 'Step Anda', 'x.2of6': '2 dari 6 selesai', 'x.now': 'KERJAKAN SEKARANG', 'x.s2': 'Lunasi utang jangka pendek + Bantalan mini',
@@ -357,19 +400,58 @@
     'j.efT': 'Dana Darurat',
     'j.dailyT': 'Keperluan Sehari-hari',
     'r.q': '"Ulasan pengemudi di sini."',
+    'rd.e': 'Mengapa Laju',
+    'rd.h': 'Setiap hari di jalan. <em>Tanpa bukti di atas kertas.</em>',
+    'rd.p': 'Pengemudi ojol berstatus mitra, bukan karyawan, sehingga tidak ada slip gaji untuk ditunjukkan ke bank. Gulir untuk menyusuri datanya.',
+    'rd.read': 'Titik Data',
+    'rl.1': 'Pengemudi',
+    'rl.2': 'Pendapatan',
+    'rl.3': 'Utang',
+    'rl.4': 'Telat Bayar',
+    'rl.5': 'Tabungan',
+    'g1n': '7 Juta+',
+    'g1': 'Mitra ojol di seluruh Indonesia.',
+    'g1s': 'Kemenhub, Juli 2025',
+    'g2': 'Berpenghasilan bersih di bawah Rp100.000 per hari.',
+    'gs.ideas': 'Survei IDEAS, Agustus 2026',
+    'g3': 'Masih punya utang atau cicilan berjalan.',
+    'g4n': '79,7%',
+    'g4': 'Dari yang berutang, pernah telat bayar dalam tiga bulan terakhir.',
+    'g5': 'Pekerja gig yang punya tabungan darurat.',
+    'g5s': 'Bank Dunia 2023, Dikutip 360info',
+    'g6': 'Laju mengubah perjalanan itu menjadi rekam jejak.',
+    'g6b': 'Lihat Cara Kerja',
+    'm1a': 'Hanya Baca',
+    'm1ap': 'Laju hanya melihat. Tidak bisa memindahkan uang.',
+    'm1b': '30 Hari',
+    'm1bp': 'Satu bulan transaksi nyata.',
+    'm1c': '4 Pilar',
+    'm1cp': 'Arus kas, tabungan, utang, perencanaan.',
+    'm2a': 'Budget Harian',
+    'm2ap': 'Pendapatan dikurangi cicilan, dibagi 30.',
+    'm2b': 'Utang Mahal Dulu',
+    'm2bp': 'Pinjol dan paylater dilunasi lebih dulu.',
+    'm2c': 'Bantalan Mini',
+    'm2cp': 'Tiga hari pengeluaran pokok.',
+    'm3a': 'Terverifikasi',
+    'm3ap': 'Didukung data e-wallet, paling lama 30 hari.',
+    'm3b': 'Izin Anda',
+    'm3bp': 'Tidak ada yang dibagikan tanpa izin Anda.',
+    'm3c': 'Bukan Pinjaman',
+    'm3cp': 'Laju tidak meminjamkan uang.',
     't.home': 'Beranda', 't.lad': 'Tangga', 't.log': 'Catat', 't.rep': 'Rapor', 't.pro': 'Profil',
-    'c.e': 'Kalkulator', 'c.h': 'Proyeksikan <em>tabungan Anda.</em>', 'c.p': 'Geser angkanya.',
+    'c.e': 'Kalkulator', 'c.h': 'Proyeksikan <em>tabungan Anda.</em>', 'c.p': 'Geser angkanya untuk melihat bagaimana setoran harian yang kecil terkumpul dalam enam bulan atau setahun.',
     'c.t': 'Proyeksi Tabungan', 'c.l5': 'PERIODE', 'c.m6': '6 Bulan', 'c.m12': '1 Tahun',
     'c.l1': 'Pendapatan Bulanan', 'c.l2': 'Cicilan Bulanan', 'c.l3': 'Hari Narik', 'c.l4': 'Setoran Harian',
-    'c.fine': 'Perkiraan. Tanpa tambahan bunga.',
+    'c.fine': 'Perkiraan, bukan janji. Tidak ada bunga yang ditambahkan karena Laju tidak memberi bunga.',
     'sf.e': 'Keamanan', 'sf.h': 'Sedia payung <em>sebelum hujan.</em>',
-    'sf.1': 'Hanya baca.', 'sf.1p': 'Laju hanya melihat. Tidak bisa memindahkan uang.',
-    'sf.2': 'Anda yang memegang kendali.', 'sf.2p': 'Cabut izin dan hapus data kapan saja.',
-    'sf.3': 'Tidak pernah meminta PIN.', 'sf.3p': 'Password tidak pernah disimpan.',
-    'sf.4': 'E-statement tidak disimpan.', 'sf.4p': 'PDF dibaca, lalu dibuang.',
-    'sf.5': 'AI hanya melihat angka.', 'sf.5p': 'Tanpa nama, nomor ponsel, atau rekening.',
-    'sf.6': 'Tidak pernah dijual.', 'sf.6p': 'Data Anda tidak diperjualbelikan.',
-    'sf.fine': 'Prototipe. Demo memakai data contoh.',
+    'sf.1': 'Hanya baca.', 'sf.1p': 'Akses e-wallet lewat penyedia open finance berlisensi. Laju hanya melihat, tidak bisa memindahkan uang.',
+    'sf.2': 'Anda yang memegang kendali.', 'sf.2p': 'Cabut izin dan hapus seluruh data Anda kapan saja.',
+    'sf.3': 'Tidak pernah meminta PIN.', 'sf.3p': 'Password tidak pernah disimpan, hanya hash dengan salt. Laju tidak pernah meminta PIN.',
+    'sf.4': 'E-statement tidak disimpan.', 'sf.4p': 'E-statement PDF yang diunggah dibaca, lalu dibuang.',
+    'sf.5': 'AI hanya melihat angka.', 'sf.5p': 'AI tidak pernah menerima nama, nomor ponsel, atau detail rekening Anda.',
+    'sf.6': 'Tidak pernah dijual.', 'sf.6p': 'Laju bukan pemberi pinjaman dan tidak menjual data.',
+    'sf.fine': 'Laju adalah prototipe yang berfungsi. Demo memakai sambungan e-wallet simulasi dan data contoh.',
     'r.e': 'Ulasan', 'r.h': 'Masukan <em>pengemudi.</em>', 'r.rate': 'Isi rating terverifikasi di sini.', 'r.who': '[Nama Pengemudi] · [Kota]',
    
    
@@ -380,7 +462,7 @@
    
    
     'g.e': 'Mulai', 'g.h': 'Langkah pertama tinggal <em>satu ketukan.</em>',
-    'g.p': 'Gratis. Tanpa biaya. Coba langsung di browser.',
+    'g.p': 'Laju gratis, tanpa biaya dan tanpa bunga. Buka demo di browser Anda. Demo memakai data contoh, jadi setiap langkah aman dijelajahi.',
     'g.soon': 'Tautan Diperlukan',
     'ft.tag': 'Kesehatan finansial untuk pengemudi ojol Indonesia.', 'ft.ex': 'Jelajahi', 'ft.tr': 'Kepercayaan', 'ft.demo': 'Demo', 'ft.ct': 'Kontak', 'ft.mail': 'Tambahkan email kontak di sini.',
     'ft.fine': 'Prototipe riset tim NUS untuk APRU 2026 Hackathon. Bukan bank. Bukan pemberi pinjaman. Layar menampilkan data contoh.'
