@@ -68,10 +68,10 @@
       let left = r() * 112;
       if (dry) left = r() < 0.5 ? r() * 16 : 92 + r() * 22;   // keep it dry under the umbrella
       d.style.left = left.toFixed(1) + '%';
-      d.style.height = (24 + r() * 34).toFixed(0) + 'px';
-      d.style.setProperty('--d', (0.9 + r() * 1.1).toFixed(2) + 's');
+      d.style.height = (34 + r() * 40).toFixed(0) + 'px';                 // a heavier downpour: longer, faster drops
+      d.style.setProperty('--d', (0.5 + r() * 0.55).toFixed(2) + 's');
       d.style.setProperty('--dl', (-r() * 2).toFixed(2) + 's');
-      d.style.setProperty('--o', (0.22 + r() * 0.42).toFixed(2));
+      d.style.setProperty('--o', (0.35 + r() * 0.45).toFixed(2));
       box.append(d);
     }
   });
@@ -229,6 +229,8 @@
       end.classList.remove('compact');
       if (end.offsetHeight > room) end.classList.add('compact');
     }
+    // On very short windows even the smallest layout can be too tall, so the sign is scaled down to fit.
+    gates.forEach(g => { g.style.scale = ''; const h = g.offsetHeight; if (h > room) g.style.scale = (room / h).toFixed(3); });
     const centre = (top + bottom) / 2 - H * (W < 900 ? 0.47 : 0.42);   // the signs layer sits at 42% (47% on phones)
     gates.forEach(g => g.style.setProperty('--gy', centre.toFixed(0) + 'px'));
   }
@@ -336,6 +338,25 @@
     // a plain timer, so the page never stays frozen even in a background tab
     jumpTimer = setTimeout(() => { jumping = false; document.documentElement.classList.remove('jump'); }, 160);
   }
+  // "See How It Works" at the end of the ride glides down instead of jumping:
+  // a slow start, a steady pull and a soft landing, so the road fades out on the way.
+  let glide = 0;
+  function glideTo(dest) {
+    cancelAnimationFrame(glide);
+    const from = scrollY, to = dest.getBoundingClientRect().top + scrollY, dist = to - from;
+    const dur = clamp(Math.abs(dist) / 1.6, 900, 1600), t0 = performance.now();
+    document.documentElement.style.scrollBehavior = 'auto';
+    const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const step = now => {
+      const k = clamp((now - t0) / dur);
+      window.scrollTo(0, from + dist * ease(k));
+      if (k < 1) glide = requestAnimationFrame(step);
+      else document.documentElement.style.scrollBehavior = '';
+    };
+    glide = requestAnimationFrame(step);
+  }
+  // a wheel or touch during the glide hands control straight back to the visitor
+  ['wheel', 'touchstart', 'keydown'].forEach(ev => addEventListener(ev, () => { if (glide) { cancelAnimationFrame(glide); glide = 0; document.documentElement.style.scrollBehavior = ''; } }, { passive: true }));
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href^="#"]');
     if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -343,7 +364,7 @@
     const dest = id === '' || id === 'top' ? document.body : document.getElementById(id);
     if (!dest || a.dataset.placeholder) return;
     e.preventDefault();
-    jumpTo(dest);
+    if (a.dataset.smooth && !RM) glideTo(dest); else jumpTo(dest);
     if (history.replaceState) history.replaceState(null, '', '#' + id);
   });
   setInterval(() => {                            // one coin at a time so a fast scroll still looks like a stream

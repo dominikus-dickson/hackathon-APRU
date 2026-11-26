@@ -779,3 +779,17 @@ html.jump *,html.jump *::before,html.jump *::after{transition:none !important}
 .gate-end.compact svg{display:none}
 .gate-end.compact p{font-size:clamp(1.4rem,calc(var(--gw)*.06),2.2rem)}
 @media (max-width:420px){ .gate-end .gate-cta{flex-wrap:wrap} }
+
+/* the arrow on "See How It Works" points down, toward where the page goes */
+.btn svg.down{transform:rotate(90deg)}
+.btn:hover svg.down{transform:rotate(90deg) translateX(3px)}
+
+/* short windows: the rider and the headline shrink with the height, so the signs keep their room */
+.rider{width:min(200px,42vw,24vh);margin-left:calc(min(200px,42vw,24vh)/-2)}
+.road-head .h2{font-size:clamp(1.6rem,min(3.5vw,6vh),3.1rem)}
+@media (max-height:700px){
+  .road-head{top:84px}
+  .road-head .eyebrow{margin-bottom:6px}
+  .road-rail{gap:8px}
+}
+.beam{bottom:calc(3vh + min(200px,42vw,24vh)*.75)}
