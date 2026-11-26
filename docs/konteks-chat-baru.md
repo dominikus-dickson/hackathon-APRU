@@ -10,9 +10,9 @@ Baca dari atas ke bawah sebelum mengerjakan apa pun.
 - Nama kerja: **Laju**, aplikasi kesehatan finansial untuk driver ojol Indonesia.
 - Folder: `C:\Users\User\Documents\Dickson Diamond Tajudin\Claude\Claude Code\Laju`
 - Stack: HTML, CSS, dan JavaScript vanilla di `public/`. Server Python bawaan tanpa framework (`server.py`, folder `openfinance/`).
-- Repo GitHub: `tumbalprojek315-png/hackathon-APRU` (remote `origin`). Catatan sebelumnya menyebut repo ini private, jadi perlu dibuat public agar GitHub Pages bisa dipakai.
+- Repo GitHub: `dominikus-dickson/hackathon-APRU` (remote `origin`). Catatan sebelumnya menyebut repo ini private, jadi perlu dibuat public agar GitHub Pages bisa dipakai.
 - Branch: `main`, `dickson` (kerja aktif Dickson), `grace` (milik rekan, jangan disentuh).
-- Link deploy: https://tumbalprojek315-png.github.io/hackathon-APRU/public/ (GitHub Pages, dari branch main folder root).
+- Link deploy: https://dominikus-dickson.github.io/hackathon-APRU/public/ (GitHub Pages, dari branch main folder root).
 - Bahasa: user menulis Indonesia kasual. Balas dalam Indonesia.
 
 ---

@@ -451,7 +451,7 @@ Kalau nanti Anda mau Claude asli jalan dari link itu, `server.py` harus ditaruh 
 menjalankan Python, misalnya Render, Railway, atau Fly, lalu:
 
 1. Isi `ANTHROPIC_API_KEY` sebagai variabel lingkungan di panel penyedia itu, bukan di repo.
-2. Tambahkan header CORS di `_send` untuk origin `https://tumbalprojek315-png.github.io`.
+2. Tambahkan header CORS di `_send` untuk origin `https://dominikus-dickson.github.io`.
 3. Di `core.js`, arahkan `api()` ke URL absolut server itu saat halaman dibuka dari GitHub Pages.
 
 Catat satu hal: begitu server itu publik, siapa pun yang tahu alamatnya bisa memanggil
