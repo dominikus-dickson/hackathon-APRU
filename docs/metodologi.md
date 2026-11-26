@@ -67,7 +67,7 @@ Kerangkanya mengikuti **FinHealth Score** dari Financial Health Network: 4 pilar
 | Cukup sehat | 60–79 |
 | Sehat | 80–100 |
 
-Setiap pilar bernilai 25 poin. Setiap komponen menampilkan poin, nilai sekarang, dan saran (lihat "Rincian poin" di grafik pilar).
+Tiga pilar pertama bernilai 25 poin, pilar Rencana & proteksi 19 poin, jadi totalnya 94. Angka itu diskala ke 100 supaya pengguna yang memenuhi semua komponen tetap mendapat 100. Setiap komponen menampilkan poin, nilai sekarang, dan saran (lihat "Rincian poin" di grafik pilar).
 
 | Pilar | Komponen | Poin | Aturan |
 |---|---|---|---|
@@ -83,7 +83,6 @@ Setiap pilar bernilai 25 poin. Setiap komponen menampilkan poin, nilai sekarang,
 | Rencana & proteksi | Asuransi lain | 5 | opsional |
 | | Rekening bank | 7 | ada / belum |
 | | Tujuan yang jelas | 7 | ada tujuan + nominal |
-| | Simpanan di tempat aman | 6 | jumlah tempat selain uang tunai |
 
 **Skor dihitung live.** Setiap catatan langsung menghitung ulang skor. Snackbar menampilkan "Skor X → Y", dan halaman "Cara naik ke skor 70" selalu menampilkan komponen dengan poin hilang terbesar beserta tautan ke langkah yang memperbaikinya.
 
@@ -94,10 +93,10 @@ Tangga 8 langkah diganti enam step. Semua ambang disimpan sebagai konstanta `MIL
 | Step | Nama | Selesai jika | Mundur jika |
 |---|---|---|---|
 | 0 | Data rapi | onboarding selesai | tidak pernah |
-| 1 | Keluar dari minus | sisa 30 hari ≥ 5% pendapatan | sisa 30 hari < 0, dan bukan Mode Sakit |
-| 2 | Bantalan Rp3 jt + lunasi utang bunga tinggi | uang beku ≥ Rp3 jt **dan** tidak ada utang bunga tinggi, bertahan 28 hari | utang bunga tinggi baru, atau uang beku < Rp2 jt selama 30 hari karena pengambilan bukan darurat |
-| 3 | Dana darurat + mulai tujuan wajib | uang beku ≥ bulan target × pengeluaran bulanan terkunci, bertahan 28 hari | uang beku < 2/3 target selama 30 hari karena pengambilan bukan darurat |
-| 4 | Investasi 10% selama 3 bulan | setoran uang tumbuh ≥ 10% pendapatan, 3 bulan beruntun | satu bulan di bawah 10% memutus beruntun, uang tumbuh ditarik untuk konsumsi membuka step lagi |
+| 1 | Keluar dari minus | belanja sebulan ≤ budget (pendapatan − cicilan jangka panjang) **dan** ada bukti berumur ≤ 30 hari | belanja sebulan melewati budget lebih dari 20% |
+| 2 | Lunasi utang jangka pendek + bantalan mini | semua utang jangka pendek lunas **dan** tabungan aman ≥ 3 hari pengeluaran pokok | utang jangka pendek baru, atau tabungan aman turun di bawah separuh bantalan mini |
+| 3 | Dana darurat + mulai tujuan wajib | tabungan aman ≥ bulan target × pengeluaran bulanan terkunci | tabungan aman < 2/3 target selama 30 hari karena pengambilan bukan darurat |
+| 4 | Investasi 10% selama 3 bulan | setoran tabungan tumbuh ≥ 10% pendapatan, 3 bulan beruntun | satu bulan di bawah 10% memutus beruntun, tabungan tumbuh ditarik untuk konsumsi membuka step lagi |
 | 5 | Tujuan tumbuh | tiap tabungan tujuan mencapai nominalnya | tidak ada |
 | ★ | Rapor & kesimpulan | selalu bisa dibuka | - |
 
@@ -228,7 +227,8 @@ Hasilnya menjadi catatan di status data dan ikut di laporan bank. Tier tidak ber
 
 ## 7. Sumber
 
-- Financial Health Network: FinHealth Score methodology: https://finhealthnetwork.org/score/score-methodology/
+- Financial Health Network, FinHealth Score Toolkit (halaman resmi): https://finhealthnetwork.org/tools/financial-health-score/
+- Financial Health Network, From Insight to Impact (Maret 2026), empat pilar dan delapan indikator: https://finhealthnetwork.org/research/from-insight-to-impact-the-next-phase-of-financial-health-measurement/
 - FinHealth Score Toolkit (2021): https://finhealthnetwork.org/wp-content/uploads/2021/11/FinHealthScoreToolkit-2021.pdf
 - UNSGSA: Measuring Financial Health: https://www.unsgsa.org/sites/default/files/resources-files/2021-11/Measuring-Financial-Health-note-v2.pdf
 - Brookings: Measuring the financial health of Americans: https://www.brookings.edu/articles/measuring-the-financial-health-of-americans/
@@ -237,6 +237,15 @@ Hasilnya menjadi catatan di status data dan ikut di laporan bank. Tier tidak ber
 - Diskon 50% iuran BPJS Ketenagakerjaan ojol hingga Maret 2027 (detikFinance): https://finance.detik.com/moneter/d-8340262/kabar-baik-buat-ojol-iuran-bpjs-ketenagakerjaan-diskon-50-hingga-maret-2027
 - Paket ekonomi 2025: iuran BPJSTK ojol (Bisnis): https://ekonomi.bisnis.com/read/20250916/12/1911619/paket-ekonomi-2025-ojol-cukup-bayar-iuran-bpjstk-rp10800
 - Survei IDEAS: 91% pengemudi ojol terjerat utang (Republika): https://ekonomi.republika.co.id/berita/tm6fwv423/survei-ideas-91-persen-pengemudi-ojol-terjerat-utang
+
+### Sumber angka di situs web (bagian "Mengapa Laju")
+
+Setiap papan data di `website/` menautkan sumbernya. Angka diperiksa dari artikel berikut, bukan dari laporan aslinya.
+
+- 7 juta lebih mitra ojol (Dirjen Perhubungan Darat, Juli 2025), Republika: https://ekonomi.republika.co.id/berita/szxfe8370/kemenhub-godok-aturan-transportasi-online. Catatan: BPJS Ketenagakerjaan memakai perkiraan sekitar 2 juta pengemudi.
+- 73% pengemudi berpenghasilan bersih di bawah Rp100.000 per hari (Survei IDEAS, Agustus 2026, 531 pengemudi di 51 kabupaten/kota), Katadata: https://katadata.co.id/digital/startup/6ae97daa05622/riset-mayoritas-driver-ojol-berpendapatan-bersih-di-bawah-rp-100-ribu-per-hari
+- 91% punya utang atau cicilan berjalan, dan 79,7% dari yang berutang pernah telat bayar dalam tiga bulan terakhir (Survei IDEAS, Agustus 2026), Katadata: https://katadata.co.id/digital/teknologi/6ae932a0d784e/riset-91-pengemudi-ojol-punya-utang-mayoritas-pernah-terlambat-bayar
+- 34% pekerja gig di Indonesia punya tabungan darurat (Bank Dunia 2023, "Working Without Borders"), dikutip 360info: https://360info.org/how-gig-workers-are-lured-into-debt/. Catatan: angka ini untuk pekerja gig secara umum, bukan khusus ojol, dan belum dicek ke laporan Bank Dunia aslinya.
 - Kellogg School: The snowball approach to debt: https://www.kellogg.northwestern.edu/news_articles/2012/snowball-approach.aspx
 - PayPal: How to budget with irregular income: https://www.paypal.com/us/money-hub/article/how-to-budget-with-irregular-income
 - Emergency fund with irregular income: https://jobble.com/articles/building-an-emergency-fund-with-irregular-income

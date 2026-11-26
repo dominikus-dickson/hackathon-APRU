@@ -3,7 +3,7 @@
 :root{
   --bg:#07080A; --bg-2:#0B0D10; --white:#FFFFFF;
   --lime:#E2E937; --lime-d:#A3A90F; --l:226,233,55;
-  --muted:rgba(255,255,255,.64); --faint:rgba(255,255,255,.4);
+  --muted:rgba(255,255,255,.64); --faint:rgba(255,255,255,.62);
   --line:rgba(255,255,255,.11); --glass:rgba(255,255,255,.045);
   /* the app's own colours, used only inside phones and the calculator card */
   --a-bg:#EEEAE2; --a-card:#F8F6F0; --a-fg:#1A1614; --a-sec:#E3DFD7; --a-mut:#5E5952; --a-bd:#D7D3C9;
@@ -668,3 +668,27 @@ mark.ph{display:inline-block;background:var(--lime);color:#000;font-family:var(-
 .chapter .eyebrow{margin-bottom:18px}
 .chapter .sec-lead{margin-top:20px}
 @media (prefers-reduced-motion:reduce){.road{height:auto}}
+
+
+/* ---------- readable trust and evidence text ---------- */
+/* Small mono labels never go under 12px. The lines that carry proof (sources, the
+   reassurance under the hero, fine print) are set in the body face, not uppercase mono. */
+.mono,.stats span,.gc-h,.apron small,.mini b,.foot h3,.road-rail,.road-read,.sample-note,.calc-chips span,.bub figcaption{font-size:max(.75rem,12px)}
+.pill,mark.ph,.months{font-size:max(.7rem,11px)}
+.hero-note{font-family:var(--sans);font-size:.92rem;letter-spacing:0;text-transform:none;color:rgba(255,255,255,.78)}
+.fine{font-size:.88rem;line-height:1.6}
+.foot-fine{font-family:var(--sans);font-size:.84rem;letter-spacing:0}
+.foot-fine p:first-child{color:rgba(255,255,255,.72)}
+.gate .src{font-family:var(--sans);font-size:clamp(.78rem,calc(var(--gw)*.022),.95rem);font-weight:500;letter-spacing:0;text-transform:none;color:rgba(255,255,255,.85);text-decoration:underline;text-decoration-color:rgba(var(--l),.6);text-underline-offset:3px;pointer-events:auto}
+.gate .src:hover{color:var(--lime)}
+.road-list .src{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.gate-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.gate-cta .btn{pointer-events:auto}
+.gate-end .gate-cta .btn-ghost{background:rgba(8,10,12,.6)}
+.lang button{min-width:40px;min-height:36px}
+
+/* ---------- a shorter ride on phones ---------- */
+@media (max-width:899px){
+  .road{height:520vh}
+}
+.gate small{font-size:clamp(12px,calc(var(--gw)*.022),.9rem)}

@@ -226,7 +226,7 @@
       g.style.setProperty('--d', d.toFixed(1) + 'px');
       g.style.opacity = o.toFixed(3);
       g.style.visibility = o <= 0.01 ? 'hidden' : 'visible';
-      if (t > 0.3) active = i;
+      if (t > 0.04) active = i;
     });
     railItems.forEach((li, i) => li.classList.toggle('on', i <= active));
     const n = Math.min(Math.max(active, 0) + 1, N - 1);
@@ -497,8 +497,9 @@
     if (save) { try { localStorage.setItem('laju-lang', lang); } catch (e) { /* private window */ } }
   }
   $$('.lang button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang, true)));
-  let first = 'en';
-  try { first = localStorage.getItem('laju-lang') || ((navigator.language || '').toLowerCase().startsWith('id') ? 'id' : 'en'); } catch (e) { /* keep English */ }
+  // Indonesian is the default. Only a choice the visitor made on this page switches it.
+  let first = 'id';
+  try { first = localStorage.getItem('laju-lang') === 'en' ? 'en' : 'id'; } catch (e) { /* keep Indonesian */ }
   setLang(first, false);
   window.__lajuMissing = () => Object.keys(EN).filter(k => !(k in ID));   // for checking translations
 
