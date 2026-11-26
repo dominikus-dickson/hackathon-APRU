@@ -286,9 +286,14 @@
     heroPhone.classList.toggle('no-tabs', !!$$('.scr', heroPhone)[i]?.classList.contains('onb'));
   }
   const bgs = $$('.bg'), progressBar = $('#progress');
-  let pending = [];
+  let pending = [], frozen = false;
   function measure() {
     const vh = innerHeight, mob = innerWidth < 900, trig = vh * (mob ? 0.86 : 0.62);
+    if (frozen) {                                // gliding from the menu: only the progress line moves
+      const m = document.documentElement.scrollHeight - vh;
+      progressBar.style.setProperty('--sp', m > 0 ? (scrollY / m).toFixed(4) : 0);
+      return;
+    }
     if (pending.length) pending = pending.filter(e => {
       const r = e.getBoundingClientRect();
       if (r.top < vh * 0.96 && r.bottom > 0) { e.classList.add('in'); return false; }
@@ -338,25 +343,50 @@
     // a plain timer, so the page never stays frozen even in a background tab
     jumpTimer = setTimeout(() => { jumping = false; document.documentElement.classList.remove('jump'); }, 160);
   }
-  // "See How It Works" at the end of the ride glides down instead of jumping:
-  // a slow start, a steady pull and a soft landing, so the road fades out on the way.
-  let glide = 0;
+  // Menu links and "See How It Works" glide to their section: a slow start, a steady pull and
+  // a soft landing. Everything the page passes on the way (the road, the signs, the phone,
+  // the coins) is frozen and faded out, so it does not race through its animation. On arrival
+  // the section shows its final state and the frozen scenes fade back in.
+  let glide = 0, afterGlide = () => {};
+  function endGlide() {
+    if (!frozen) return;
+    cancelAnimationFrame(glide); glide = 0;
+    const root = document.documentElement;
+    root.style.scrollBehavior = '';
+    root.classList.add('jump');                 // settle everything at once, with no transitions
+    frozen = false;
+    measure();
+    hero.setTo();
+    syncTag(true);
+    $$('.rv').forEach(e => { const r = e.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) e.classList.add('in'); });
+    clearTimeout(jumpTimer);
+    jumpTimer = setTimeout(() => {
+      root.classList.remove('jump');
+      root.classList.remove('gliding');         // the frozen scenes fade back in
+      jumping = false;
+      afterGlide();
+    }, 60);
+  }
   function glideTo(dest) {
     cancelAnimationFrame(glide);
-    const from = scrollY, to = dest.getBoundingClientRect().top + scrollY, dist = to - from;
-    const dur = clamp(Math.abs(dist) / 1.6, 900, 1600), t0 = performance.now();
-    document.documentElement.style.scrollBehavior = 'auto';
+    const root = document.documentElement;
+    const from = scrollY, to = dest === document.body ? 0 : dest.getBoundingClientRect().top + scrollY, dist = to - from;
+    if (Math.abs(dist) < 2) return;
+    const dur = clamp(Math.abs(dist) / 1.6, 800, 1800), t0 = performance.now();
+    frozen = true; jumping = true;
+    root.style.scrollBehavior = 'auto';
+    root.classList.add('gliding');
     const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
     const step = now => {
       const k = clamp((now - t0) / dur);
       window.scrollTo(0, from + dist * ease(k));
       if (k < 1) glide = requestAnimationFrame(step);
-      else document.documentElement.style.scrollBehavior = '';
+      else endGlide();
     };
     glide = requestAnimationFrame(step);
   }
-  // a wheel or touch during the glide hands control straight back to the visitor
-  ['wheel', 'touchstart', 'keydown'].forEach(ev => addEventListener(ev, () => { if (glide) { cancelAnimationFrame(glide); glide = 0; document.documentElement.style.scrollBehavior = ''; } }, { passive: true }));
+  // a wheel, touch or key during the glide hands control straight back to the visitor
+  ['wheel', 'touchstart', 'keydown'].forEach(ev => addEventListener(ev, () => { if (frozen) endGlide(); }, { passive: true }));
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href^="#"]');
     if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -364,7 +394,7 @@
     const dest = id === '' || id === 'top' ? document.body : document.getElementById(id);
     if (!dest || a.dataset.placeholder) return;
     e.preventDefault();
-    if (a.dataset.smooth && !RM) glideTo(dest); else jumpTo(dest);
+    if (RM) jumpTo(dest); else glideTo(dest);
     if (history.replaceState) history.replaceState(null, '', '#' + id);
   });
   setInterval(() => {                            // one coin at a time so a fast scroll still looks like a stream
@@ -648,13 +678,17 @@
     const io =new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
     rv.forEach(e => io.observe(e));
     const io2 = new IntersectionObserver(es => es.forEach(en => {
-      if (!en.isIntersecting) return;
+      if (!en.isIntersecting || frozen) return;   // passed during a menu glide: wait until it is really looked at
       io2.unobserve(en.target);
       const t = en.target;
+      seen.add(t);
       if (t === fan || t === cards) t.classList.add('in');
       else if (t.dataset.count) runCounter(t);
       else sillJars.forEach((j, i) => { setTimeout(() => j.add(true), 300 + i * 260); setTimeout(() => j.add(true), 700 + i * 260); });
     }), { threshold: 0.3 });
+    // after a glide, anything that is in view now gets its moment, just as if it had been scrolled to
+    const seen = new Set();
+    afterGlide = () => [fan, cards, ...counters, $('#window')].forEach(t => { if (t && !seen.has(t)) { io2.unobserve(t); io2.observe(t); } });
     if (fan) io2.observe(fan);
     if (cards) io2.observe(cards);
     counters.forEach(c => io2.observe(c));

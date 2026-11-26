@@ -793,3 +793,7 @@ html.jump *,html.jump *::before,html.jump *::after{transition:none !important}
   .road-rail{gap:8px}
 }
 .beam{bottom:calc(3vh + min(200px,42vw,24vh)*.75)}
+
+/* while the page glides to a menu target, the scenes it passes are frozen and faded out */
+.road-pin,.stage{transition:opacity .35s ease}
+html.gliding .road-pin,html.gliding .stage{opacity:0 !important}
