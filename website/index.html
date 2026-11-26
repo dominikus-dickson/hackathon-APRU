@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20261126">
+<link rel="stylesheet" href="styles.css?v=20261126e">
 </head>
 <body>
 
@@ -81,9 +81,8 @@
   <a class="brand" href="#top" aria-label="Laju"><svg class="brand-mark"><use href="#mark"/></svg><span>Laju</span></a>
   <nav class="nav-links" id="navLinks" aria-label="Sections">
     <a href="#how" data-i="n.how">How It Works</a>
-    <a href="#pots" data-i="n.pots">Savings Pots</a>
     <a href="#app" data-i="n.app">The App</a>
-    <a href="#calc" data-i="n.calc">Calculator</a>
+    <a href="#calc" data-i="n.calc">Projection</a>
     <a href="#safety" data-i="n.safe">Security</a>
     <a href="#reviews" data-i="n.rev">Reviews</a>
   </nav>
@@ -248,19 +247,24 @@
               <div class="a-next"><i><svg><use href="#i-lockk"/></svg></i><div><small data-i="x.next">Up next · opens once step 2 is done</small><b data-i="x.s3">3. Emergency fund + Start required goals</b></div></div>
             </div>
           </section>
-          <!-- screen 1: Profile, e-wallet verified -->
-          <section class="scr">
-            <p class="a-eye" data-i="x.prof">PROFILE</p>
-            <h3 class="a-h1" data-i="x.data">Andi's data</h3>
-            <div class="a-card">
-              <b class="a-ch" data-i="x.bank">Bank data status</b>
-              <div class="a-tier"><i><svg><use href="#i-check"/></svg></i><div><b data-i="x.ver">Verified</b><small data-i="x.verp">Data is marked Verified, usable as proof of income for a bank</small></div></div>
+          <!-- screen 1: onboarding, step 4 "connect all your e-wallets", copied from the app -->
+          <section class="scr onb">
+            <div class="o-prog"><i></i></div>
+            <div class="o-tabs"><span class="ok"><svg><use href="#i-check"/></svg><em data-i="o.t1">Profile</em></span><span class="ok"><svg><use href="#i-check"/></svg><em data-i="o.t2">Data consent</em></span><span class="on">E-wallet</span><span data-i="o.t4">Income</span></div>
+            <p class="a-eye" data-i="o.step">STEP 4 OF 8</p>
+            <h3 class="a-h1" data-i="o.h">Connect all of your e-wallets</h3>
+            <p class="a-p" data-i="o.p">Every e-wallet you picked in Profile has to be connected. Not yet: DANA.</p>
+            <div class="o-w done">
+              <div class="o-wh"><span class="o-logo"><img src="../public/logos/ovo.svg" alt="" width="56" height="24" decoding="async"></span><div><b>OVO</b><small data-i="o.ovo">Usually for Grab payouts</small></div><span class="a-tag ok" data-i="x.ver">Verified</span></div>
+              <dl class="o-stats"><div><dt data-i="o.s1">App payouts</dt><dd>Rp2.950.000</dd></div><div><dt data-i="o.s2">Transactions</dt><dd>84</dd></div></dl>
             </div>
-            <div class="a-card a-list">
-              <div class="a-li"><i class="lime"><svg><use href="#i-eye"/></svg></i><div><b data-i="x.conn">Connected: e-wallet</b><small data-i="x.ro">Read only · 30 days of history</small></div><span class="a-tag ok" data-i="x.ver">Verified</span></div>
-              <div class="a-li"><i><svg><use href="#i-file"/></svg></i><div><b data-i="x.pdf">PDF e-statement</b><small data-i="x.pdfp">Read, then discarded</small></div></div>
+            <div class="o-w">
+              <div class="o-wh"><span class="o-logo"><img src="../public/logos/dana.svg" alt="" width="56" height="24" decoding="async"></span><div><b>DANA</b><small data-i="o.dana">Usually for Maxim &amp; incoming transfers</small></div></div>
+              <span class="o-btn" data-i="o.cd">Connect DANA</span>
             </div>
-            <div class="a-toast" data-i="x.toast">E-wallet connected</div>
+            <p class="o-note"><svg><use href="#i-lockk"/></svg><span data-i="o.n">Laju never asks for your PIN or OTP. Read-only access.</span></p>
+            <div class="a-toast" data-i="o.toast">OVO connected. 30 days of history read.</div>
+            <div class="o-foot"><span data-i="o.back">Back</span><span class="go" data-i="o.next">Next</span></div>
           </section>
           <!-- screen 2: the Log sheet with its number pad -->
           <section class="scr sheet">
@@ -442,7 +446,7 @@
   <div class="wrap">
     <div class="sec-head two">
       <div>
-        <p class="eyebrow mono" data-i="c.e">Calculator</p>
+        <p class="eyebrow mono" data-i="c.e">Projection</p>
         <h2 class="h2" data-i="c.h">Project your <em>savings.</em></h2>
       </div>
       <p class="sec-lead" data-i="c.p">Move the sliders to see how a small daily deposit adds up over six months or a year.</p>
@@ -589,7 +593,7 @@
         <a href="#how" data-i="n.how">How It Works</a>
         <a href="#pots" data-i="n.pots">Savings Pots</a>
         <a href="#app" data-i="n.app">The App</a>
-        <a href="#calc" data-i="n.calc">Calculator</a>
+        <a href="#calc" data-i="n.calc">Projection</a>
       </div>
       <div>
         <h3 class="mono" data-i="ft.tr">Trust</h3>
@@ -611,6 +615,6 @@
   </div>
 </footer>
 
-<script src="script.js?v=20261126"></script>
+<script src="script.js?v=20261126d"></script>
 </body>
 </html>

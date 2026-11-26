@@ -142,6 +142,10 @@
         } else if (this.onLand) this.onLand(true);
         return true;
       },
+      setTo() {
+        while (this.count < target) this.add(false);
+        while (this.count > target) { this.count--; this.els.pop().remove(); }
+      },
       remove() {
         if (!this.count) return;
         this.count--;
@@ -246,6 +250,7 @@
     step = i; stage.dataset.step = i;
     $$('.scr', heroPhone).forEach((s, k) => { s.classList.toggle('on', k === i); s.classList.toggle('past', k < i); });
     setTab(heroPhone, heroPhone._tabs[i]);
+    heroPhone.classList.toggle('no-tabs', !!$$('.scr', heroPhone)[i]?.classList.contains('onb'));
   }
   const bgs = $$('.bg'), progressBar = $('#progress');
   let pending = [];
@@ -281,7 +286,37 @@
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll);
   measure();
+
+  /* ---------- jumping from the menu ---------- */
+  // A menu link moves straight to its section. Everything that is driven by scrolling
+  // (the road, the phone, the coins, the reveals) is set to its final state at once,
+  // instead of racing through every animation between here and there.
+  let jumping = false, jumpTimer = 0;
+  function jumpTo(dest) {
+    const top = dest === document.body ? 0 : dest.getBoundingClientRect().top + scrollY;
+    jumping = true;
+    document.documentElement.classList.add('jump');
+    clearTimeout(jumpTimer);
+    window.scrollTo({ top, left: 0, behavior: 'instant' });
+    measure();
+    hero.setTo();                             // the coin jar shows its final count, no falling coins
+    syncTag(true);
+    $$('.rv').forEach(e => { const r = e.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) e.classList.add('in'); });
+    // a plain timer, so the page never stays frozen even in a background tab
+    jumpTimer = setTimeout(() => { jumping = false; document.documentElement.classList.remove('jump'); }, 160);
+  }
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const id = a.getAttribute('href').slice(1);
+    const dest = id === '' || id === 'top' ? document.body : document.getElementById(id);
+    if (!dest || a.dataset.placeholder) return;
+    e.preventDefault();
+    jumpTo(dest);
+    if (history.replaceState) history.replaceState(null, '', '#' + id);
+  });
   setInterval(() => {                            // one coin at a time so a fast scroll still looks like a stream
+    if (jumping) return;
     if (hero.count < target) hero.add(true);
     else if (hero.count > target) { hero.remove(); syncTag(); }
   }, 85);
@@ -356,7 +391,7 @@
   /* ---------- 8. two languages. English is in the page, Indonesian is here ---------- */
   const ID = {
     'skip': 'Lewati ke cara kerja',
-    'n.how': 'Cara Kerja', 'n.pots': 'Pos Tabungan', 'n.app': 'Aplikasi', 'n.calc': 'Kalkulator', 'n.safe': 'Keamanan', 'n.rev': 'Ulasan', 'n.cta': 'Coba Demo',
+    'n.how': 'Cara Kerja', 'n.pots': 'Pos Tabungan', 'n.app': 'Aplikasi', 'n.calc': 'Proyeksi', 'n.safe': 'Keamanan', 'n.rev': 'Ulasan', 'n.cta': 'Coba Demo',
     'h.kick': 'Prototipe gratis untuk pengemudi ojol',
     'h.a': 'Penghasilan nyata.', 'h.b': 'Bukti nyata.',
     'h.lead': 'Tanpa slip gaji? Laju membaca riwayat e-wallet Anda dengan izin Anda, memberi skor kesehatan finansial dari 100, dan menuntun Anda melalui enam langkah jelas menuju rekam jejak yang bisa dibaca bank.',
@@ -397,6 +432,11 @@
     'x.dash': 'DASHBOARD', 'x.hi': 'Halo, Andi', 'x.sum': 'Ringkasan keuangan Anda. Data dari isian Anda dan 2 e-wallet terverifikasi.',
     'x.your': 'Step Anda', 'x.2of6': '2 dari 6 selesai', 'x.now': 'KERJAKAN SEKARANG', 'x.s2': 'Lunasi utang jangka pendek + Bantalan mini',
     'x.left': 'Sisa Rp1.200.000 untuk dilunasi', 'x.start': 'Kerjakan ›', 'x.next': 'Berikutnya · terbuka setelah step 2 selesai', 'x.s3': '3. Dana darurat + Mulai tujuan wajib',
+    'o.t1': 'Profil', 'o.t2': 'Izin data', 'o.t4': 'Pendapatan', 'o.step': 'LANGKAH 4 DARI 8',
+    'o.h': 'Hubungkan semua e-wallet Anda', 'o.p': 'Semua e-wallet yang Anda pilih di Profil harus terhubung. Belum: DANA.',
+    'o.ovo': 'Biasa untuk pencairan Grab', 'o.dana': 'Biasa untuk Maxim &amp; transfer masuk', 'o.s1': 'Pencairan aplikasi', 'o.s2': 'Transaksi',
+    'o.cd': 'Hubungkan DANA', 'o.n': 'Laju tidak pernah meminta PIN atau OTP. Akses hanya-baca.', 'o.toast': 'OVO terhubung. Riwayat 30 hari terbaca.',
+    'o.back': 'Kembali', 'o.next': 'Lanjut',
     'x.prof': 'PROFIL', 'x.data': 'Data Andi', 'x.bank': 'Status data untuk bank', 'x.ver': 'Terverifikasi',
     'x.verp': 'Data berstatus Terverifikasi, bisa jadi bukti penghasilan ke bank', 'x.conn': 'Terhubung: e-wallet', 'x.ro': 'Hanya baca · riwayat 30 hari',
     'x.pdf': 'E-statement PDF', 'x.pdfp': 'Dibaca, lalu dibuang', 'x.toast': 'E-wallet terhubung',
@@ -452,7 +492,7 @@
     'm3c': 'Bukan Pinjaman',
     'm3cp': 'Laju tidak meminjamkan uang.',
     't.home': 'Beranda', 't.lad': 'Tangga', 't.log': 'Catat', 't.rep': 'Rapor', 't.pro': 'Profil',
-    'c.e': 'Kalkulator', 'c.h': 'Proyeksikan <em>tabungan Anda.</em>', 'c.p': 'Geser angkanya untuk melihat bagaimana setoran harian yang kecil terkumpul dalam enam bulan atau setahun.',
+    'c.e': 'Proyeksi', 'c.h': 'Proyeksikan <em>tabungan Anda.</em>', 'c.p': 'Geser angkanya untuk melihat bagaimana setoran harian yang kecil terkumpul dalam enam bulan atau setahun.',
     'c.t': 'Proyeksi Tabungan', 'c.l5': 'PERIODE', 'c.m6': '6 Bulan', 'c.m12': '1 Tahun',
     'c.l1': 'Pendapatan Bulanan', 'c.l2': 'Cicilan Bulanan', 'c.l3': 'Hari Narik', 'c.l4': 'Setoran Harian',
     'c.fine': 'Perkiraan, bukan janji. Tidak ada bunga yang ditambahkan karena Laju tidak memberi bunga.',
