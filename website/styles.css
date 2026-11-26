@@ -763,3 +763,19 @@ html.jump *,html.jump *::before,html.jump *::after{transition:none !important}
 .o-foot span{display:inline-flex;align-items:center;min-height:2.6em;padding:0 1.2em;border-radius:9em;border:.14em solid var(--a-fg);font-size:.76em;font-weight:800;background:var(--a-card)}
 .o-foot .go{background:var(--lime);box-shadow:0 .12em 0 var(--a-fg)}
 .scr.onb .a-toast{bottom:5.2em}
+
+
+/* ---------- the ride and the next section blend instead of meeting at an edge ---------- */
+.road{margin:14vh 0 6vh}
+.road-pin{will-change:opacity}
+.road-head{width:min(92vw,1100px)}
+.chapter{padding:clamp(90px,10vw,150px) 0 clamp(36px,5vw,70px)}
+@media (max-width:899px){ .road{margin:8vh 0 4vh} }
+
+/* the closing road sign: buttons side by side, and no logo when the window is short */
+.gate-end .gate-cta{flex-wrap:nowrap}
+.gate-end .gate-cta .btn{padding:.95em 1.4em}
+.gate-end.compact{gap:12px;padding-top:22px;padding-bottom:22px}
+.gate-end.compact svg{display:none}
+.gate-end.compact p{font-size:clamp(1.4rem,calc(var(--gw)*.06),2.2rem)}
+@media (max-width:420px){ .gate-end .gate-cta{flex-wrap:wrap} }

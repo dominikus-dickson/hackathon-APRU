@@ -203,10 +203,41 @@
       roadWorld.append(post);
     });
   }
+
+  // Each sign must sit between the headline and the rider's helmet, whatever the window size.
+  // The size and height are measured from the real layout, not guessed per breakpoint.
+  const roadHead = $('.road-head'), roadPin = $('.road-pin');
+  function fitSigns() {
+    if (!road || RM) return;
+    const H = roadScene.clientHeight, W = roadScene.clientWidth;
+    const top = roadHead.offsetTop + roadHead.offsetHeight + 22;        // below the headline
+    const bottom = rider.offsetTop - 16;                                // above the helmet
+    const room = Math.max(160, bottom - top);
+    const widest = Math.min(W * (W < 900 ? 0.86 : 0.6), W < 900 ? 720 : 560);
+    const data = gates.filter(g => !g.classList.contains('gate-end')), end = gates.find(g => g.classList.contains('gate-end'));
+    let gw = widest;
+    for (let k = 0; k < 3; k++) {                                       // text wraps differently as it shrinks, so refine
+      roadScene.style.setProperty('--gw', gw.toFixed(0) + 'px');
+      const tallest = Math.max(...data.map(g => g.offsetHeight));
+      if (tallest <= room) break;
+      gw = Math.max(220, gw * room / tallest);
+    }
+    if (end) {
+      // The closing sign stays wide, because a narrow one only stacks its buttons and grows taller.
+      // When the room is short it drops the logo first.
+      end.style.setProperty('--gw', Math.min(W * 0.86, 600).toFixed(0) + 'px');
+      end.classList.remove('compact');
+      if (end.offsetHeight > room) end.classList.add('compact');
+    }
+    const centre = (top + bottom) / 2 - H * (W < 900 ? 0.47 : 0.42);   // the signs layer sits at 42% (47% on phones)
+    gates.forEach(g => g.style.setProperty('--gy', centre.toFixed(0) + 'px'));
+  }
   function roadFrame() {
     if (!road || RM) return;
     const r = road.getBoundingClientRect(), vh = innerHeight;
     if (r.bottom < -100 || r.top > vh + 100) return;
+    // the whole scene fades in as it arrives and out as it leaves, so it never ends on a hard edge
+    roadPin.style.opacity = Math.min(clamp((vh - r.top) / (vh * 0.6)), clamp((r.bottom - vh * 0.3) / (vh * 0.6))).toFixed(3);
     const p = clamp(-r.top / (r.height - vh)), z = p * ROAD_END;
     roadWorld.style.transform = `translateZ(${z.toFixed(1)}px)`;
     roadFloor.style.transform = `translateY(${(-(z % 160)).toFixed(1)}px)`;
@@ -284,7 +315,7 @@
   let ticking = false;
   const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; measure(); }); } };
   addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', onScroll);
+  addEventListener('resize', () => { fitSigns(); onScroll(); });
   measure();
 
   /* ---------- jumping from the menu ---------- */
@@ -533,6 +564,7 @@
     $$('[data-al]').forEach(i => i.classList.toggle('on', i.dataset.al === lang));   // the switch inside the phones follows
     document.title = STR[lang].title;
     calc();
+    fitSigns();
     onScroll();
     if (save) { try { localStorage.setItem('laju-lang', lang); } catch (e) { /* private window */ } }
   }
@@ -541,6 +573,7 @@
   let first = 'id';
   try { first = localStorage.getItem('laju-lang') === 'en' ? 'en' : 'id'; } catch (e) { /* keep Indonesian */ }
   setLang(first, false);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { fitSigns(); onScroll(); });
   window.__lajuMissing = () => Object.keys(EN).filter(k => !(k in ID));   // for checking translations
 
   /* ---------- 9. scroll effects and small things ---------- */
@@ -610,3 +643,4 @@
     if (cards) cards.classList.add('in');
   }
 })();
+
